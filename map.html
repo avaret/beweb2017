@@ -19,22 +19,32 @@
             margin: 0;
             padding: 0;
         }
+        #info-box {
+            background-color: white;
+            border: 1px solid black;
+            bottom: 30px;
+            height: 20px;
+            padding: 10px;
+            position: absolute;
+            left: 30px;
+        }
+
     </style>
 </head>
 
 <body>
     <div id="map"></div>
+    <div id="info-box"></div>
     <script>
         var map;
-        var zone1 = [
-            {
+        var zone1 = [{
                 lat: 51.0,
                 lng: 1.65
             }, // north west
             {
                 lat: 49.75,
                 lng: 0
-            },//south west
+            }, //south west
             {
                 lat: 49.75,
                 lng: 5.7
@@ -44,16 +54,15 @@
                 lng: 2.75
             } // north east
         ];
-        
-        var zone2 = [
-            {
+
+        var zone2 = [{
                 lat: 48.8,
                 lng: -5.2
             }, // north west
             {
                 lat: 47.9,
                 lng: -5.2
-            },//south west
+            }, //south west
             {
                 lat: 46.3,
                 lng: -1.667
@@ -63,16 +72,15 @@
                 lng: -1.667
             } // north east
         ];
-        
-         var zone3 = [
-            {
+
+        var zone3 = [{
                 lat: 44.5,
                 lng: -1.5
             }, // north west
             {
                 lat: 43,
                 lng: -2
-            },//south west
+            }, //south west
             {
                 lat: 42.2,
                 lng: 2
@@ -82,16 +90,15 @@
                 lng: 2
             } // north east
         ];
-        
-        var zone4 = [
-            {
+
+        var zone4 = [{
                 lat: 44.5,
                 lng: 5
             }, // north west
             {
                 lat: 43.25,
                 lng: 5
-            },//south west
+            }, //south west
             {
                 lat: 42.9,
                 lng: 6.27
@@ -105,20 +112,19 @@
                 lng: 7.8
             } // north east
         ];
-        
-         var zone5 = [
-            {
+
+        var zone5 = [{
                 lat: 49.61,
                 lng: 6
             }, // north west
             {
                 lat: 46.5,
                 lng: 6
-            },//south west
+            }, //south west
             {
                 lat: 46.5,
                 lng: 6.11
-            },//south middle
+            }, //south middle
             {
                 lat: 47.55,
                 lng: 7.7
@@ -128,16 +134,15 @@
                 lng: 8.25
             } // north east
         ];
-        
-        var zone6 = [
-            {
+
+        var zone6 = [{
                 lat: 48,
                 lng: 1
             }, // north west
             {
                 lat: 45.5,
                 lng: 1
-            },//south west
+            }, //south west
             {
                 lat: 45.5,
                 lng: 4
@@ -158,7 +163,17 @@
                 },
                 zoom: 6
             });
-         map.data.add({geometry: new google.maps.Data.Polygon([zone1,zone2,zone3,zone4,zone5,zone6])});
+            map.data.add({
+                geometry: new google.maps.Data.Polygon([zone1, zone2, zone3, zone4, zone5, zone6])
+            });
+            map.data.loadGeoJson('airport.geojson');
+            map.data.setStyle({
+                clickable: 'true',
+                icon: 'image/airport2.ico'
+            });
+            map.data.addListener('mouseover', function(event) {
+                document.getElementById('info-box').textContent = event.feature.getProperty('Comment');
+            });
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&callback=initMap" async defer></script>
