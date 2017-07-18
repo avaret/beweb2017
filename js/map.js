@@ -129,10 +129,10 @@ function initMap() {
     map.data.add({
         geometry: new google.maps.Data.Polygon([zone1, zone2, zone3, zone4, zone5, zone6])
     });
-    map.data.loadGeoJson('airport.geojson');
+    map.data.loadGeoJson('/beweb2017/airport.geojson');
     map.data.setStyle({
         clickable: 'true',
-        icon: 'image/airport2.ico'
+        icon: '/beweb2017/image/airport2.ico'
     });
     map.data.addListener('mouseover', function(event) {
         document.getElementById('info-box').textContent = event.feature.getProperty('Comment');
