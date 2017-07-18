@@ -2356,27 +2356,27 @@ CREATE OR REPLACE VIEW AERODROME AS
 --  Création de la vue FLIGHT_ENRICHED
 -- 
 
--- CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER AS
--- 	SELECT FLIGHT.idFlight,
--- 	 (SUM(inZone1) > 0) AS inZ1, (SUM(inZone2) > 0) AS inZ2, 
--- 	 (SUM(inZone3) > 0) AS inZ3, (SUM(inZone4) > 0) AS inZ4,
--- 	 (SUM(inZone5) > 0) AS inZ5, (SUM(inZone6) > 0) AS inZ6,
--- 	 (SUM(inCorse) > 0) AS inC, (SUM(isBonus1) > 0) AS inB1,
--- 	 (SUM(isBonus2) > 0) AS inB2, (SUM(isBonus3) > 0) AS inB3, 
--- 	 (SUM(isBonus4) > 0) AS inB4, (SUM(isBonus5) > 0) AS inB5
--- 	FROM FLIGHT, NAVPOINT, AERODROME
--- 	WHERE FLIGHT.idFlight = NAVPOINT.idFlight AND NAVPOINT.codeOACI = AERODROME.codeOACI
--- 	GROUP BY FLIGHT.idFlight ;
--- 
--- 
--- CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
--- 	SELECT idFlight, 
--- 	(inZ1+inZ2+inZ3+inZ4+inZ5+inZ6) AS nbConstraintSatisfied, 
--- 	(inB1+inB2+inB3+inB4+inB5) AS nbBonuses,
--- 	0 AS totalDistance,
+ CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER AS
+ 	SELECT FLIGHT.idFlight,
+ 	 (SUM(inZone1) > 0) AS inZ1, (SUM(inZone2) > 0) AS inZ2, 
+ 	 (SUM(inZone3) > 0) AS inZ3, (SUM(inZone4) > 0) AS inZ4,
+ 	 (SUM(inZone5) > 0) AS inZ5, (SUM(inZone6) > 0) AS inZ6,
+ 	 (SUM(inCorse) > 0) AS inC, (SUM(isBonus1) > 0) AS inB1,
+ 	 (SUM(isBonus2) > 0) AS inB2, (SUM(isBonus3) > 0) AS inB3, 
+ 	 (SUM(isBonus4) > 0) AS inB4, (SUM(isBonus5) > 0) AS inB5
+ 	FROM FLIGHT, NAVPOINT, AERODROME
+ 	WHERE FLIGHT.idFlight = NAVPOINT.idFlight AND NAVPOINT.codeOACI = AERODROME.codeOACI
+ 	GROUP BY FLIGHT.idFlight ;
+ 
+ 
+ CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
+ 	SELECT idFlight, 
+ 	(inZ1+inZ2+inZ3+inZ4+inZ5+inZ6) AS nbConstraintSatisfied, 
+ 	(inB1+inB2+inB3+inB4+inB5) AS nbBonuses,
+ 	0 AS totalDistance
 -- 	first.codeOACI AS firstBeacon,
 -- 	last.codeOACI AS lastBeacon
--- 	FROM FLIGHT_ENRICHED_HELPER,
+ 	FROM FLIGHT_ENRICHED_HELPER
 -- 		(SELECT codeOACI
 -- 		FROM FLIGHT, NAVPOINT
 -- 		WHERE FLIGHT.idFlight = NAVPOINT.idFlight
@@ -2389,7 +2389,7 @@ CREATE OR REPLACE VIEW AERODROME AS
 -- 		GROUP BY FLIGHT.idFlight
 -- 		ORDER BY dateTimePoint DESC
 -- 		LIMIT 1 ) AS last
--- 	;
+ 	;
 -- 
 -- FLIGHT_ENRICHED ( idFlight*, nbConstraintSatisfied, nbBonuses, totalDistance, firstBeacon, lastBeacon )
 
