@@ -1,6 +1,6 @@
 <?php
 
-DEFINE("SERV","locahost");
+DEFINE("SERV","localhost");
 DEFINE("LOGIN","root");
 DEFINE("MDP","");
 DEFINE("NOM_BD","beweb_2017");
