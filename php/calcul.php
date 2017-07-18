@@ -1,5 +1,5 @@
 <?php
-DEFINE("SERV","locahost");
+DEFINE("SERV","localhost");
 DEFINE("LOGIN","root");
 DEFINE("MDP","");
 DEFINE("NOM_BD","beweb_2017");
@@ -43,16 +43,20 @@ function getAirport()
     $sth->execute();
     $listA=array();
     $id=0;
-    $html="<br\>";
+    $html="test <br\>";
+    echo $html;
     while($result=$sth->fetch(PDO::FETCH_OBJ))
     {
         $listA[$id] = new Airport($result->codeOACI,$result->lon,$result->lat, $result->no_zone);
-        //$html.=$listA[$id]
+        //$html.=$listA[$id]->code." ".$listA[$id]->lat."<br \>";
         $id++;
     }
+    echo $html;
     $sth->closeCursor();
     /*FOR TEST*/ print_r($listA); /*FOR TEST*/
     return $listA;
 }
+
+getAirport();
 
 ?>
