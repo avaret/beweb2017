@@ -8,12 +8,13 @@ class Airport
     public $lat;
     public $long;
     public $zone; //7 is corse, 0 no zone
+    public $distP; //Use for navpoint to get the distance from the previous one
     public function __construct($code, $lat, $long, $zone) 
     {
-              $this->code = $code;
-              $this->lat = $lat;
-              $this->long = $long;
-              $this->zone = $zone;
+            $this->code = $code;
+            $this->lat = $lat;
+            $this->long = $long;
+            $this->zone = $zone;
     }
 }
 
@@ -42,33 +43,35 @@ function getAirport()
 function traj()
 {
     $listA=getAirport();
-    $name="FUCKLE";
-    creatFlight($name,"Some team","F-THIS","71r3d");
+    $name="FUCKYU";
+    //creatFlight($name,"Some team","F-THIS","71r3d");
     
     $dbh=connection();
     $key=searchC($listA,"LFGA");
     $listN[0]=$listA[$key];
    
-    $sql="INSERT INTO `NAVPOINT` VALUES ('".$listA[$key]->code."', '".$name."', '".time()."');";
-    echo $sql;
+    $sql="INSERT INTO `NAVPOINT` VALUES ('".$listA[$key]->code."', '".$name."', '".date('Y-m-d G:i:s',time())."');";
     $sth=$dbh->prepare($sql);
     $sth->execute();
     array_splice($listA, $key, 1); //remove this airport from the list
     
+    $t=0;
     for($i=1; $i<=99; $i++)
     {
-        $id=rand(0,count($listA));
-        $listN[$i][0]=$listA[$id];
-        $listN[$i][1]=dist($listN[$i-1][0],$listN[$i][0]);
+        $id=rand(0,count($listA)-1);
+        $listN[$i]=$listA[$id];
+        $listN[$i]->distP=dist($listN[$i-1],$listN[$i]);
+        $t+=($listN[$i]->distP/200)*3600;
         
-        $sql="INSERT INTO `NAVPOINT` VALUES ('".$listA[$id]->code."', 'FUCKYU', '".time()."');";
+        $sql="INSERT INTO `NAVPOINT` VALUES ('".$listA[$id]->code."', '".$name."', '".date('Y-m-d G:i:s',time()+$t)."');";
         $sth=$dbh->prepare($sql);
         $sth->execute();
         array_splice($listA, $id, 1);
     }
     $sth->closeCursor();
+    //print_r($listN);
+    //echo date('Y-m-d G:i:s',time());
     return $listN;
-    print_r($listN);
 }
 
 function searchC($list, $what)
@@ -103,5 +106,14 @@ function creatFlight($id,$nameT,$acNum,$user)
     $sth->execute();
     $sth->closeCursor();
 }
+function deleteNav()
+{
+    $dbh=connection();
+    $sql="DELETE FROM NAVPOINT;";
+    $sth=$dbh->prepare($sql);
+    $sth->execute();
+    $sth->closeCursor();
+}
+deleteNav();
 traj();
 ?>
