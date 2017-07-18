@@ -1,8 +1,7 @@
 <?php
-DEFINE("SERV","locahost");
-DEFINE("LOGIN","root");
-DEFINE("MDP","");
-DEFINE("NOM_BD","beweb_2017");
+
+include_once 'bdd.php';
+require_once 'bdd.php';
 
 class Airport
 {
@@ -20,24 +19,9 @@ class Airport
 }
 
 
-function connexion()
-{
-    try
-    {
-        $connStr="mysql:host=".SERV.";dbname=".NOM_BD;
-        $dbh=new PDO($connStr, LOGIN, MDP);
-    }
-    catch(PDOException $e)
-    {
-        echo 'Connection failed: '.$e->getMessage();
-        return "fail";
-    }
-    return $dbh;
-}
-
 function getAirport()
 {
-    $dbh=connexion();
+    $dbh=connection();
     $sql="SELECT codeOACI, lon, lat, no_zone FROM aerodrome;";
     $sth=$dbh->prepare($sql);
     $sth->execute();
