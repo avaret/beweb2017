@@ -76,13 +76,35 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 function navbar(){
 $navbar1='
 <div class="w3-top">
-  <div class="w3-bar w3-blue w3-card-2 w3-left-align w3-large">
+  <div class="w3-bar w3-blue w3-card-2 w3-large">
+    <div class="w3-left-align">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Accueil</a>
     <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Les règles</a>
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
     <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
+    </div>
+    <div class="w3-right-align">
+    <div id="navthing">
+      <h2><a href="#" id="loginform">Login</a> | <a href="http://localhost/beweb2017/php/register.php">Register</a></h2>
+    <div class="login" style="float:right;">
+      <div class="arrow-up"></div>
+      <div class="formholder">
+        <div class="randompad">
+           <fieldset>
+             <label name="email">Email</label>
+             <input type="email" value="example@example.com" />
+             <label name="password">Password</label>
+             <input type="password" />
+             <input type="submit" value="Login" />
+ 
+           </fieldset>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
   </div>
 
   <!-- Navbar on small screens -->
@@ -114,8 +136,12 @@ function myFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
+
 </script>
 
+ <script src="/beweb2017/js/jquery.min.js"></script>
+
+    <script src="/beweb2017/js/index.js"></script>
 
 
 </body></html>
@@ -126,6 +152,7 @@ return $footer1;
 
 function contacto($nom, $prenom, $mail, $photo){
 $contc='
+<div id="remplissage">
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
@@ -142,6 +169,7 @@ $contc='
   </div>
 </div>
 <div></div>
+</div>
 ';
 return $contc;
 }
@@ -166,4 +194,118 @@ Relever ce défi implique une organisation solide, basée sur un tracé optimis�
 return $fill;
 }
 
+function resultat(){
+    
+    $resultt='
+    <div id="remplissage">Les résultats</div>
+    <div id="remplissage">
+    <table style="width:100%">
+  <tr>
+    <th>Nom</th>
+    <th>Prenom</th>
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+</table> 
+</div>
+    ';
+return $resultt;
+}
+
+function registrform(){
+    
+    $rgstr='
+    <!DOCTYPE html>
+    <html><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/beweb2017/css/w3.css">
+    <link rel="stylesheet" href="/beweb2017/css/css_002.css">
+    <link rel="stylesheet" href="/beweb2017/css/css.css">
+    <link rel="stylesheet" href="/beweb2017/css/font-awesome.css">
+    <link rel="stylesheet" href="/beweb2017/css/registr.css">
+    <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+    .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+    .fa-anchor,.fa-coffee {font-size:200px}
+    </style>
+    </head><body> 
+    
+    <div class="wutwut">
+  <div class="w3-bar w3-blue w3-card-2 w3-large">
+    <div class="w3-left-align">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Accueil</a>
+    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Les règles</a>
+    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
+    <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
+    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
+    </div>
+    <div class="w3-right-align">
+    <div id="navthing">
+      <h2><a href="#" id="loginform">Login</a></h2>
+    <div class="login" style="float:right;">
+      <div class="arrow-up"></div>
+      <div class="formholder">
+        <div class="randompad">
+           <fieldset>
+             <label name="email">Email</label>
+             <input type="email" value="example@example.com" />
+             <label name="password">Password</label>
+             <input type="password" />
+             <input type="submit" value="Login" />
+ 
+           </fieldset>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-padding-large">Accueil</a>
+    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-padding-large">Les règles</a>
+    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-padding-large">Map</a>
+    <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-padding-large">Résultats</a>
+    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
+  </div>
+</div>
+    
+    <div class="user">
+    <header class="user__header">
+        <img src="/beweb2017/image/avion.ico" alt="icone" width="25%"/>
+        <h1 class="user__title">S\'inscrire en trois clics</h1>
+    </header>
+    
+    <form class="form">
+        <div class="form__group">
+            <input type="text" placeholder="Username" class="form__input" />
+        </div>
+        
+        <div class="form__group">
+            <input type="email" placeholder="Email" class="form__input" />
+        </div>
+        
+        <div class="form__group">
+            <input type="password" placeholder="Password" class="form__input" />
+        </div>
+        
+        <button class="btn" type="button">Register</button>
+    </form>
+</div>
+    ';
+return $rgstr;
+}
 ?>
