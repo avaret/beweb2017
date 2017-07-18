@@ -2416,6 +2416,7 @@ CREATE OR REPLACE VIEW AERODROME AS
 -- L utilisateur ADMIN :
 
 INSERT INTO `USER` VALUES ('admin', 'admin', 1);
+INSERT INTO `USER` VALUES ('71r3d', '71r3d', 0);
 
 -- Un vol de démonstration Toulouse-Paris-Strasbourg
 --  ou plus exactement, Toulouse-Blagnac, Redon, Strasbourg-Neuhof
