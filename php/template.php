@@ -6,11 +6,11 @@ $entete1='
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>'.$title1.'</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/w3.css">
-<link rel="stylesheet" href="css/css_002.css">
-<link rel="stylesheet" href="css/css.css">
-<link rel="stylesheet" href="css/font-awesome.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/beweb2017/css/w3.css">
+<link rel="stylesheet" href="/beweb2017/css/css_002.css">
+<link rel="stylesheet" href="/beweb2017/css/css.css">
+<link rel="stylesheet" href="/beweb2017/css/font-awesome.css">
+<link rel="stylesheet" href="/beweb2017/css/style.css">
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -25,7 +25,7 @@ function mapp(){
 $mapp1='
     <div id="map"></div>
     <div id="info-box"></div>
-    <script src="js/map.js"></script>
+    <script src="/beweb2017/js/map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&callback=initMap" async defer></script>
 ';
     return $mapp1;
@@ -37,11 +37,11 @@ function entetemap(){
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Course</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/w3.css">
-    <link rel="stylesheet" href="css/css_002.css">
-    <link rel="stylesheet" href="css/css.css">
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/beweb2017/css/w3.css">
+    <link rel="stylesheet" href="/beweb2017/css/css_002.css">
+    <link rel="stylesheet" href="/beweb2017/css/css.css">
+    <link rel="stylesheet" href="/beweb2017/css/font-awesome.css">
+    <link rel="stylesheet" href="/beweb2017/css/style.css">
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -78,18 +78,20 @@ $navbar1='
 <div class="w3-top">
   <div class="w3-bar w3-blue w3-card-2 w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="http://localhost/beweb2017/accueil.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Accueil</a>
-    <a href="http://localhost/beweb2017/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Les regles</a>
-    <a href="http://localhost/beweb2017/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
-    <a href="http://localhost/beweb2017/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
+    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Accueil</a>
+    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Les règles</a>
+    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
+    <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
+    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
   </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="http://86.233.105.82/map.html" class="w3-bar-item w3-button w3-padding-large">Map</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
+    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-padding-large">Accueil</a>
+    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-padding-large">Les règles</a>
+    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-padding-large">Map</a>
+    <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-padding-large">Résultats</a>
+    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
   </div>
 </div>
 ';

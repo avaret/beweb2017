@@ -1,4 +1,5 @@
 <?php
+
 require_once('template.php');
 
 $html=entetemap();

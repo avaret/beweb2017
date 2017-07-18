@@ -1,7 +1,7 @@
 <?php
-require_once('template.php');
+require_once('php/template.php');
 
-$html=entete('accueil');
+$html=entete('Accueil');
 $html.=navbar();
 $html.=filler();
 $html.=footer();
