@@ -1,8 +1,8 @@
 <?php
 DEFINE("SERV","locahost");
-DEFINE("LOGIN","");
+DEFINE("LOGIN","root");
 DEFINE("MDP","");
-DEFINE("NOM_BD","");
+DEFINE("NOM_BD","beweb_2017");
 
 class Airport
 {
@@ -10,11 +10,12 @@ class Airport
     public $lat;
     public $long;
     public $zone; //7 is corse, 0 no zone
-    public function __construct($code, $lat, $long) 
+    public function __construct($code, $lat, $long, $zone) 
     {
               $this->code = $code;
               $this->lat = $lat;
               $this->long = $long;
+              $this->zone = $zone;
     }
 }
 
@@ -37,18 +38,20 @@ function connexion()
 function getAirport()
 {
     $dbh=connexion();
-    $sql="SELECT beacon.codeOACI, lon, lat FROM aerodrome, beacon WHERE aerodrome.codeOACI=beacon.codeOACI";
+    $sql="SELECT codeOACI, lon, lat, no_zone FROM aerodrome;";
     $sth=$dbh->prepare($sql);
     $sth->execute();
     $listA=array();
     $id=0;
-    while($result=$sth->fetch(PDO:FETCH_OBJ))
+    $html="<br\>";
+    while($result=$sth->fetch(PDO::FETCH_OBJ))
     {
-        $listA[id] = new Airport($result->codeOACI,$result->lon,$result->lat);
-        id++;
+        $listA[$id] = new Airport($result->codeOACI,$result->lon,$result->lat, $result->no_zone);
+        //$html.=$listA[$id]
+        $id++;
     }
     $sth->closeCursor();
-    /*FOR TEST*/ print_r(listA); /*FOR TEST*/
+    /*FOR TEST*/ print_r($listA); /*FOR TEST*/
     return $listA;
 }
 
