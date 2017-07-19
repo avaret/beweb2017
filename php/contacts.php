@@ -1,6 +1,5 @@
 <?php
 require_once('template.php');
-require_once('bdd.php');
 
 $html=entete('Contactez-nous');
 $html.=navbar();
