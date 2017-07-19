@@ -29,6 +29,20 @@ CREATE TABLE `BEACON` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `AERODROME_BONUS`
+--
+
+DROP TABLE IF EXISTS `AERODROME_BONUS`;
+CREATE TABLE `AERODROME_BONUS` (
+  `codeOACI` varchar(5) NOT NULL,
+  `idBonus` int(11) NOT NULL, -- Non nécessairement unique !
+  PRIMARY KEY (`codeOACI`),
+  FOREIGN KEY (`codeOACI`) REFERENCES `BEACON` (`codeOACI`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `USER`
 --
 
@@ -2339,8 +2353,16 @@ INSERT INTO `BEACON` (`codeOACI`, `lon`, `lat`, `description`) VALUES
 --  Création de la vue AERODROME
 -- 
 
+-- Liste des aérodromes ouvrant droit à un bonus
+
+INSERT INTO `AERODROME_BONUS` VALUES ('LFRQ', 1), ('LFAT', 2), ('LFTH', 3), ('LFBZ', 4), ('7B7C', 4), ('LFLB', 5); 
+
+-- fixme LFTF n existe pas 
+
+-- La view XX_helper est une vue intermédiaire pour alléger la définition de la vue XX
+ 
 CREATE OR REPLACE VIEW AERODROME_helper AS
-	SELECT codeOACI, 
+	SELECT BEACON.codeOACI, 
 	lat, lon, description, 
 	(lat > 49.75 ) AS inZone1,
 	(lon < -1.40  ) AS inZone2,
@@ -2349,13 +2371,15 @@ CREATE OR REPLACE VIEW AERODROME_helper AS
 	(lat > 46.30 AND lon > 6.00 ) AS inZone5,
 	(lat < 48.00 AND lat > 45.30 AND lon > 1.00 AND lon < 4.00 ) AS inZone6,
 	(lat < 43.30 AND lon > 7.70 ) AS inCorse,
-	(codeOACI = 'LFRQ') AS isBonus1,
-	(codeOACI = 'LFAT') AS isBonus2,
-	(codeOACI = 'LFTH') AS isBonus3,
-	(codeOACI = 'LFBZ' OR codeOACI = 'LFTF') AS isBonus4,
-	(codeOACI = 'LFLB') AS isBonus5
+	(BEACON.codeOACI = 'LFRQ') AS isBonus1,
+	(BEACON.codeOACI = 'LFAT') AS isBonus2,
+	(BEACON.codeOACI = 'LFTH') AS isBonus3,
+	(BEACON.codeOACI = 'LFBZ' OR BEACON.codeOACI = 'LFTF') AS isBonus4,
+	(BEACON.codeOACI = 'LFLB') AS isBonus5,
+	idBonus
 	FROM BEACON
-	WHERE codeOACI LIKE 'LF%' ;
+	LEFT JOIN AERODROME_BONUS ON AERODROME_BONUS.codeOACI = BEACON.codeOACI
+	WHERE BEACON.codeOACI LIKE 'LF%';
 
 CREATE OR REPLACE VIEW AERODROME AS
 	SELECT codeOACI, 
@@ -2387,26 +2411,24 @@ CREATE OR REPLACE VIEW AERODROME AS
  	(inZ1+inZ2+inZ3+inZ4+inZ5+inZ6) AS nbConstraintSatisfied, 
  	(inB1+inB2+inB3+inB4+inB5) AS nbBonuses,
  	totalDistance
--- 	first.codeOACI AS firstBeacon,
--- 	last.codeOACI AS lastBeacon
- 	FROM FLIGHT_ENRICHED_HELPER
--- 		(SELECT codeOACI
--- 		FROM FLIGHT, NAVPOINT
--- 		WHERE FLIGHT.idFlight = NAVPOINT.idFlight
--- 		GROUP BY FLIGHT.idFlight
--- 		ORDER BY dateTimePoint ASC
--- 		LIMIT 1 ) AS first,
--- 		(SELECT codeOACI
--- 		FROM FLIGHT, NAVPOINT
--- 		WHERE FLIGHT.idFlight = NAVPOINT.idFlight
--- 		GROUP BY FLIGHT.idFlight
--- 		ORDER BY dateTimePoint DESC
--- 		LIMIT 1 ) AS last
- 	;
+ 	FROM FLIGHT_ENRICHED_HELPER ;
+
+
+-- --------------------------------------------------------
+
+--
+--  Création de la vue FLIGHT_PATH
 -- 
--- FLIGHT_ENRICHED ( idFlight*, nbConstraintSatisfied, nbBonuses, totalDistance, firstBeacon, lastBeacon )
 
-
+ CREATE OR REPLACE VIEW FLIGHT_PATH AS
+	SELECT idFlight,
+		NAVPOINT.codeOACI,
+		lon, lat,
+		datetimePoint,
+		distanceToPreviousNavPoint
+	FROM AERODROME, NAVPOINT
+	WHERE AERODROME.codeOACI = NAVPOINT.codeOACI 
+	ORDER BY datetimePoint ASC;
 
 -- --------------------------------------------------------
 
@@ -2423,12 +2445,17 @@ INSERT INTO `USER` VALUES ('71r3d', '71r3d', 0);
 
 INSERT INTO MAP_AREA VALUES (0), (1), (2), (3), (4), (5), (6), (7); 
 
+-- Et un index pour retrouver rapidement les METAR d'une zone donnée 
+--  (une clef étrangère ne créant pas systématiquement d'index, on force cette création)
+
+CREATE INDEX IX_METAR ON METAR (no_zone);
+
 -- Un vol de démonstration Toulouse-Paris-Strasbourg
 --  ou plus exactement, Toulouse-Blagnac, Redon, Strasbourg-Neuhof
 
 INSERT INTO `FLIGHT` VALUES ('EXAMPL', 'Example team', 'F-EXMP', 'admin');
 
-INSERT INTO `NAVPOINT` VALUES ('LFBO', 'EXAMPL', '01/01/2010 08:00', 0);
-INSERT INTO `NAVPOINT` VALUES ('LFER', 'EXAMPL', '01/01/2010 10:00', 200.0);
-INSERT INTO `NAVPOINT` VALUES ('LFGC', 'EXAMPL', '01/01/2010 12:00', 150.0);
+INSERT INTO `NAVPOINT` VALUES ('LFBO', 'EXAMPL', '2010-01-01 08:00', 0);
+INSERT INTO `NAVPOINT` VALUES ('LFER', 'EXAMPL', '2010-01-01 10:00', 200.0);
+INSERT INTO `NAVPOINT` VALUES ('LFGC', 'EXAMPL', '2010-01-01 12:00', 150.0);
 
