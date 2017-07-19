@@ -108,6 +108,42 @@ function dist($ad1,$ad2)
 	return $distance;
 }
 
+
+function calculAngle($ad1,$ad2)
+{
+    $lat1 = deg2rad($ad1->lat);
+	$lon1 = deg2rad($ad1->long);
+	$lat2 = deg2rad($ad2->lat);
+	$lon2 = deg2rad($ad2->long);
+    $y = sin($lon2-$lon1) * cos($lat2);
+    $x = cos($lat1)*sin($lat2)-sin($lat1)*cos($lat2)*cos($lon2-$lon1);
+    return $brng = (atan2($y, $x)/3.1415926) * 180;
+}
+
+function calculAngle2($ad1, $ad2) 
+{
+
+    $lat1 = ($ad1->lat);
+	$lon1 = ($ad1->long);
+	$lat2 = ($ad2->lat);
+	$lon2 = ($ad2->long);
+    
+    $dLon = deg2rad($lon2) - deg2rad($lon1);
+    $dPhi = log(tan(deg2rad($lat2) / 2 + pi() / 4) / tan(deg2rad($lat1) / 2 + pi() / 4));
+
+    if(abs($dLon) > pi()) {
+      if($dLon > 0) {
+         $dLon = (2 * pi() - $dLon) * -1;
+      }
+      else {
+         $dLon = 2 * pi() + $dLon;
+      }
+    }
+    //return the angle, normalized
+    return (rad2deg(atan2($dLon, $dPhi)) + 360) % 360;
+}
+
+
 /* createFlight se connecte à la DB, ajoute un vol et retourne la connexion à la SGBD */
 function createFlight($dbh, $idFlight,$nameTeam,$aircraftNumber,$user)
 {
@@ -152,7 +188,7 @@ function appendAerodromeWithWindSimpleModel($dbh, $idFlight, $takeofftime, $newA
 	appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $windPenality);
 }
 
-function appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $windPenality = 0)
+function appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $Metar)
 {
 	$dureeVol = 0;
 	$distanceVol = 0.0;
@@ -161,10 +197,10 @@ function appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $p
 	if($newAerodrome != $previousAerodrome)
 	{
 		$distanceVol = dist($newAerodrome, $previousAerodrome);
-		$dureeVol = $distanceVol * 18; // TODO Check it
+		$dureeVol = $distanceVol / groundSpeed(calculAngle2($newAerodrome,$previousAerodrome),$Metar[$newAerodrome->zone]->Direction,$Metar[$newAerodrome->zone]->Speed); // TODO Check it definitively not working
 	}
 
-	$dureeVol = $dureeVol + $windPenality;
+	//$dureeVol = $dureeVol + $windPenality;
 
 	// On ne redécolle pas si on va dépasser les 24 heures
 	if($dureeVol > 86400)
@@ -262,6 +298,11 @@ function extractInfosWindFromMetars($METARinCache, $no_zone, $temps)
 	return $windInfo;
 }
 
+function groundSpeed($angleAvion,$angleVent,$forceVent)//angleVent=30 le vent vient du cap 30°
+{
+   return $speed=200-cos(deg2rad($angleVent-$angleAvion))*$forceVent; //200 is the speed of the plane, to change later with the accurate value
+}
+
 
 function test_me()
 {
@@ -292,6 +333,8 @@ function test_me()
 }
 
 /* Programme principal */
-test_me();
+//test_me();
+//echo calculAngle2(new Aerodrome('LFGA',48.1036, 7.33019,'3'),new Aerodrome('LFBR',43.4432, 1.27331,'2'));
 
+echo groundSpeed(222,100,50);
 ?>

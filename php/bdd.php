@@ -7,7 +7,7 @@ DEFINE("DATABASE_NAME","beweb_2017");
 
 /* connexion: FR, connection: EN */
 
-function connexion()
+function connection()
 {
     try
     {
