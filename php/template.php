@@ -74,7 +74,20 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 }
 
 function navbar(){
-$navbar1='
+$navbar1='  ';
+        
+    if(isset($_GET["logout"]))
+    {
+        echo '<div class="echec">Merci de votre visite</div>';
+    }
+    if(isset($_SESSION["login"]))
+    {
+        echo '<div>Bonjour ".$_SESSION["login"]." <div><a href="index.php?logout">Se déconnecter</a></div></div>';
+    }
+    else
+    {
+        
+        echo   '
 <div class="w3-top">
   <div class="w3-bar w3-blue w3-card-2 w3-large">
     <div class="w3-left-align">
@@ -86,25 +99,27 @@ $navbar1='
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
     </div>
     <div class="w3-right-align">
+    <form id="auth" method="POST" action="/beweb2017/php/receptlog.php">
     <div id="navthing">
       <h2><a href="#" id="loginform">Login</a> | <a href="http://localhost/beweb2017/php/register.php">Register</a></h2>
     <div class="login" style="float:right;">
       <div class="arrow-up"></div>
       <div class="formholder">
         <div class="randompad">
-           <fieldset>
-             <label name="email">Email</label>
-             <input type="email" value="example@example.com" />
+        <fieldset>
+             <label name="login">Login</label>
+             <input type="login" />
              <label name="password">Password</label>
              <input type="password" />
-             <input type="submit" value="Login" />
- 
-           </fieldset>
+             <input type="submit" value="Login" /> 
+        </fieldset>          
         </div>
-      </div>
     </div>
     </div>
     </div>
+    </form>
+    </div>
+   
   </div>
 
   <!-- Navbar on small screens -->
@@ -116,6 +131,15 @@ $navbar1='
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
   </div>
 </div>
+     ';
+    }
+    if(isset($_GET["err"]))
+        {echo '<div class="echec">Echec d\'authentification</div>';}
+    if(isset($_GET["logout"]))
+        {
+        session_unset();
+        session_destroy();
+        };'
 ';
 return $navbar1;
 }
@@ -291,12 +315,9 @@ function registrform(){
     
     <form class="form">
         <div class="form__group">
-            <input type="text" placeholder="Username" class="form__input" />
+            <input type="text" placeholder="login" class="form__input" />
         </div>
-        
-        <div class="form__group">
-            <input type="email" placeholder="Email" class="form__input" />
-        </div>
+    
         
         <div class="form__group">
             <input type="password" placeholder="Password" class="form__input" />
