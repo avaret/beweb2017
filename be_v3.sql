@@ -2355,9 +2355,9 @@ INSERT INTO `BEACON` (`codeOACI`, `lon`, `lat`, `description`) VALUES
 
 -- Liste des aérodromes ouvrant droit à un bonus
 
-INSERT INTO `AERODROME_BONUS` VALUES ('LFRQ', 1), ('LFAT', 2), ('LFTH', 3), ('LFBZ', 4), ('7B7C', 4), ('LFLB', 5); 
+INSERT INTO `AERODROME_BONUS` VALUES ('LFRQ', 1), ('LFAT', 2), ('LFTH', 3), ('LFBZ', 4), ('CUERS', 4), ('LFLB', 5); 
 
--- fixme LFTF n existe pas 
+-- fixme LFTF n existe pas, j'ai mis CUERS à la place
 
 -- La view XX_helper est une vue intermédiaire pour alléger la définition de la vue XX
  
@@ -2393,7 +2393,14 @@ CREATE OR REPLACE VIEW AERODROME AS
 --  Création de la vue FLIGHT_ENRICHED
 -- 
 
- CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER AS
+-- Méthode 1 de calcul des Bonus: les noms d aéroport sont écrits en dur dans les requêtes SQL
+--  pt négatif : non évolutif
+
+-- Méthode 2 : la table AERODROME_BONUS contient les aérodromes, pour faire ensuite une somme
+--  pt négatif, qd 2 aérodromes donnent le même code bonus ? Ca marche pas, manque un group by bien calculé
+
+
+CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER AS
  	SELECT FLIGHT.idFlight,
  	 (SUM(inZone1) > 0) AS inZ1, (SUM(inZone2) > 0) AS inZ2, 
  	 (SUM(inZone3) > 0) AS inZ3, (SUM(inZone4) > 0) AS inZ4,
@@ -2401,16 +2408,17 @@ CREATE OR REPLACE VIEW AERODROME AS
  	 (SUM(inCorse) > 0) AS inC, (SUM(isBonus1) > 0) AS inB1,
  	 (SUM(isBonus2) > 0) AS inB2, (SUM(isBonus3) > 0) AS inB3, 
  	 (SUM(isBonus4) > 0) AS inB4, (SUM(isBonus5) > 0) AS inB5,
-	SUM(distanceToPreviousNavPoint) AS totalDistance
+	SUM(distanceToPreviousNavPoint) AS totalDistance,
+	COUNT( idBonus ) AS nbBonusesMethode2
  	FROM FLIGHT, NAVPOINT, AERODROME_helper
  	WHERE FLIGHT.idFlight = NAVPOINT.idFlight AND NAVPOINT.codeOACI = AERODROME_helper.codeOACI
  	GROUP BY FLIGHT.idFlight ;
  
- CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
+CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
  	SELECT idFlight, 
  	(inZ1+inZ2+inZ3+inZ4+inZ5+inZ6) AS nbConstraintSatisfied, 
  	(inB1+inB2+inB3+inB4+inB5) AS nbBonuses,
- 	totalDistance
+ 	totalDistance, nbBonusesMethode2
  	FROM FLIGHT_ENRICHED_HELPER ;
 
 
@@ -2458,4 +2466,6 @@ INSERT INTO `FLIGHT` VALUES ('EXAMPL', 'Example team', 'F-EXMP', 'admin');
 INSERT INTO `NAVPOINT` VALUES ('LFBO', 'EXAMPL', '2010-01-01 08:00', 0);
 INSERT INTO `NAVPOINT` VALUES ('LFER', 'EXAMPL', '2010-01-01 10:00', 200.0);
 INSERT INTO `NAVPOINT` VALUES ('LFGC', 'EXAMPL', '2010-01-01 12:00', 150.0);
+INSERT INTO `NAVPOINT` VALUES ('LFTH', 'EXAMPL', '2010-01-01 16:00', 300.0);
+INSERT INTO `NAVPOINT` VALUES ('LFBZ', 'EXAMPL', '2010-01-01 17:00', 300.0);
 
