@@ -9,7 +9,6 @@ class Aerodrome
     public $lat;
     public $long;
     public $zone; //7 is corse, 0 no zone
-    //public $distP; //Use for navpoint to get the distance from the previous one
     public function __construct($code, $lat, $long, $zone) 
     {
             $this->code = $code;
@@ -19,42 +18,41 @@ class Aerodrome
     }
 }
 
-
-function getAerodrome($dbh)
+/*
+ * Récupère la liste des aérodromes et la retourne à l'appelant
+ */
+function getAerodromes($dbh)
 {
     $sql="SELECT codeOACI, lon, lat, no_zone FROM AERODROME;";
     $sth=$dbh->prepare($sql);
     $sth->execute();
     $listAerodrome=array();
     $id=0;
-    //$html="test <br\>";
-    //echo $html;
     while($result=$sth->fetch(PDO::FETCH_OBJ))
     {
         $listAerodrome[$id] = new Aerodrome($result->codeOACI,$result->lon,$result->lat, $result->no_zone);
         $id++;
     }
-    //echo $html;
     $sth->closeCursor();
     /*FOR TEST*/ //print_r($listAerodrome); /*FOR TEST*/
     return $listAerodrome;
 }
 
 /*
- *  traj génère un vol associé à une trajectoire complète avec 100 aérodromes.
+ *  generate_trajectory génère un vol associé à une trajectoire complète avec 100 aérodromes.
  *
  * @param idFlight	Le FlightId à utiliser pour le vol à créer
  *
  * @param firstAerodrome Nom de l'Aérodrome utilisé pour démarrer la trajectoire (=décollage initial)
  *
  */
-function traj($idFlight, $firstAerodrome)
+function generate_trajectory($idFlight, $firstAerodrome)
 {
     // 1. Initialiser le sgbd
     $dbh=connection();
 
     // 2. Récup la liste des aérodromes
-    $listAerodrome=getAerodrome($dbh);
+    $listAerodrome=getAerodromes($dbh);
     $key=searchC($listAerodrome,$firstAerodrome);
     $listN[0]=$listAerodrome[$key];
 
@@ -64,10 +62,6 @@ function traj($idFlight, $firstAerodrome)
     // 4. Ajouter l'aérodrome de départ
     $aerodrome = $listAerodrome[$key];
     $t = appendAerodrome( $dbh, $idFlight, /*datetime_sec*/ 0, $aerodrome, $aerodrome);
-
-/*    $sql="INSERT INTO `NAVPOINT` VALUES ('".$listAerodrome[$key]->code."', '".$idFlight."', '".date('Y-m-d G:i:s',time())."');";
-    $sth=$dbh->prepare($sql);
-    $sth->execute();*/
     array_splice($listAerodrome, $key, 1); //remove this airport from the list
     
     // 5. Ajouter jusqu'à 100 aérodromes suivants
@@ -85,16 +79,7 @@ function traj($idFlight, $firstAerodrome)
 		break;
 //TODO S'arrêter si on dépasse les 24 heures == ($t >86400), AVANT d'ajouter le point !!
 
-/*        $listN[$i]->distP=dist($listN[$i-1],$listN[$i]);
-        $t+=($listN[$i]->distP/200)*3600;
-        
-        $sql="INSERT INTO `NAVPOINT` VALUES ('".$listAerodrome[$id]->code."', '".$idFlight."', '".date('Y-m-d G:i:s',time()+$t)."');";
-        $sth=$dbh->prepare($sql);
-        $sth->execute();*/
     }
-    //$sth->closeCursor();
-    //print_r($listN);
-    //echo date('Y-m-d G:i:s',time());
     return $listN;
 }
 
@@ -194,8 +179,7 @@ function appendAerodrome_helper($dbh, $idFlight, $datetime_takeoff_sec, $newAero
 function deleteNav($idFlight)
 {
     $dbh=connection();
-//    $sql="DELETE FROM NAVPOINT WHERE idFlight = '".$idFlight."';";
-    $sql="DELETE FROM FLIGHT WHERE idFlight = '".$idFlight."';"; // TODO Check que la CASCADE ON DELETE fonctionne.
+    $sql="DELETE FROM FLIGHT WHERE idFlight = '".$idFlight."';";
 
     $sth=$dbh->prepare($sql);
     $sth->execute();
@@ -224,6 +208,26 @@ function createWindInfos($temps)
     $dbh = NULL;
 }
 
+function getMetars($dbh)
+{
+    $sql="SELECT no_zone, datetimeMetar, windSpeed, windDirection FROM METAR";
+    $sth=$dbh->query($sql);
+    $listMetar=array();
+    for($zone=0; $zone<=7; $zone++) // pour toutes les zones
+	$listMetar[$zones] = array();
+    
+    $id=0;
+    while($result=$sth->fetch(PDO::FETCH_OBJ))
+    {
+	$listMetar[$result->no_zone][$result->datetimeMetar] = 
+		array("Speed" => $result->windSpeed,
+			"Direction" => $result->windDirection);
+    }
+    $sth->closeCursor();
+    /*FOR TEST*/ print_r($listMetar); /*FOR TEST*/
+    return $listMetar;
+}
+
 function test_me()
 {
     echo "Create/recreate Wind Infos... ";
@@ -232,8 +236,8 @@ function test_me()
     $idFl = "F-TEST";
     echo "Delete Nav... ";
     deleteNav($idFl);
-    echo "Creating Traj() ... ";
-    traj($idFl, "LFGA");
+    echo "Creating Trajectories () ... ";
+    generate_trajectory($idFl, "LFGA");
     echo "Done !";
 }
 
