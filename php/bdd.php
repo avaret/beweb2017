@@ -60,7 +60,14 @@ function testAuth($login='', $passwd=''){
 return $etat;
 }
 
-function addUser($login, $passwd,  $isAdmin = 0)
+function addUser($login='', $passwd='',  $isAdmin = 0)
 {
-    submit_sql_to_sgbd("INSERT INTO USER VALUES ('".$login."','".$passwd."',".$isAdmin.")");
+    $dbh= connexion();
+    $sql ="INSERT INTO USER VALUES ('".$login."','".$passwd."','".$isAdmin."')";
+    $sth=$dbh ->prepare($sql);
+    $sth->bindParam(":login", $login, PDO::PARAM_STR);
+    $sth->bindParam(":passwd", $passwd, PDO::PARAM_STR);
+    $sth->bindParam(":isAdmin", $isAdmin, PDO::PARAM_STR);
+    $sth->execute();
+    $sth->closeCursor();
 }

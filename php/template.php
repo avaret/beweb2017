@@ -107,7 +107,7 @@ $navbar1='  ';
     
     if(isset($_SESSION["login"]))
     {
-        echo '<h2>'.$_SESSION["login"].' <a href="/beweb2017/index.php?logout">Se déconnecter</a> | <a href="http://localhost/beweb2017/php/register.php">Register</a></h2>';
+        echo '<h2>'.$_SESSION["login"].' <a href="/beweb2017/index.php?logout">Se déconnecter</a></h2>';
     }
     else
     {
@@ -339,6 +339,8 @@ function registrform(){
   </div>
 </div>
      
+     <script src="//code.jquery.com/jquery.min.js"></script>
+     <script src="/beweb2017/js/event.js" type="text/javascript"></script>
     
     <div class="user">
     <header class="user__header">
@@ -346,19 +348,23 @@ function registrform(){
         <h1 class="user__title">S\'inscrire en trois clics</h1>
     </header>
     
-    <form class="form">
+    <form class="form" method="POST" action="/beweb2017/php/insert.php">
         <div class="form__group">
-            <input type="text" placeholder="login" class="form__input" />
+            <input type="login" placeholder="login" class="form__input" />
         </div>
     
         
         <div class="form__group">
-            <input type="password" placeholder="Password" class="form__input" />
+            <input type="passwd" placeholder="Password" class="form__input" />
         </div>
         
-        <button class="btn" type="button">Register</button>
+        <button class="btn" type="submit">Register</button>
+        
     </form>
+    <div id="resultat"></div>
 </div>
+
+
     ';
 return $rgstr;
 }
