@@ -2,7 +2,7 @@
 
 DEFINE("SGBD_SERVER","localhost");
 DEFINE("LOGIN","root");
-DEFINE("PASSWORD","");
+DEFINE("PASSWORD","mysql");
 DEFINE("DATABASE_NAME","beweb_2017");
 
 /* connexion: FR, connection: EN */
@@ -84,4 +84,5 @@ function getUser($login='')
     }
 $sth->closeCursor();
 return $etat;
-}
+}    
+

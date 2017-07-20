@@ -134,10 +134,29 @@ function initMap() {
     
     var flightPlanCoordinates = //Donne les coordonné des points de passages
     [
-      {lng: 5.33778, lat: 45.9797},
-      {lng: -0.85028, lat: 48.1772},
-      {lng: 6.26833, lat: 46.1919},
-      {lng: 0.09944, lat: 48.1953}
+//      {lng: 5.33778, lat: 45.9797},
+//      {lng: -0.85028, lat: 48.1772},
+//      {lng: 6.26833, lat: 46.1919},
+//      {lng: 0.09944, lat: 48.1953}
+        
+        <?php
+        include_once '../php/bdd.php';
+        require_once '../php/bdd.php';
+
+        //switch to correct database
+        $dbh=connection();
+
+        //Query the user for start and ending location. Store locations in variables
+        $sql="SELECT codeOACI, lat, lon  FROM FLIGHT_PATH";
+        $sth=$dbh->query($sql);
+        
+       while($result=$sth->fetch(PDO::FETCH_OBJ)){
+            $lat = $result->lat;
+            $lon = $result->lon;
+            echo "new google.maps.LatLng(" . $lat . ", " . $lon . "), \n";
+        }
+
+        ?>
     ];
     
     var flightPath = new google.maps.Polyline( //définie le style de la trajectoire
@@ -148,6 +167,29 @@ function initMap() {
       strokeOpacity: 1.0,
       strokeWeight: 2
     });
+    
+    /* var departure = new google.maps.LatLng(dept_lat, dept_lng); //Set to whatever lat/lng you need for your departure location
+    var arrival = new google.maps.LatLng(arr_lat, arr_lng); //Set to whatever lat/lng you need for your arrival location
+    var line = new google.maps.Polyline({
+        path: [departure, departure],
+        strokeColor: "#FF0000",
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        geodesic: true, //set to false if you want straight line instead of arc
+        map: map,
+    });
+    var step = 0;
+    var numSteps = 250; //Change this to set animation resolution
+    var timePerStep = 5; //Change this to alter animation speed
+    var interval = setInterval(function() {
+    step += 1;
+    if (step > numSteps) {
+        clearInterval(interval);
+    } else {
+        var are_we_there_yet = google.maps.geometry.spherical.interpolate(departure,arrival,step/numSteps);
+        line.setPath([departure, are_we_there_yet]);
+    }
+    }, timePerStep); */
 
     flightPath.setMap(map);
     
