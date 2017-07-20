@@ -110,26 +110,13 @@ function navbar($isRegistering = false){
         $navbar1 .= '
             <a href="#" id="loginform" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</a>';
 
-	if(!$isRegistering) {	
-		$navbar1 .= '  <a href="http://localhost/beweb2017/php/register.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Register</a>     ';
+        if(!$isRegistering) 
+        {	
+            $navbar1 .= '  <a href="http://localhost/beweb2017/php/register.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Register</a>     ';
         }
 
-	$navbar1 .= '
-          <div class="login" style="float:right;">
-          <div class="arrow-up"></div>
-          <div class="formholder">
-          <div class="randompad">
-            <fieldset>
-                <label name="login">Login</label>
-                <input type="login" name="login" />
-                <label name="password">Password</label>
-                <input type="password" name="passwd" />
-                <input type="submit" value="Login" /> 
-            </fieldset>          
-          </div>
-          </div>
-          </div>
-    ';}
+       
+    }
     
     $navbar1 .= '
     </div>
@@ -150,6 +137,22 @@ function navbar($isRegistering = false){
 </div>
      ';
     
+     $navbar1 .= '
+              <div class="login" style="float:right;">
+              <div class="arrow-up"></div>
+              <div class="formholder">
+              <div class="randompad">
+                <fieldset>
+                    <label name="login">Login</label>
+                    <input type="login" name="login" />
+                    <label name="password">Password</label>
+                    <input type="password" name="passwd" />
+                    <input type="submit" value="Login" /> 
+                </fieldset>          
+              </div>
+              </div>
+              </div>
+        ';
     $navbar1.=" \n\n <!--- END OF NAVBAR  --> \n";
     return $navbar1;
 }
