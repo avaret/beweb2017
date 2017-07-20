@@ -159,37 +159,36 @@ function initMap() {
         ?>
     ];
     
+    // Define the symbol, using one of the predefined paths ('CIRCLE')
+    // supplied by the Google Maps JavaScript API.
+    var lineSymbol = {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 8,
+        strokeColor: '#393'
+      };
+    
+    // Define the symbol, using one of the predefined paths ('CIRCLE')
+    // supplied by the Google Maps JavaScript API.
     var flightPath = new google.maps.Polyline( //définie le style de la trajectoire
     {
-      path: flightPlanCoordinates,
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
+        path: flightPlanCoordinates,
+        geodesic: true, //Use orthodromie
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        icons: 
+        [{
+            icon: lineSymbol,
+            offset: '100%'
+        }],
+        map: map
     });
     
-    /* var departure = new google.maps.LatLng(dept_lat, dept_lng); //Set to whatever lat/lng you need for your departure location
-    var arrival = new google.maps.LatLng(arr_lat, arr_lng); //Set to whatever lat/lng you need for your arrival location
-    var line = new google.maps.Polyline({
-        path: [departure, departure],
-        strokeColor: "#FF0000",
-        strokeOpacity: 1,
-        strokeWeight: 1,
-        geodesic: true, //set to false if you want straight line instead of arc
-        map: map,
-    });
-    var step = 0;
-    var numSteps = 250; //Change this to set animation resolution
-    var timePerStep = 5; //Change this to alter animation speed
-    var interval = setInterval(function() {
-    step += 1;
-    if (step > numSteps) {
-        clearInterval(interval);
-    } else {
-        var are_we_there_yet = google.maps.geometry.spherical.interpolate(departure,arrival,step/numSteps);
-        line.setPath([departure, are_we_there_yet]);
-    }
-    }, timePerStep); */
+    
+
+      
+      animateCircle(flightPath);
+    
 
     flightPath.setMap(map);
     
@@ -251,4 +250,19 @@ function downloadUrl(url, callback)
 }
 
 function doNothing() {}
+
+// Use the DOM setInterval() function to change the offset of the symbol
+// at fixed intervals.
+function animateCircle(line) 
+{
+    var count = 0;
+    window.setInterval(function() 
+    {
+      count = (count + 1) % 200;
+
+      var icons = line.get('icons');
+      icons[0].offset = (count / 2) + '%';
+      line.set('icons', icons);
+    }, 20);
+}
 
