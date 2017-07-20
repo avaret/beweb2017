@@ -35,15 +35,15 @@ function entete($title1, $forMap = false)
 	            margin: 0;
 	            padding: 0;
 	        }
-	        #info-box {
-	            background-color: white;
-	            border: 1px solid black;
-	            bottom: 30px;
-	            height: 20px;
-	            padding: 10px;
-	            position: absolute;
-	            left: 30px;
-	        } ';
+	       #info-box {
+            background-color: white;
+            border: 1px solid black;
+            bottom: 20px;
+            height: 35px;
+            padding: 10px;
+            position: absolute;
+            left: 30px;
+            }';
 	}
 	
 	$entete1.='</style></head><body> ';
@@ -55,7 +55,7 @@ $mapp1='
     <div id="map"></div>
     <div id="info-box"></div>
     <script src="/beweb2017/js/map.php"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&libraries=geometry&callback=initMap" async defer></script>
 ';
     return $mapp1;
 }
