@@ -153,7 +153,7 @@ function initMap() {
         while($result=$sth->fetch(PDO::FETCH_OBJ)){
             $lat = $result->lat;
             $lon = $result->lon;
-            echo "new googlemaps . LatLng(" . $lat . ", " . $lon . "), \n";
+            echo "new google.maps.LatLng(" . $lat . ", " . $lon . "), \n";
         }
 	$sth->closeCursor();
 
