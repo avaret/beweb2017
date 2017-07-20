@@ -147,9 +147,8 @@ function initMap() {
         $dbh=connection();
 
         //Query the user for start and ending location. Store locations in variables
-        $sql="SELECT navpoint.codeOACI, lat, lon  FROM `navpoint`,aerodrome WHERE navpoint.codeOACI=aerodrome.codeOACI;";
-        $sth=$dbh->prepare($sql);
-        $sth->execute();
+        $sql="SELECT codeOACI, lat, lon  FROM FLIGHT_PATH";
+        $sth=$dbh->query($sql);
         
        while($result=$sth->fetch(PDO::FETCH_OBJ)){
             $lat = $result->lat;
@@ -169,7 +168,7 @@ function initMap() {
       strokeWeight: 2
     });
     
-    var departure = new google.maps.LatLng(dept_lat, dept_lng); //Set to whatever lat/lng you need for your departure location
+    /* var departure = new google.maps.LatLng(dept_lat, dept_lng); //Set to whatever lat/lng you need for your departure location
     var arrival = new google.maps.LatLng(arr_lat, arr_lng); //Set to whatever lat/lng you need for your arrival location
     var line = new google.maps.Polyline({
         path: [departure, departure],
@@ -190,7 +189,7 @@ function initMap() {
         var are_we_there_yet = google.maps.geometry.spherical.interpolate(departure,arrival,step/numSteps);
         line.setPath([departure, are_we_there_yet]);
     }
-    }, timePerStep);
+    }, timePerStep); */
 
     flightPath.setMap(map);
     

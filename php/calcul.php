@@ -200,8 +200,7 @@ function appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $p
 	if($newAerodrome != $previousAerodrome)
 	{
 		$distanceVol = dist($newAerodrome, $previousAerodrome);
-		$dureeVol = $distanceVol / $groundSpeed_km_h / 3600; /* en seconde */
-		echo " Durée du vol : " . $dureeVol . " = " . $distanceVol . " / " . $groundSpeed_km_h . " / 3600 ";
+		$dureeVol = $distanceVol / $groundSpeed_km_h * 3600; /* en seconde */
 	}
 
 	// On ne redécolle pas si on va dépasser les 24 heures
