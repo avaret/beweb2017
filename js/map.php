@@ -147,15 +147,15 @@ function initMap() {
         $dbh=connection();
 
         //Query the user for start and ending location. Store locations in variables
-        $sql="SELECT codeOACI, lat, lon FROM `FLIGHT_PATH`";
-        $sth=$dbh->query($sql);
+        $sql="SELECT navpoint.codeOACI, lat, lon  FROM `navpoint`,aerodrome WHERE navpoint.codeOACI=aerodrome.codeOACI;";
+        $sth=$dbh->prepare($sql);
+        $sth->execute();
         
-        while($result=$sth->fetch(PDO::FETCH_OBJ)){
+       while($result=$sth->fetch(PDO::FETCH_OBJ)){
             $lat = $result->lat;
             $lon = $result->lon;
-            echo "new googlemaps . LatLng(" . $lat . ", " . $lon . "), \n";
+            echo 'new google.maps.LatLng('.$lat.', '.$lon.'),';
         }
-	$sth->closeCursor();
 
         ?>
     ];
@@ -168,6 +168,29 @@ function initMap() {
       strokeOpacity: 1.0,
       strokeWeight: 2
     });
+    
+    var departure = new google.maps.LatLng(dept_lat, dept_lng); //Set to whatever lat/lng you need for your departure location
+    var arrival = new google.maps.LatLng(arr_lat, arr_lng); //Set to whatever lat/lng you need for your arrival location
+    var line = new google.maps.Polyline({
+        path: [departure, departure],
+        strokeColor: "#FF0000",
+        strokeOpacity: 1,
+        strokeWeight: 1,
+        geodesic: true, //set to false if you want straight line instead of arc
+        map: map,
+    });
+    var step = 0;
+    var numSteps = 250; //Change this to set animation resolution
+    var timePerStep = 5; //Change this to alter animation speed
+    var interval = setInterval(function() {
+    step += 1;
+    if (step > numSteps) {
+        clearInterval(interval);
+    } else {
+        var are_we_there_yet = google.maps.geometry.spherical.interpolate(departure,arrival,step/numSteps);
+        line.setPath([departure, are_we_there_yet]);
+    }
+    }, timePerStep);
 
     flightPath.setMap(map);
     
