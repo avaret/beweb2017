@@ -2401,7 +2401,7 @@ CREATE OR REPLACE VIEW AERODROME AS
 
 
 CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER AS
- 	SELECT FLIGHT.idFlight,
+ 	SELECT FLIGHT.idFlight, FLIGHT.nameTeam, FLIGHT.AircraftNumber, FLIGHT.loginUser,
  	 (SUM(inZone1) > 0) AS inZ1, (SUM(inZone2) > 0) AS inZ2, 
  	 (SUM(inZone3) > 0) AS inZ3, (SUM(inZone4) > 0) AS inZ4,
  	 (SUM(inZone5) > 0) AS inZ5, (SUM(inZone6) > 0) AS inZ6,
@@ -2409,16 +2409,19 @@ CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER AS
  	 (SUM(isBonus2) > 0) AS inB2, (SUM(isBonus3) > 0) AS inB3, 
  	 (SUM(isBonus4) > 0) AS inB4, (SUM(isBonus5) > 0) AS inB5,
 	SUM(distanceToPreviousNavPoint) AS totalDistance,
-	COUNT( idBonus ) AS nbBonusesMethode2
+	COUNT( idBonus ) AS nbBonusesMethode2,
+	COUNT( NAVPOINT.codeOACI ) AS nbAerodromes,
+	MIN( NAVPOINT.datetimePoint ) AS beginFlight,
+	MAX( NAVPOINT.datetimePoint ) AS endFlight
  	FROM FLIGHT, NAVPOINT, AERODROME_helper
  	WHERE FLIGHT.idFlight = NAVPOINT.idFlight AND NAVPOINT.codeOACI = AERODROME_helper.codeOACI
  	GROUP BY FLIGHT.idFlight ;
  
 CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
- 	SELECT idFlight, 
+ 	SELECT idFlight, nameTeam, AircraftNumber, loginUser,
  	(inZ1+inZ2+inZ3+inZ4+inZ5+inZ6) AS nbConstraintSatisfied, 
  	(inB1+inB2+inB3+inB4+inB5) AS nbBonuses,
- 	totalDistance, nbBonusesMethode2
+ 	totalDistance, nbBonusesMethode2, nbAerodromes, beginFlight, endFlight
  	FROM FLIGHT_ENRICHED_HELPER ;
 
 

@@ -12,8 +12,8 @@ function entete($title1, $forMap = false)
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/beweb2017/css/w3.css">
-		<link rel="stylesheet" href="/beweb2017/css/css_002.css">
-		<link rel="stylesheet" href="/beweb2017/css/css.css">
+		<link rel="stylesheet" href="/beweb2017/library/font-Lato.css">
+		<link rel="stylesheet" href="/beweb2017/library/font-Montserrat.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-awesome.css">
 		<link rel="stylesheet" href="/beweb2017/css/style.css">
 		<link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
@@ -213,7 +213,7 @@ return $contc;
 
 function filler(){
 $fill='
-<div id="remplissage">La Coupe Breitling 100/24</div>
+<div id="remplissage"><h2>La Coupe Breitling 100/24</h2></div>
 <div id="remplissage">
 
 L’objectif  du Défi 100/24 est d’effectuer en moins de 24 heures 100 posés-décollés sur 100 aérodromes différents répartis sur l’Hexagone, tout en respectant des contraintes géographiques.
@@ -267,8 +267,8 @@ function registrform(){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/beweb2017/css/w3.css">
-    <link rel="stylesheet" href="/beweb2017/css/css_002.css">
-    <link rel="stylesheet" href="/beweb2017/css/css.css">
+    <link rel="stylesheet" href="/beweb2017/library/font-Lato.css">
+    <link rel="stylesheet" href="/beweb2017/library/font-Montserrat.css">
     <link rel="stylesheet" href="/beweb2017/library/font-awesome.css">
     <link rel="stylesheet" href="/beweb2017/css/registr.css">
     <link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
