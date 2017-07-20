@@ -78,6 +78,7 @@ function navbar($isRegistering = false){
     }
     
         $navbar1 .=   '
+<div class="wutwut">
 <div class="w3-top">
   <div class="w3-bar w3-blue w3-card-2 w3-large">
     <span class="w3-left-align">
@@ -137,6 +138,7 @@ function navbar($isRegistering = false){
     <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-padding-large">Résultats</a>
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
   </div>
+</div>
 </div>
      ';
     
