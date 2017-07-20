@@ -184,7 +184,7 @@ function initMap() {
         map: map
     });
     var lengthInMeters = google.maps.geometry.spherical.computeLength(flightPath.getPath());
-    alert("polyline is "+lengthInMeters/1000+" long");
+    //alert("polyline is "+lengthInMeters/1000+" long");
     
     animateCircle(flightPath,lengthInMeters);
     flightPath.setMap(map);

@@ -43,6 +43,13 @@ function entete($title1, $forMap = false)
             padding: 10px;
             position: absolute;
             left: 30px;
+            }
+            
+            #butt {
+            bottom: 20px;
+            height: 30px;
+            position: absolute;
+            left: 120px;
             }';
 	}
 	
@@ -54,6 +61,7 @@ function mapp(){
 $mapp1='
     <div id="map"></div>
     <div id="info-box"></div>
+    <div id="butt"> <form ><button onclick="">Click me</button></form></div>  
     <script src="/beweb2017/js/map.php"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&libraries=geometry&callback=initMap" async defer></script>
 ';
