@@ -355,7 +355,7 @@ function registrform(){
     
         
         <div class="form__group">
-            <input type="passwd" name="passwd" placeholder="Password" class="form__input" />
+            <input type="password" name="passwd" placeholder="Password" class="form__input" />
         </div>
         
         <button class="btn" type="submit">Register</button>

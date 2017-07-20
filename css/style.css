@@ -80,6 +80,25 @@ fieldset {
   padding-top: 5px;
   
 }
+.formholder input[type="email"], .formholder input[type="login"] {
+  padding: 7px 5px;
+  margin: 10px 0;
+  width: 96%;
+  display: block;
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  -webkit-transition: 0.3s linear;
+  -moz-transition: 0.3s linear;
+  -o-transition: 0.3s linear;
+  transition: 0.3s linear;
+}
+
+.formholder input[type="email"]:focus, .formholder input[type="login"]:focus {
+  outline: none;
+  box-shadow: 0 0 1px 1px #1abc9c;
+}
+
 .formholder input[type="email"], .formholder input[type="password"] {
   padding: 7px 5px;
   margin: 10px 0;

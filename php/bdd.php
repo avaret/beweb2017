@@ -62,8 +62,26 @@ return $etat;
 
 function addUser($login='', $passwd='',  $isAdmin = 0)
 {
-    $sql ="INSERT INTO USER VALUES ('".$login."','".$passwd."','".$isAdmin."')";
-    echo $sql;
+    $sql ="INSERT INTO USER VALUES ('".$login."','".$passwd."',".$isAdmin.")";
     submit_sql_to_sgbd($sql);
     
+}
+
+function getUser($login='')
+{
+    $dbh=connection();
+    $sql ="SELECT login FROM user WHERE login = :login";
+    $sth=$dbh->prepare($sql);
+    $sth->bindParam(":login", $login, PDO::PARAM_STR);
+    $sth->execute();
+    if($result=$sth->fetch(PDO::FETCH_OBJ))
+    {
+        $etat=1;
+    }
+    else
+    {
+        $etat=0;
+    }
+$sth->closeCursor();
+return $etat;
 }
