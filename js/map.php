@@ -147,15 +147,15 @@ function initMap() {
         $dbh=connection();
 
         //Query the user for start and ending location. Store locations in variables
-        $sql="SELECT navpoint.codeOACI, lat, lon  FROM `navpoint`,aerodrome WHERE navpoint.codeOACI=aerodrome.codeOACI;";
-        $sth=$dbh->prepare($sql);
-        $sth->execute();
+        $sql="SELECT codeOACI, lat, lon FROM `FLIGHT_PATH`";
+        $sth=$dbh->query($sql);
         
-       while($result=$sth->fetch(PDO::FETCH_OBJ)){
+        while($result=$sth->fetch(PDO::FETCH_OBJ)){
             $lat = $result->lat;
             $lon = $result->lon;
-            echo 'new google.maps.LatLng('.$lat.', '.$lon.'),';
+            echo "new googlemaps . LatLng(" . $lat . ", " . $lon . "), \n";
         }
+	$sth->closeCursor();
 
         ?>
     ];
