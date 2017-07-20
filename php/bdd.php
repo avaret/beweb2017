@@ -37,3 +37,33 @@ function submit_sql_to_sgbd($sql, $auto_close=true)
         return $sth;
 }
 
+function testAuth($login='', $passwd=''){
+    $dbh=connection();
+    $sql ="SELECT login, isAdmin FROM user WHERE login = :login AND passwd = :passwd limit 1";
+    $sth=$dbh->prepare($sql);
+    $sth->bindParam(":login", $login, PDO::PARAM_STR);
+    $sth->bindParam(":passwd", $passwd, PDO::PARAM_STR);
+    $sth->execute();
+    if($result=$sth->fetch(PDO::FETCH_OBJ))
+    {
+        $etat=1;
+        $_SESSION['login']=$result->login;
+        $_SESSION['admin']=$result->isAdmin;
+    }
+    else
+    {
+        $etat=0;
+        session_unset();
+        session_destroy();
+    }
+    $sth->closeCursor();
+return $etat;
+}
+
+function addUser($login='', $passwd='',  $isAdmin = 0)
+{
+    $sql ="INSERT INTO USER VALUES ('".$login."','".$passwd."','".$isAdmin."')";
+    echo $sql;
+    submit_sql_to_sgbd($sql);
+    
+}

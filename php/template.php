@@ -1,4 +1,8 @@
 <?php
+
+session_start();
+
+
 function entete($title1){
 $entete1='
 <!DOCTYPE html>
@@ -74,7 +78,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 }
 
 function navbar(){
-$navbar1='
+$navbar1='  ';
+        
+    if(isset($_GET["err"]))
+        {echo '<script>window.alert("Echec d\'authentification")</script>';}
+
+    if(isset($_GET["logout"]))
+    {
+        echo '<script>window.alert("Merci de votre visite!")</script>';
+        session_unset();
+        session_destroy();
+    }
+    
+        echo   '
 <div class="w3-top">
   <div class="w3-bar w3-blue w3-card-2 w3-large">
     <div class="w3-left-align">
@@ -86,25 +102,38 @@ $navbar1='
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
     </div>
     <div class="w3-right-align">
-    <div id="navthing">
-      <h2><a href="#" id="loginform">Login</a> | <a href="http://localhost/beweb2017/php/register.php">Register</a></h2>
-    <div class="login" style="float:right;">
-      <div class="arrow-up"></div>
-      <div class="formholder">
-        <div class="randompad">
-           <fieldset>
-             <label name="email">Email</label>
-             <input type="email" value="example@example.com" />
-             <label name="password">Password</label>
-             <input type="password" />
-             <input type="submit" value="Login" />
- 
-           </fieldset>
-        </div>
-      </div>
+    <form id="auth" method="POST" action="/beweb2017/php/receptlog.php">
+    <div id="navthing">';
+    
+    if(isset($_SESSION["login"]))
+    {
+        echo '<h2>'.$_SESSION["login"].' <a href="/beweb2017/index.php?logout">Se déconnecter</a></h2>';
+    }
+    else
+    {
+        echo '
+        <h2><a href="#" id="loginform">Login</a> | <a href="http://localhost/beweb2017/php/register.php">Register</a></h2>
+          <div class="login" style="float:right;">
+          <div class="arrow-up"></div>
+          <div class="formholder">
+          <div class="randompad">
+            <fieldset>
+                <label name="login">Login</label>
+                <input type="login" name="login" />
+                <label name="password">Password</label>
+                <input type="password" name="passwd" />
+                <input type="submit" value="Login" /> 
+            </fieldset>          
+          </div>
+          </div>
+          </div>
+    ';}
+    
+    echo '
     </div>
+    </form>
     </div>
-    </div>
+   
   </div>
 
   <!-- Navbar on small screens -->
@@ -116,7 +145,8 @@ $navbar1='
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
   </div>
 </div>
-';
+     ';
+    
 return $navbar1;
 }
     
@@ -240,8 +270,21 @@ function registrform(){
     .fa-anchor,.fa-coffee {font-size:200px}
     </style>
     </head><body> 
+      
+   ';
+        
+    if(isset($_GET["err"]))
+        {echo '<script>window.alert("Echec d\'authentification")</script>';}
+
+    if(isset($_GET["logout"]))
+    {
+        echo '<script>window.alert("Merci de votre visite!")</script>';
+        session_unset();
+        session_destroy();
+    }
     
-    <div class="wutwut">
+        echo   '
+<div class="wutwut">
   <div class="w3-bar w3-blue w3-card-2 w3-large">
     <div class="w3-left-align">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
@@ -252,25 +295,38 @@ function registrform(){
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
     </div>
     <div class="w3-right-align">
-    <div id="navthing">
-      <h2><a href="#" id="loginform">Login</a></h2>
-    <div class="login" style="float:right;">
-      <div class="arrow-up"></div>
-      <div class="formholder">
-        <div class="randompad">
-           <fieldset>
-             <label name="email">Email</label>
-             <input type="email" value="example@example.com" />
-             <label name="password">Password</label>
-             <input type="password" />
-             <input type="submit" value="Login" />
- 
-           </fieldset>
-        </div>
-      </div>
+    <form id="auth" method="POST" action="/beweb2017/php/receptlog.php">
+    <div id="navthing">';
+    
+    if(isset($_SESSION["login"]))
+    {
+        echo '<h2>'.$_SESSION["login"].' <a href="/beweb2017/index.php?logout">Se déconnecter</a></h2>';
+    }
+    else
+    {
+        echo '
+        <h2><a href="#" id="loginform">Login</a></h2>
+          <div class="login" style="float:right;">
+          <div class="arrow-up"></div>
+          <div class="formholder">
+          <div class="randompad">
+            <fieldset>
+                <label name="login">Login</label>
+                <input type="login" name="login" />
+                <label name="password">Password</label>
+                <input type="password" name="passwd" />
+                <input type="submit" value="Login" /> 
+            </fieldset>          
+          </div>
+          </div>
+          </div>
+    ';}
+    
+    echo '
     </div>
+    </form>
     </div>
-    </div>
+   
   </div>
 
   <!-- Navbar on small screens -->
@@ -282,6 +338,9 @@ function registrform(){
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
   </div>
 </div>
+     
+     <script src="//code.jquery.com/jquery.min.js"></script>
+     <script src="/beweb2017/js/event.js" type="text/javascript"></script>
     
     <div class="user">
     <header class="user__header">
@@ -289,22 +348,23 @@ function registrform(){
         <h1 class="user__title">S\'inscrire en trois clics</h1>
     </header>
     
-    <form class="form">
+    <form class="form" id="ins" method="POST" action="/beweb2017/php/insert.php">
         <div class="form__group">
-            <input type="text" placeholder="Username" class="form__input" />
+            <input type="login" name="login" placeholder="login" class="form__input" />
         </div>
+    
         
         <div class="form__group">
-            <input type="email" placeholder="Email" class="form__input" />
+            <input type="passwd" name="passwd" placeholder="Password" class="form__input" />
         </div>
         
-        <div class="form__group">
-            <input type="password" placeholder="Password" class="form__input" />
-        </div>
+        <button class="btn" type="submit">Register</button>
         
-        <button class="btn" type="button">Register</button>
     </form>
+    <div id="resultat"></div>
 </div>
+
+
     ';
 return $rgstr;
 }

@@ -1,4 +1,5 @@
 <?php
+
 require_once('php/template.php');
 
 $html=entete('Accueil');
