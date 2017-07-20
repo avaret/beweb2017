@@ -162,9 +162,9 @@ function initMap() {
     // Define the symbol, using one of the predefined paths ('CIRCLE')
     // supplied by the Google Maps JavaScript API.
     var lineSymbol = {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 8,
-        strokeColor: '#393'
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        scale: 5,
+        strokeColor: '#777'
       };
     
     // Define the symbol, using one of the predefined paths ('CIRCLE')
@@ -183,13 +183,10 @@ function initMap() {
         }],
         map: map
     });
+    var lengthInMeters = google.maps.geometry.spherical.computeLength(flightPath.getPath());
+    alert("polyline is "+lengthInMeters/1000+" long");
     
-    
-
-      
-      animateCircle(flightPath);
-    
-
+    animateCircle(flightPath,lengthInMeters);
     flightPath.setMap(map);
     
     downloadUrl('http://localhost/beweb2017/php/generation_map.php', function(data) 
@@ -253,16 +250,16 @@ function doNothing() {}
 
 // Use the DOM setInterval() function to change the offset of the symbol
 // at fixed intervals.
-function animateCircle(line) 
+function animateCircle(line,length) 
 {
     var count = 0;
     window.setInterval(function() 
     {
-      count = (count + 1) % 200;
-
-      var icons = line.get('icons');
-      icons[0].offset = (count / 2) + '%';
-      line.set('icons', icons);
-    }, 20);
+        count = (count + 1) % 2000;
+        document.getElementById('info-box').textContent = Math.round(length*count/2000000) + ' km';
+        var icons = line.get('icons');
+        icons[0].offset = (count / 20) + '%';
+        line.set('icons', icons);
+    }, 10);
 }
 
