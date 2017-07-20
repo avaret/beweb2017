@@ -3,6 +3,8 @@
 include_once 'bdd.php';
 require_once 'bdd.php';
 
+DEFINE("AIRCRAFT_SPEED_KM_H", 260);
+
 class Aerodrome
 {
 	public $code;
@@ -30,7 +32,7 @@ function getAerodromes($dbh)
 	$id=0;
 	while($result=$sth->fetch(PDO::FETCH_OBJ))
 	{
-		$listAerodrome[$id] = new Aerodrome($result->codeOACI,$result->lon,$result->lat, $result->no_zone);
+		$listAerodrome[$id] = new Aerodrome($result->codeOACI,$result->lat,$result->lon, $result->no_zone);
 		$id++;
 	}
 	$sth->closeCursor();
@@ -95,6 +97,7 @@ function searchC($list, $what)
 	return $k;            
 }
 
+/* Retourne la distance en km entre 2 aérodromes */
 function dist($ad1,$ad2)
 {
 	$r = 6366;
@@ -112,9 +115,9 @@ function dist($ad1,$ad2)
 function calculAngle($ad1,$ad2)
 {
     $lat1 = deg2rad($ad1->lat);
-	$lon1 = deg2rad($ad1->long);
-	$lat2 = deg2rad($ad2->lat);
-	$lon2 = deg2rad($ad2->long);
+    $lon1 = deg2rad($ad1->long);
+    $lat2 = deg2rad($ad2->lat);
+    $lon2 = deg2rad($ad2->long);
     $y = sin($lon2-$lon1) * cos($lat2);
     $x = cos($lat1)*sin($lat2)-sin($lat1)*cos($lat2)*cos($lon2-$lon1);
     return $brng = (atan2($y, $x)/3.1415926) * 180;
@@ -124,9 +127,9 @@ function calculAngle2($ad1, $ad2)
 {
 
     $lat1 = ($ad1->lat);
-	$lon1 = ($ad1->long);
-	$lat2 = ($ad2->lat);
-	$lon2 = ($ad2->long);
+    $lon1 = ($ad1->long);
+    $lat2 = ($ad2->lat);
+    $lon2 = ($ad2->long);
     
     $dLon = deg2rad($lon2) - deg2rad($lon1);
     $dPhi = log(tan(deg2rad($lat2) / 2 + pi() / 4) / tan(deg2rad($lat1) / 2 + pi() / 4));
@@ -172,7 +175,7 @@ function appendAerodrome($dbh, $idFlight, $takeofftime, $newAerodrome, $previous
 
 function appendAerodromeWithoutWind($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome)
 {
-	appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, 0);
+	return appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, AIRCRAFT_SPEED_KM_H);
 }
 
 function appendAerodromeWithWindSimpleModel($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $windInformations)
@@ -182,13 +185,13 @@ function appendAerodromeWithWindSimpleModel($dbh, $idFlight, $takeofftime, $newA
 
 	// 2. Calculer la pénalité temporelle
 	// Rq: windSpeed € 0..40 NM, windDirection € 0..360°
-	$windPenality = 0.2 * $wind->windSpeed * ($wind->windDirection/360); // TODO Quelle formule ?
+	$groundSpeed_km_h = groundSpeed(calculAngle2($newAerodrome,$previousAerodrome),$wind->windDirection, $wind->$windSpeed);
 
 	// 3. Ajouter le NavPoint
-	appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $windPenality);
+	return appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $groundSpeed_km_h);
 }
 
-function appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $Metar)
+function appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $groundSpeed_km_h)
 {
 	$dureeVol = 0;
 	$distanceVol = 0.0;
@@ -197,10 +200,9 @@ function appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $p
 	if($newAerodrome != $previousAerodrome)
 	{
 		$distanceVol = dist($newAerodrome, $previousAerodrome);
-		$dureeVol = $distanceVol / groundSpeed(calculAngle2($newAerodrome,$previousAerodrome),$Metar[$newAerodrome->zone]->Direction,$Metar[$newAerodrome->zone]->Speed); // TODO Check it definitively not working
+		$dureeVol = $distanceVol / $groundSpeed_km_h / 3600; /* en seconde */
+		echo " Durée du vol : " . $dureeVol . " = " . $distanceVol . " / " . $groundSpeed_km_h . " / 3600 ";
 	}
-
-	//$dureeVol = $dureeVol + $windPenality;
 
 	// On ne redécolle pas si on va dépasser les 24 heures
 	if($dureeVol > 86400)
@@ -298,18 +300,13 @@ function extractInfosWindFromMetars($METARinCache, $no_zone, $temps)
 	return $windInfo;
 }
 
-function groundSpeed($angleAvion,$angleVent,$forceVent)//angleVent=30 le vent vient du cap 30°
+function groundSpeed($angleAvion_deg, $angleVent_deg, $forceVent_km_h) //angleVent=30 le vent vient du cap 30°
 {
-   return $speed=200-cos(deg2rad($angleVent-$angleAvion))*$forceVent; //200 is the speed of the plane, to change later with the accurate value
+   return $speed_km_h=AIRCRAFT_SPEED_KM_H - cos(deg2rad($angleVent_deg-$angleAvion_deg)) * $forceVent_km_h;
 }
 
-
-function test_me()
+function test_metars()
 {
-	echo '<pre>';
-	echo "Create/recreate Wind Infos... ";
-	createWindInfos(time());
-
 	/*echo " test getMetars: ";
 	$cache = getMetars(connection());
 
@@ -320,6 +317,38 @@ function test_me()
 	extractInfosWindFromMetars($cache, 4, time()+10400);// +3h
 	extractInfosWindFromMetars($cache, 0, time()+86420);// +24h20s
 	extractInfosWindFromMetars($cache, 7, time()+86420);// +24h20s*/
+
+}
+
+function test_groundspeedfunction()
+{
+	/*
+	echo calculAngle2(new Aerodrome('LFGA',48.1036, 7.33019,'3'),new Aerodrome('LFBR',43.4432, 1.27331,'2'));
+
+	echo groundSpeed(222,100,50);
+	*/
+	
+	echo "EST OUEST";
+	$newAerodrome = new Aerodrome("LFAA",45.0,5.0, 1);
+	$previousAerodrome= new Aerodrome("LFBA",45.0,25.0, 1);
+	for($i=0;$i<36;$i++)
+	{
+		echo $i . "° >> " . groundSpeed(calculAngle2($newAerodrome,$previousAerodrome),10*$i, 100) . " <br /> ";
+	}
+	echo "<hr>NORD SUD<br/>";
+	$newAerodrome = new Aerodrome("LFAA",45.0,5.0, 1);
+	$previousAerodrome= new Aerodrome("LFBA",65.0,5.0, 1);
+	for($i=0;$i<36;$i++)
+	{
+		echo $i . "° >> " . groundSpeed(calculAngle2($newAerodrome,$previousAerodrome),10*$i, 100) . " <br /> ";
+	}
+}
+
+function test_me()
+{
+	echo '<pre>';
+	echo "Create/recreate Wind Infos... ";
+	createWindInfos(time());
 
 	$idFl = "F-TEST";
 	echo "Delete Nav... ";
@@ -333,8 +362,5 @@ function test_me()
 }
 
 /* Programme principal */
-//test_me();
-//echo calculAngle2(new Aerodrome('LFGA',48.1036, 7.33019,'3'),new Aerodrome('LFBR',43.4432, 1.27331,'2'));
-
-echo groundSpeed(222,100,50);
+test_me();
 ?>
