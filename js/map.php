@@ -134,10 +134,30 @@ function initMap() {
     
     var flightPlanCoordinates = //Donne les coordonné des points de passages
     [
-      {lng: 5.33778, lat: 45.9797},
-      {lng: -0.85028, lat: 48.1772},
-      {lng: 6.26833, lat: 46.1919},
-      {lng: 0.09944, lat: 48.1953}
+//      {lng: 5.33778, lat: 45.9797},
+//      {lng: -0.85028, lat: 48.1772},
+//      {lng: 6.26833, lat: 46.1919},
+//      {lng: 0.09944, lat: 48.1953}
+        
+        <?php
+        include_once '../php/bdd.php';
+        require_once '../php/bdd.php';
+
+        //switch to correct database
+        $dbh=connection();
+
+        //Query the user for start and ending location. Store locations in variables
+        $sql="SELECT navpoint.codeOACI, lat, lon  FROM `navpoint`,aerodrome WHERE navpoint.codeOACI=aerodrome.codeOACI;";
+        $sth=$dbh->prepare($sql);
+        $sth->execute();
+        
+       while($result=$sth->fetch(PDO::FETCH_OBJ)){
+            $lat = $result->lat;
+            $lon = $result->lon;
+            echo 'new google.maps.LatLng('.$lat.', '.$lon.'),';
+        }
+
+        ?>
     ];
     
     var flightPath = new google.maps.Polyline( //définie le style de la trajectoire

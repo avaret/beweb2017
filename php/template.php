@@ -25,7 +25,7 @@ function mapp(){
 $mapp1='
     <div id="map"></div>
     <div id="info-box"></div>
-    <script src="/beweb2017/js/map.js"></script>
+    <script src="/beweb2017/js/map.php"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&callback=initMap" async defer></script>
 ';
     return $mapp1;
