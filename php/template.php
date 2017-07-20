@@ -3,26 +3,51 @@
 session_start();
 
 
-function entete($title1){
-$entete1='
-<!DOCTYPE html>
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>'.$title1.'</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/beweb2017/css/w3.css">
-<link rel="stylesheet" href="/beweb2017/css/css_002.css">
-<link rel="stylesheet" href="/beweb2017/css/css.css">
-<link rel="stylesheet" href="/beweb2017/css/font-awesome.css">
-<link rel="stylesheet" href="/beweb2017/css/style.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-.fa-anchor,.fa-coffee {font-size:200px}
-</style>
-</head><body> 
-';
-return $entete1;
+function entete($title1, $forMap = false)
+{
+	$entete1='
+		<!DOCTYPE html>
+		<html><head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>'.$title1.'</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="/beweb2017/css/w3.css">
+		<link rel="stylesheet" href="/beweb2017/css/css_002.css">
+		<link rel="stylesheet" href="/beweb2017/css/css.css">
+		<link rel="stylesheet" href="/beweb2017/library/font-awesome.css">
+		<link rel="stylesheet" href="/beweb2017/css/style.css">
+		<link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
+		<style>
+		body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+		.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+		.fa-anchor,.fa-coffee {font-size:200px}';
+	
+	if($forMap) {
+	$entete1.='
+	        #map {
+	            height: 100%;
+	        }
+	        /* Optional: Makes the sample page fill the window. */
+	        
+	        html,
+	        body {
+	            height: 100%;
+	            margin: 0;
+	            padding: 0;
+	        }
+	        #info-box {
+	            background-color: white;
+	            border: 1px solid black;
+	            bottom: 30px;
+	            height: 20px;
+	            padding: 10px;
+	            position: absolute;
+	            left: 30px;
+	        } ';
+	}
+	
+	$entete1.='</style></head><body> ';
+	return $entete1;
 }
 
 function mapp(){
@@ -30,89 +55,57 @@ $mapp1='
     <div id="map"></div>
     <div id="info-box"></div>
     <script src="/beweb2017/js/map.php"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&libraries=geometry&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&callback=initMap" async defer></script>
 ';
     return $mapp1;
 }
 function entetemap(){
-    $entetemap='
-<!DOCTYPE html>
-    <html><head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Course</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/beweb2017/css/w3.css">
-    <link rel="stylesheet" href="/beweb2017/css/css_002.css">
-    <link rel="stylesheet" href="/beweb2017/css/css.css">
-    <link rel="stylesheet" href="/beweb2017/css/font-awesome.css">
-    <link rel="stylesheet" href="/beweb2017/css/style.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-.fa-anchor,.fa-coffee {font-size:200px}
-        #map {
-            height: 100%;
-        }
-        /* Optional: Makes the sample page fill the window. */
-        
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        #info-box {
-            background-color: white;
-            border: 1px solid black;
-            bottom: 20px;
-            height: 35px;
-            padding: 10px;
-            position: absolute;
-            left: 30px;
-        }
-
-    </style>
-</head><body>
-    ';
-    return $entetemap;
+    return entete("Course", true);
 }
 
-function navbar(){
-$navbar1='  ';
+
+function navbar($isRegistering = false){
+    $navbar1=" \n\n <!--- NAVBAR  --> \n";
         
     if(isset($_GET["err"]))
-        {echo '<script>window.alert("Echec d\'authentification")</script>';}
+        {$navbar1 .= '<script>window.alert("Echec d\'authentification")</script>';}
 
     if(isset($_GET["logout"]))
     {
-        echo '<script>window.alert("Merci de votre visite!")</script>';
+        $navbar1 .= '<script>window.alert("Merci de votre visite!")</script>';
         session_unset();
         session_destroy();
     }
     
-        echo   '
+        $navbar1 .=   '
 <div class="w3-top">
   <div class="w3-bar w3-blue w3-card-2 w3-large">
-    <div class="w3-left-align">
+    <span class="w3-left-align">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Accueil</a>
     <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Les règles</a>
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
     <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
-    </div>
-    <div class="w3-right-align">
+    </span>
+    <span class="w3-right-align" style="float:right">
     <form id="auth" method="POST" action="/beweb2017/php/receptlog.php">
     <div id="navthing">';
     
     if(isset($_SESSION["login"]))
     {
-        echo '<h2>'.$_SESSION["login"].' <a href="/beweb2017/index.php?logout">Se déconnecter</a></h2>';
+        $navbar1 .= '    '.$_SESSION["login"].' <a href="/beweb2017/index.php?logout">Se déconnecter</a>     ';
     }
     else
     {
-        echo '
-        <h2><a href="#" id="loginform">Login</a> | <a href="http://localhost/beweb2017/php/register.php">Register</a></h2>
+        $navbar1 .= '
+            <a href="#" id="loginform" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</a>';
+
+	if(!$isRegistering) {	
+		$navbar1 .= '  <a href="http://localhost/beweb2017/php/register.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Register</a>     ';
+        }
+
+	$navbar1 .= '
           <div class="login" style="float:right;">
           <div class="arrow-up"></div>
           <div class="formholder">
@@ -129,10 +122,10 @@ $navbar1='  ';
           </div>
     ';}
     
-    echo '
+    $navbar1 .= '
     </div>
     </form>
-    </div>
+    </span>
    
   </div>
 
@@ -147,7 +140,8 @@ $navbar1='  ';
 </div>
      ';
     
-return $navbar1;
+    $navbar1.=" \n\n <!--- END OF NAVBAR  --> \n";
+    return $navbar1;
 }
     
 function footer(){
@@ -169,7 +163,7 @@ function myFunction() {
 
 </script>
 
- <script src="/beweb2017/js/jquery.min.js"></script>
+ <script src="/beweb2017/library/jquery.min.js"></script>
 
     <script src="/beweb2017/js/index.js"></script>
 
@@ -253,7 +247,7 @@ return $resultt;
 
 function registrform(){
     
-    $rgstr='
+    $registring = '
     <!DOCTYPE html>
     <html><head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Register</title>
@@ -262,8 +256,9 @@ function registrform(){
     <link rel="stylesheet" href="/beweb2017/css/w3.css">
     <link rel="stylesheet" href="/beweb2017/css/css_002.css">
     <link rel="stylesheet" href="/beweb2017/css/css.css">
-    <link rel="stylesheet" href="/beweb2017/css/font-awesome.css">
+    <link rel="stylesheet" href="/beweb2017/library/font-awesome.css">
     <link rel="stylesheet" href="/beweb2017/css/registr.css">
+    <link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
     <style>
     body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -274,71 +269,18 @@ function registrform(){
    ';
         
     if(isset($_GET["err"]))
-        {echo '<script>window.alert("Echec d\'authentification")</script>';}
+        {$registring .= '<script>window.alert("Echec d\'authentification")</script>';}
 
     if(isset($_GET["logout"]))
     {
-        echo '<script>window.alert("Merci de votre visite!")</script>';
+        $registring .= '<script>window.alert("Merci de votre visite!")</script>';
         session_unset();
         session_destroy();
     }
     
-        echo   '
-<div class="wutwut">
-  <div class="w3-bar w3-blue w3-card-2 w3-large">
-    <div class="w3-left-align">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Accueil</a>
-    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Les règles</a>
-    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
-    <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
-    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
-    </div>
-    <div class="w3-right-align">
-    <form id="auth" method="POST" action="/beweb2017/php/receptlog.php">
-    <div id="navthing">';
-    
-    if(isset($_SESSION["login"]))
-    {
-        echo '<h2>'.$_SESSION["login"].' <a href="/beweb2017/index.php?logout">Se déconnecter</a></h2>';
-    }
-    else
-    {
-        echo '
-        <h2><a href="#" id="loginform">Login</a></h2>
-          <div class="login" style="float:right;">
-          <div class="arrow-up"></div>
-          <div class="formholder">
-          <div class="randompad">
-            <fieldset>
-                <label name="login">Login</label>
-                <input type="login" name="login" />
-                <label name="password">Password</label>
-                <input type="password" name="passwd" />
-                <input type="submit" value="Login" /> 
-            </fieldset>          
-          </div>
-          </div>
-          </div>
-    ';}
-    
-    echo '
-    </div>
-    </form>
-    </div>
-   
-  </div>
-
-  <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-padding-large">Accueil</a>
-    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-padding-large">Les règles</a>
-    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-padding-large">Map</a>
-    <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-padding-large">Résultats</a>
-    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
-  </div>
-</div>
+	$registring .= navbar(true);
      
+	$registring .= '
      <script src="//code.jquery.com/jquery.min.js"></script>
      <script src="/beweb2017/js/event.js" type="text/javascript"></script>
     
@@ -366,6 +308,6 @@ function registrform(){
 
 
     ';
-return $rgstr;
+     return $registring;
 }
 ?>
