@@ -2,7 +2,7 @@
 
 DEFINE("SGBD_SERVER","localhost");
 DEFINE("LOGIN","root");
-DEFINE("PASSWORD","");
+DEFINE("PASSWORD","mysql");
 DEFINE("DATABASE_NAME","beweb_2017");
 
 /* connexion: FR, connection: EN */
@@ -17,8 +17,17 @@ function connection()
     }
     catch(PDOException $e)
     {
-        echo 'Connection failed to the SGBD: '.$e->getMessage();
-        return "fail";
+	// Avant d'abandonner, essayer de se connecter SANS mot de passe/avec un mot de passe vide '
+	    try
+	    {
+		    $dbh=new PDO($connStr, LOGIN, "");
+		    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	    }
+	    catch(PDOException $e)
+	    {
+		    echo 'Connection failed to the SGBD: '.$e->getMessage();
+		    return "fail";
+	    }
     }
     return $dbh;
 }
