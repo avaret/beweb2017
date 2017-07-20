@@ -17,6 +17,7 @@ function entete($title1, $forMap = false)
 		<link rel="stylesheet" href="/beweb2017/library/font-awesome.css">
 		<link rel="stylesheet" href="/beweb2017/css/style.css">
 		<link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
+        <link rel="stylesheet" href="/beweb2017/library/bootstrap-table.min.css">
 		<style>
 		body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 		.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -78,7 +79,6 @@ function navbar($isRegistering = false){
     }
     
         $navbar1 .=   '
-<div class="wutwut">
 <div class="w3-top">
   <div class="w3-bar w3-blue w3-card-2 w3-large">
     <span class="w3-left-align">
@@ -88,9 +88,10 @@ function navbar($isRegistering = false){
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
     <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
+    <a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">PageAdmin</a>   
     </span>
     <span class="w3-right-align" style="float:right">
-    <form id="auth" method="POST" action="/beweb2017/php/receptlog.php">
+    
     <div id="navthing">';
     
     if(isset($_SESSION["login"]))
@@ -112,7 +113,6 @@ function navbar($isRegistering = false){
     
     $navbar1 .= '
     </div>
-    </form>
     </span>
    
   </div>
@@ -126,7 +126,7 @@ function navbar($isRegistering = false){
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
   </div>
 </div>
-</div>
+
      ';
     
      $navbar1 .= '
@@ -134,6 +134,7 @@ function navbar($isRegistering = false){
               <div class="arrow-up"></div>
               <div class="formholder">
               <div class="randompad">
+              <form id="auth" method="POST" action="/beweb2017/php/receptlog.php">
                 <fieldset>
                     <label name="login">Login</label>
                     <input type="login" name="login" />
@@ -141,6 +142,7 @@ function navbar($isRegistering = false){
                     <input type="password" name="passwd" />
                     <input type="submit" value="Login" /> 
                 </fieldset>          
+                </form>
               </div>
               </div>
               </div>
@@ -168,7 +170,9 @@ function myFunction() {
 
 </script>
 
- <script src="/beweb2017/library/jquery.min.js"></script>
+<script src="/beweb2017/library/jquery.min.js"></script>
+<script src="/beweb2017/library/bootstrap.min.js"></script>
+<script src="/beweb2017/library/bootstrap-table.min.js"></script>
 
     <script src="/beweb2017/js/index.js"></script>
 
@@ -262,6 +266,7 @@ function registrform(){
     <link rel="stylesheet" href="/beweb2017/css/css_002.css">
     <link rel="stylesheet" href="/beweb2017/css/css.css">
     <link rel="stylesheet" href="/beweb2017/library/font-awesome.css">
+    <link rel="stylesheet" href="/beweb2017/css/style.css">
     <link rel="stylesheet" href="/beweb2017/css/registr.css">
     <link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
     <style>
