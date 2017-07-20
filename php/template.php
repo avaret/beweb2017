@@ -348,14 +348,14 @@ function registrform(){
         <h1 class="user__title">S\'inscrire en trois clics</h1>
     </header>
     
-    <form class="form" method="POST" action="/beweb2017/php/insert.php">
+    <form class="form" id="ins" method="POST" action="/beweb2017/php/insert.php">
         <div class="form__group">
-            <input type="login" placeholder="login" class="form__input" />
+            <input type="login" name="login" placeholder="login" class="form__input" />
         </div>
     
         
         <div class="form__group">
-            <input type="passwd" placeholder="Password" class="form__input" />
+            <input type="passwd" name="passwd" placeholder="Password" class="form__input" />
         </div>
         
         <button class="btn" type="submit">Register</button>

@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $("form#form").on("submit", function( event){
+    $("form#ins").on("submit", function( event){
         event.preventDefault();
         $.ajax({
-            url : '/beweb2017/php/bdd.php/insert',
+            url : '/beweb2017/php/insert.php',
             type : 'POST',
             data: $( this ).serialize(),
             dataType: 'html',
