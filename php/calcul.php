@@ -40,33 +40,86 @@ function getAerodromes($dbh)
 	return $listAerodrome;
 }
 
+function sanitize($var, $type = "all")
+{
+	switch($type) {
+	case 'html':
+		$safe = htmlspecialchars($var);
+		break;
+	case 'sql':
+		$safe = preg_replace('~[\x00\x0A\x0D\x1A\x22\x25\x27\x5C\x5F]~u', '', $var);
+		break;
+	case 'file':
+		$safe = preg_replace('/(\/|-|_)/','',$var);
+		break;
+	case 'shell':
+		$safe = escapeshellcmd($var);
+		break;
+	default:
+		$safe = sanitize(sanitize(sanitize(sanitize( $var , 'shell') , 'file'), 'html'), 'sql');
+	}
+	return $safe;
+}
+
 /*
- *  generate_trajectory génère un vol associé à une trajectoire complète avec 100 aérodromes.
+ *  generate_trajectory génère un vol associé à une trajectoire complète avec au plus 100 aérodromes, on s'arrête juste avant de dépasser 24 heures.
  *
  * @param idFlight	Le FlightId à utiliser pour le vol à créer
  *
  * @param firstAerodrome Nom de l'Aérodrome utilisé pour démarrer la trajectoire (=décollage initial)
  *
+ * @param teamName, aircraftNumber, login, useWind, racebegintime : Explicite
+ *
  */
-function generate_trajectory($idFlight, $firstAerodrome)
+function generate_trajectory($idFlight, $firstAerodrome, $teamName = "Some team", $aircraftNumber = "F-THIS", $login = "71r3d", $useWind = true, $racebegintime = 0)
 {
+	// 0. Sanitize
+	$idFlight = sanitize($idFlight, 'sql');
+	$firstAerodrome = sanitize($firstAerodrome, 'sql');
+	$teamName = sanitize($teamName, 'sql');
+	$aircraftNumber = sanitize($aircraftNumber, 'sql');
+
+	if(strlen($idFlight) > 16)
+		return "The Flight Identifier must be shorter than 16 characters.";
+
+	if(strlen($firstAerodrome) != 4 || $firstAerodrome[0] != 'L' || $firstAerodrome[1] != 'F')
+		return "The first Aerodrome must be exactly 4 characters and begin by 'LF'.";
+
+	if(strlen($teamName) > 64)
+		return "The team name must not exceed 32 characters.";
+
+	if(strlen($aircraftNumber) != 6)
+		return "The Aircraft Registration/number must be exactly 6 characters.";
+
+
 	// 1. Initialiser le sgbd
 	$dbh=connection();
 
 	// 2. Récup la liste des aérodromes
 	$listAerodrome=getAerodromes($dbh);
 	$key=searchC($listAerodrome,$firstAerodrome);
+	if(!$key)
+		return "Impossible de créer le vol: l'aérodrome de départ n'existe probablement pas dans la base de données.";
+
 	$listN[0]=$listAerodrome[$key];
 
 	// 2w. Récup le vent
-	$cacheWindInfos = getMetars($dbh);
+	if($useWind)
+		$cacheWindInfos = getMetars($dbh);
+	else
+		$cacheWindInfos = NULL;
 
 	// 3. Créer le vol
-	createFlight($dbh, $idFlight,"Some team","F-THIS","71r3d");
+	try {
+		createFlight($dbh, $idFlight, $teamName, $aircraftNumber, $login);
+	} catch (PDOException $e) {
+		return "Impossible de créer le vol : l'identifiant du Vol (FlightId) est probablement déjà utilisé.";
+	}
 
 	// 4. Ajouter l'aérodrome de départ
 	$aerodrome = $listAerodrome[$key];
-	$t = appendAerodrome( $dbh, $idFlight, /*datetime_sec*/ 0, $aerodrome, $aerodrome, $cacheWindInfos);
+	$t = appendAerodrome( $dbh, $idFlight, $racebegintime, $racebegintime, $aerodrome, $aerodrome, $cacheWindInfos);
+
 	array_splice($listAerodrome, $key, 1); //remove this airport from the list
 
 	// 5. Ajouter jusqu'à 100 aérodromes suivants
@@ -74,17 +127,34 @@ function generate_trajectory($idFlight, $firstAerodrome)
 	{
 		$aerodrome_previous = $aerodrome;
 
+		// Méthode 1: ajouter aléatoirement n'importe quel aérodrome
 		$id=rand(0,count($listAerodrome)-1);
+
+		// Méthode 2: ajouter aléatoirement un aérodrome pas trop loin 3 fois sur 4, un aérodrome loin 1 fois sur 4
+		if($id%4==0)
+		{
+			// Chercher aérodrome loin
+			$id=rand(0,count($listAerodrome)-1);
+		} else {
+			$tentative = 0;
+			// Chercher aérodrome proche
+			do {
+				$id=rand(0,count($listAerodrome)-1);
+				$dist_proche = dist($aerodrome_previous, $listAerodrome[$id]) < 200;
+				$tentative++;
+			} while($tentative<20);
+		}
+		
 		$listN[$i]=$listAerodrome[$id];
 		$aerodrome =$listAerodrome[$id];
 
-		$t += appendAerodrome( $dbh, $idFlight, /*datetime_sec*/ $t, $aerodrome, $aerodrome_previous, $cacheWindInfos);
+		$t = appendAerodrome( $dbh, $idFlight, /*datetime_sec*/ $t, $racebegintime, $aerodrome, $aerodrome_previous, $cacheWindInfos);
 		array_splice($listAerodrome, $id, 1);
-		if($t >= 86400) // S'arrêter quand on atteind les 24 heures
+		if($t == NULL) // S'arrêter quand on atteind les 24 heures
 			break;
 
 	}
-	return $listN;
+	return NULL;
 }
 
 function searchC($list, $what)
@@ -160,39 +230,36 @@ function createFlight($dbh, $idFlight,$nameTeam,$aircraftNumber,$user)
 /* appendAerodrome ajoute un NavPoint à la DB.
  *  @param	$dbh			Objet de connexion au SGBD
  *  @param	$idFlight 		(explicite)
- *  @param	$takeofftime	Moment du décollage (exprimé en seconde)
+ *  @param	$takeofftime		Moment du décollage (exprimé en seconde)
+ *  @param	$racebegintime		Moment du déébut de la course (du tout premier décollage, pour limiter à 24h)
  *  @param	$newAerodrome		(explicite)
  *  @param	$previousAerodrome 	(explicite)
- *  @param	$windInformations 	(explicite)
+ *  @param	$windInformations 	(explicite) mettre NULL pour ignorer l'effet du vent
  *
- *  @return	La durée calculée du vol (en seconde)
+ *  @return	L'heure d'atterrissage (=La durée calculée du vol (en seconde) + l'heure de décollage) OU NULL si dépassement des 24 heures
+ *
+ *  Remarque: le vol n'est PAS ajouté si on dépasse les 24 heures !!
  */
-function appendAerodrome($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $windInformations = NULL)
+function appendAerodrome($dbh, $idFlight, $takeofftime, $racebegintime, $newAerodrome, $previousAerodrome, $windInformations = NULL)
 {
-	//return appendAerodromeWithWind($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $windInformations);
-	return appendAerodromeWithoutWind($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome);
-}
+	if($windInformations)
+	{
+		// 1. Lire le METAR correspondant à l'ancien aérodrome au moment du décollage
+		$wind = extractInfosWindFromMetars($windInformations, $newAerodrome->zone, $takeofftime, $racebegintime);
 
-function appendAerodromeWithoutWind($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome)
-{
-	return appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, AIRCRAFT_SPEED_KM_H);
-}
+		// 2. Calculer la pénalité temporelle
+		// Rq: windSpeed € 0..40 NM, windDirection € 0..360°
+		$groundSpeed_km_h = groundSpeed(calculAngle2($newAerodrome,$previousAerodrome), $wind["windDirection"], $wind["windSpeed"]);
 
-function appendAerodromeWithWindSimpleModel($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $windInformations)
-{
-	// 1. Lire le METAR correspondant à l'ancien aérodrome au moment du décollage
-	$wind = extractInfosWindFromMetars($windInformations, $newAerodrome->no_zone, $takeofftime);
+		// 3. Ajouter le NavPoint
+	}
+	else
+	{
+		// Pas de vent !
+		$groundSpeed_km_h = AIRCRAFT_SPEED_KM_H;
+	}
 
-	// 2. Calculer la pénalité temporelle
-	// Rq: windSpeed € 0..40 NM, windDirection € 0..360°
-	$groundSpeed_km_h = groundSpeed(calculAngle2($newAerodrome,$previousAerodrome),$wind->windDirection, $wind->$windSpeed);
 
-	// 3. Ajouter le NavPoint
-	return appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $groundSpeed_km_h);
-}
-
-function appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $previousAerodrome, $groundSpeed_km_h)
-{
 	$dureeVol = 0;
 	$distanceVol = 0.0;
 
@@ -204,21 +271,21 @@ function appendAerodrome_helper($dbh, $idFlight, $takeofftime, $newAerodrome, $p
 	}
 
 	// On ne redécolle pas si on va dépasser les 24 heures
-	if($dureeVol > 86400)
-		return $dureeVol;
+	$landingtime = $takeofftime + $dureeVol;
+	if($landingtime > $racebegintime + 86400)
+		return NULL;
 
 	// 2: ajouter le Navpoint
-	$zeroTime = time(); // TODO Changer time()...
-	$datetime = date('Y-m-d G:i:s',$zeroTime+$takeofftime+$dureeVol); 
+	$datetime = date('Y-m-d G:i:s',$landingtime); 
 	$sql="INSERT INTO `NAVPOINT` (codeOACI, idFlight, datetimePoint, distanceToPreviousNavPoint) VALUES ('" 
-		. $newAerodrome->code . "', '" . $idFlight . "', '" . $datetime . "', '" . $dureeVol . "');";
+		. $newAerodrome->code . "', '" . $idFlight . "', '" . $datetime . "', '" . $distanceVol . "');";
 
 	$sth=$dbh->prepare($sql);
 	$sth->execute();
 	$sth->closeCursor();
 
 	// 3: fin, on retourne la durée en seconde du vol
-	return $dureeVol;
+	return $landingtime;
 }
 
 
@@ -267,8 +334,8 @@ function getMetars($dbh)
 	while($result=$sth->fetch(PDO::FETCH_OBJ))
 	{
 		$listMetar[$result->no_zone][strtotime($result->datetimeMetar)] = 
-			array("Speed" => $result->windSpeed,
-					"Direction" => $result->windDirection);
+			array("windSpeed" => $result->windSpeed,
+					"windDirection" => $result->windDirection);
 	}
 	$sth->closeCursor();
 	/*FOR TEST*/ // print_r($listMetar); /*FOR TEST*/
@@ -361,5 +428,28 @@ function test_me()
 }
 
 /* Programme principal */
-test_me();
+
+if(isset($_POST["idFlight"])) 
+{
+	if(strlen($_POST["idFlight"]) == 0)
+		echo "Impossible d omettre le Flight Id !";
+	else
+	{
+		session_start(); // Pour récup le login
+		// echo $_POST["idFlight"]. $_POST["firstAerodrome"]. $_POST["teamName"]. $_POST["aircraftNumber"]. $_SESSION["login"];
+		do {
+			// On ajoute toujours au minimum un vol !
+			if($_POST["repeatCount"] > 1)
+				$idF = $_POST["idFlight"] . $_POST["repeatCount"] ;
+			else
+				$idF = $_POST["idFlight"] ;
+			echo generate_trajectory($idF, $_POST["firstAerodrome"], $_POST["teamName"], $_POST["aircraftNumber"], $_SESSION["login"], $_POST["useWind"] == "on", strtotime($_POST["startTime"]));
+			$_POST["repeatCount"]--;
+		} while($_POST["repeatCount"] > 0);
+	}
+} else {
+	// direct call => debug mode
+	test_me();
+}
+
 ?>
