@@ -347,6 +347,7 @@ function getMetars($dbh)
  */
 function extractInfosWindFromMetars($METARinCache, $no_zone, $temps)
 {
+	$windInfo = NULL; // Au cas où il n'y aurait aucune info, on retourne NULL.
 	$MetarZone = $METARinCache[$no_zone]; // Extraire LA zone concernée
 
 	// Parcourir les temps
@@ -429,8 +430,14 @@ function test_me()
 
 /* Programme principal */
 
-if(isset($_POST["idFlight"])) 
-{
+if(isset($_POST["timeToGenerateWind"])) {
+	// Est-ce le cas "Générer du vent" ?
+	createWindInfos(strtotime($_POST["timeToGenerateWind"]));
+	header( "refresh:5;url=/beweb2017/php/pageadmin.php" );
+	echo "Les données de vent ont été générées... Vous serez redirigé dans 5 secondes vers la page d'accueil. En cas de problème, <a href='/beweb2017/php/pageadmin.php'> cliquez ici.</a>";
+
+} else if(isset($_POST["idFlight"])) {
+	// Est-ce le cas "Ajouter Un Vol" ?
 	if(strlen($_POST["idFlight"]) == 0)
 		echo "Impossible d omettre le Flight Id !";
 	else
@@ -439,11 +446,16 @@ if(isset($_POST["idFlight"]))
 		// echo $_POST["idFlight"]. $_POST["firstAerodrome"]. $_POST["teamName"]. $_POST["aircraftNumber"]. $_SESSION["login"];
 		do {
 			// On ajoute toujours au minimum un vol !
+			
 			if($_POST["repeatCount"] > 1)
 				$idF = $_POST["idFlight"] . $_POST["repeatCount"] ;
 			else
 				$idF = $_POST["idFlight"] ;
-			echo generate_trajectory($idF, $_POST["firstAerodrome"], $_POST["teamName"], $_POST["aircraftNumber"], $_SESSION["login"], $_POST["useWind"] == "on", strtotime($_POST["startTime"]));
+
+			$useWind = (isset($_POST["useWind"]) && ($_POST["useWind"] == "on") );
+
+			echo generate_trajectory($idF, $_POST["firstAerodrome"], $_POST["teamName"], $_POST["aircraftNumber"], $_SESSION["login"], $useWind, strtotime($_POST["startTime"]));
+
 			$_POST["repeatCount"]--;
 		} while($_POST["repeatCount"] > 0);
 	}

@@ -52,7 +52,7 @@ function submit_sql_to_sgbd($sql, $auto_close=true)
 
 function testAuth($login='', $passwd=''){
 	$dbh=connection();
-	$sql ="SELECT login, isAdmin FROM user WHERE login = :login AND passwd = :passwd limit 1";
+	$sql ="SELECT login, isAdmin FROM `USER` WHERE login = :login AND passwd = :passwd limit 1";
 	$sth=$dbh->prepare($sql);
 	$sth->bindParam(":login", $login, PDO::PARAM_STR);
 	$sth->bindParam(":passwd", $passwd, PDO::PARAM_STR);

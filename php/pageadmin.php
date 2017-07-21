@@ -11,7 +11,7 @@ echo navbar();
 <div class="remplissage"> <h2> Page administrateur</h2> </div>
 
 <div class="remplissage">
-<table class="table table-inverse" data-toggle="table" data-search="true" data-pagination="true" data-page-size="3">
+<table class="table table-inverse" data-toggle="table" data-search="true" data-pagination="true" data-page-size="20">
   <thead>
     <tr>
       <th data-field="col1" data-sortable="true">login</th>
@@ -52,6 +52,16 @@ echo navbar();
 </div>
 
 <div class="remplissage">
+  <p> <b> Génération du vent : </b>
+
+     <form id="addWind" method="POST" action="/beweb2017/php/calcul.php">
+	 <label name="timeToGenerateWind"> Heure à partir de laquelle générer les 24 heures de vent : </label> 
+         <input type="datetime" name="timeToGenerateWind" value="<?php echo date('Y-m-d G:i:s', time()); ?>"/> 
+         <input type="submit" name="generateWind" value="Générer le vent" />
+     </form>
+
+ </p>
+
   <p> <u> Attention : le bouton suivant efface complètement la base de données. Ne cliquez dessus que si vous savez ce que vous faites ! </u> 
     <br/> <button onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { alert('Destruction à la fermeture de cette fenêtre...'); location.href='/beweb2017/php/gestion_bdd.php'; } "> DROP DATABASE ; </button>
     <br/> <button disabled='true' onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { location.href='/beweb2017/php/gestion_bdd.php?do=reset';} "> (RE)CREATE DATABASE ; </button>
@@ -62,6 +72,8 @@ echo navbar();
   <p> A faire pour l'installation : </p>
   <ul>
     <li> Copier /beweb2017/image/favicon.ico vers la racine (/var/www/html) </li>
+    <li> Importer la base de donnée initiale (be_vX.sql) avec phpmyadmin </li>
+    <li> Générer du vent à l'aide de cette page (voir ci-dessus) </li>
   </ul>
 </div>
 

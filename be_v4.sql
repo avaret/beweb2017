@@ -2466,17 +2466,8 @@ CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
 INSERT INTO `USER` VALUES ('admin', 'admin', 1);
 INSERT INTO `USER` VALUES ('71r3d', '71r3d', 0);
 
--- Les 8 zones de vent
-
-INSERT INTO MAP_AREA VALUES (0), (1), (2), (3), (4), (5), (6), (7); 
-
--- Et un index pour retrouver rapidement les METAR d'une zone donnée 
---  (une clef étrangère ne créant pas systématiquement d'index, on force cette création)
-
-CREATE INDEX IX_METAR ON METAR (no_zone);
-
--- Un vol de démonstration Toulouse-Paris-Strasbourg
---  ou plus exactement, Toulouse-Blagnac, Redon, Strasbourg-Neuhof
+-- Un vol de démonstration Toulouse-Paris-Strasbourg - Corse*
+--  ou plus exactement, Toulouse-Blagnac, Redon, Strasbourg-Neuhof...
 
 INSERT INTO `FLIGHT` VALUES ('EXAMPL', 'Example team', 'F-EXMP', 'admin');
 
@@ -2491,4 +2482,15 @@ INSERT INTO `NAVPOINT` VALUES ('LFBK', 'EXAMPL', '2010-01-01 21:00', 0.0); -- 13
 INSERT INTO `NAVPOINT` VALUES ('LFKB', 'EXAMPL', '2010-01-01 22:00', 0.0); -- 1052 points => ok
 INSERT INTO `NAVPOINT` VALUES ('LFKC', 'EXAMPL', '2010-01-01 22:30', 0.0); -- 972 points => ok
 INSERT INTO `NAVPOINT` VALUES ('LFKF', 'EXAMPL', '2010-01-01 23:00', 0.0); -- 972 points => ok
+
+
+-- Les 8 zones de vent
+
+INSERT INTO MAP_AREA VALUES (0), (1), (2), (3), (4), (5), (6), (7); 
+
+-- Et un index pour retrouver rapidement les METAR d'une zone donnée 
+--  (une clef étrangère ne créant pas systématiquement d'index, on force cette création)
+
+CREATE INDEX IX_METAR ON METAR (no_zone);
+
 
