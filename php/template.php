@@ -63,27 +63,6 @@ function entete($title1, $forMap = false, $forreg = false)
 	return $entete1;
 }
 
-function mapp(){
-$mapp1='
-    <div id="map"></div>
-    <div id="info-box"></div>
-    <script>var stop =0;</script>
-    <div id="butt"> <button id="myButt" onclick="
-    if(stop==0)
-        stop=1;
-    else
-        stop=0;">Stop</button></div>  
-    
-    <script src="/beweb2017/js/map.php"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&libraries=geometry&callback=initMap" async defer></script>
-';
-    return $mapp1;
-}
-function entetemap(){
-    return entete("Course", true);
-}
-
-
 function navbar($isRegistering = false){
     $navbar1=" \n\n <!--- NAVBAR  --> \n";
         
@@ -104,6 +83,7 @@ function navbar($isRegistering = false){
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Accueil</a>
     <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Les règles</a>
+    <a href="http://localhost/beweb2017/php/ajouter_vol.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Ajouter un vol</a>
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
     <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>';
@@ -122,7 +102,7 @@ function navbar($isRegistering = false){
     
     if(isset($_SESSION["login"]))
     {
-        $navbar1 .= '    '.$_SESSION["login"].' <a href="/beweb2017/index.php?logout">Se déconnecter</a>     ';
+        $navbar1 .= '   <a href="/beweb2017/index.php?logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Se déconnecter</a>     ';
     }
     else
     {
@@ -147,6 +127,7 @@ function navbar($isRegistering = false){
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
     <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-padding-large">Accueil</a>
     <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-padding-large">Les règles</a>
+    <a href="http://localhost/beweb2017/php/ajouter_vol.php" class="w3-bar-item w3-button w3-padding-large">Ajouter un vol</a>
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-padding-large">Map</a>
     <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-padding-large">Résultats</a>
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
@@ -238,26 +219,6 @@ $contc='
 return $contc;
 }
 
-function filler(){
-$fill='
-<div id="remplissage"><h2>La Coupe Breitling 100/24</h2></div>
-<div id="remplissage">
-
-L’objectif  du Défi 100/24 est d’effectuer en moins de 24 heures 100 posés-décollés sur 100 aérodromes différents répartis sur l’Hexagone, tout en respectant des contraintes géographiques.
-
-Les organisateurs souhaitent mettre en valeur le maillage aéroportuaire français, mais aussi démontrer la parfaite collaboration et la solidarité existant entre tous les acteurs du monde aéronautique, civils ou militaires. L’Armée de l’Air et la Direction Générale de l’Aviation Civile sont deux partenaires indispensables à la bonne organisation de 100/24.
-
-L’équipage gagnante sera celle qui aura parcouru la distance la plus faible, et éventuellement, en cas d’égalité, celle qui aura consommé le moins de carburant.
-
-Ce défi est avant tout une aventure humaine, celle de jeunes pilotes professionnels, tous passionnés par les multiples facettes de l’aviation, 
-
-Relever ce défi implique une organisation solide, basée sur un tracé optimisé au maximum, en tenant compte des limitations imposées aux équipages, de la météo, des espaces aériens, de la nuit, mais aussi des imprévus.
-
-</div>
-';
-return $fill;
-}
-
 function resultat(){
     
     $resultt='
@@ -284,6 +245,5 @@ function resultat(){
     ';
 return $resultt;
 }
-
 
 ?>
