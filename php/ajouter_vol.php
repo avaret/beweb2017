@@ -6,7 +6,7 @@ require_once('bdd.php');
 echo entete('Ajouter un vol');
 echo navbar();
 
-echo '<div id="remplissage"> <h2> Ajout d\'un vol </h2> </div>';
+echo '<div class="remplissage"> <h2> Ajout d\'un vol </h2> </div>';
 
 if(isset($_SESSION["login"]))
 {
@@ -16,7 +16,7 @@ if(isset($_SESSION["login"]))
 
 <div id="erreur"> </div>
 
-<div id="remplissage">
+<div class="remplissage">
 
    <script src="//code.jquery.com/jquery.min.js"></script> 
    <script src="/beweb2017/js/addvol.js" type="text/javascript"></script>
