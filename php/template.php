@@ -67,7 +67,13 @@ function mapp(){
 $mapp1='
     <div id="map"></div>
     <div id="info-box"></div>
-    <div id="butt"> <form ><button onclick="">Click me</button></form></div>  
+    <script>var stop =0;</script>
+    <div id="butt"> <button id="myButt" onclick="
+    if(stop==0)
+        stop=1;
+    else
+        stop=0;">Stop</button></div>  
+    
     <script src="/beweb2017/js/map.php"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&libraries=geometry&callback=initMap" async defer></script>
 ';
