@@ -22,7 +22,7 @@ echo $html;
             <li>au moins un aérodrome situé simultanément au sud du parallèle 44°30'N et à l'est du méridien 5°E (zone 4),</li>
             <li>au moins un aérodrome situé simultanément au nord du parallèle 46°30N et à l'est du méridien 6°E (zone 5)</li>
             <li>au moins un aérodrome situé simultanément au sud du parallèle 48°N, au nord du parallèle 45°30'N, à l'ouest du méridien 4°E et à l'est du méridien 1°E (zone 6).</li>
-        </ul> En cas de non-respect d'une zone de passage obligatoire, l'équipage quitte le classement. Ces zones sont visibles sur la page <a href="http://localhost/beweb2017/php/map.php" style="text-decoration: underline;">Map</a></li>
+        </ul> En cas de non-respect d'une zone de passage obligatoire, l'équipage quitte le classement. Ces zones sont visibles sur la page <a href="http://localhost/beweb2017/php/map.php" style="text-decoration: underline;">Map</a>.</li>
     <li>Le passage sur les aérodromes suivants :
         <ul>
             <li>LFRQ (Quimper),</li>
