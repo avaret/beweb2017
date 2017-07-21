@@ -130,6 +130,15 @@ function navbar($isRegistering = false){
     <a href="http://localhost/beweb2017/php/ajouter_vol.php" class="w3-bar-item w3-button w3-padding-large">Ajouter un vol</a>
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-padding-large">Map</a>
     <a href="http://localhost/beweb2017/php/scores.php" class="w3-bar-item w3-button w3-padding-large">Scores</a>
+    ';
+    if(isset($_SESSION["admin"]))
+    {
+        if($_SESSION["admin"]==1)
+        {
+            $navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-padding-large">PageAdmin</a>  ';
+        }
+    }
+    $navbar1 .= '
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
     <a href="#" id="loginform" class="w3-bar-item w3-button w3-padding-large">Login</a>
      ';
