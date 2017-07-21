@@ -8,10 +8,12 @@ function entete($title1, $forMap = false, $forreg = false)
 
 	$entete1='
 		<!DOCTYPE html>
-		<html><head>
+		<html lang="fr"><head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>'.$title1.'</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+                <link rel="icon" href="/favicon.ico" />
+                <!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /><![endif]-->
 		<link rel="stylesheet" href="/beweb2017/css/w3.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-Lato.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-Montserrat.css">

@@ -6,21 +6,21 @@ require_once 'bdd.php';
 /* Fonction de (ré)initialisation de la base de données */
 function createOrResetBdd()
 {
-//FIXME file_get_contents marche pas
 	/* Récupération des commandes SQL */
-	$filename = "/beweb2017/be_v3.sql";
+	$filename = "/var/www/html/beweb2017/be_v4.sql";
 	$sql = file_get_contents($filename); 
 
-//FIXME ne peut se connecter à une base inexistante !
 	/* Envoi à la bdd */
-	submit_sql_to_sgbd($sql);
+	$db = connection(false);
+	$db->query( $sql )->closeCursor(); // TODO Ne fonctionne pas !
+	$db = NULL;
 }
 
 /* Fonction d'effacement des traces de la BD */
 function dropBdd()
 {
 	/* Envoi à la bdd */
-	submit_sql_to_sgbd('DROP DATABASE beweb_2017');
+	submit_sql_to_sgbd('DROP DATABASE `beweb_2017`');
 }
 
 if(isset($_GET["do"]) && ($_GET["do"] == "reset") )
