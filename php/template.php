@@ -67,7 +67,13 @@ function mapp(){
 $mapp1='
     <div id="map"></div>
     <div id="info-box"></div>
-    <div id="butt"> <form ><button onclick="">Click me</button></form></div>  
+    <script>var stop =0;</script>
+    <div id="butt"> <button id="myButt" onclick="
+    if(stop==0)
+        stop=1;
+    else
+        stop=0;">Stop</button></div>  
+    
     <script src="/beweb2017/js/map.php"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&libraries=geometry&callback=initMap" async defer></script>
 ';
@@ -101,9 +107,9 @@ function navbar($isRegistering = false){
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
     <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>';
-    if(isset($_SESSION["isAdmin"]))
+    if(isset($_SESSION["admin"]))
     {
-        if($_SESSION["isAdmin"]==1)
+        if($_SESSION["admin"]==1)
         {
             $navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">PageAdmin</a>  ';
         }

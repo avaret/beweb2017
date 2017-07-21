@@ -1,4 +1,5 @@
 
+
 var map;
 var zone1 = [{
         lat: 51.0,
@@ -255,11 +256,15 @@ function animateCircle(line,length)
     var count = 0;
     window.setInterval(function() 
     {
+        //document.getElementById('info-box').textContent = stop;
+        if (stop)
+//            document.getElementById("myButt").value = "Pause";
+            return;
         count = (count + 1) % 2000;
         document.getElementById('info-box').textContent = Math.round(length*count/2000000) + ' km';
         var icons = line.get('icons');
         icons[0].offset = (count / 20) + '%';
         line.set('icons', icons);
+//        document.getElementById("myButt").value = "Start";
     }, 10);
 }
-
