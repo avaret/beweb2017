@@ -7,8 +7,8 @@ $html.=navbar();
 echo $html;
 ?>
 
-<div id="remplissage"><h2>Le règlement de la Coupe Breitling 100/24</h2></div>
-<div id="remplissage">
+<div class="remplissage"><h2>Le règlement de la Coupe Breitling 100/24</h2></div>
+<div class="remplissage">
         
     <p> La coupe Breitling est une compétition aérienne dans laquelle chaque équipage doit tenter d'effectuer, en parcourant une distance sol minimale, un posé-décollé sur 98 aérodromes français à code OACI en 24 heures, suivant les règles de vol VFR, auxquels s'ajoutent le décollage de l'aérodrome de départ et l'atterrissage sur celui d'arrivée (soit 100 aérodromes visités en 24 heures).</p>
 
@@ -36,8 +36,8 @@ echo $html;
 </p>
 </div>
 
-<div id="remplissage"><h2>Classement des équipages</h2></div>
-<div id="remplissage">
+<div class="remplissage"><h2>Classement des équipages</h2></div>
+<div class="remplissage">
     <ul  TYPE="square">
         <li>L'équipage vainqueur sera celui qui aura effectué 100 posés-décollés en suivant les règles précédentes dans un laps de temps d'au plus 24h à partir de son premier décollage et jusqu'à son dernier atterrissage sur l'aérodrome d'arrivée. Si aucun équipage n'atteint les 100 posés-décollés, l'équipage vainqueur sera celui ayant effectué le plus de posés-décollés dans le temps imparti.</li>
         <li>En cas d'ex æquo sur le critère précédent, les équipages seront départagés par la plus petite distance parcourue après déduction des bonus.</li>

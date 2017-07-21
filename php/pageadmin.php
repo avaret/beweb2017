@@ -8,7 +8,7 @@ echo navbar();
 
 ?>
 
-<div id="remplissage"> <h2> Page personnelle </h2> </div>
+<div class="remplissage"> <h2> Page personnelle </h2> </div>
 
 <div>
 <table class="table table-inverse" data-toggle="table" data-search="true" data-pagination="true" data-page-size="3">

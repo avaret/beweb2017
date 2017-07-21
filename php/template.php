@@ -81,20 +81,20 @@ function navbar($isRegistering = false){
   <div class="w3-bar w3-blue w3-card-2 w3-large">
     <span class="w3-left-align">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Accueil</a>
-    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Les règles</a>
-    <a href="http://localhost/beweb2017/php/ajouter_vol.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Ajouter un vol</a>
-    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
-    <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
-    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>';
+    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Accueil</a>
+    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Les règles</a>
+    <a href="http://localhost/beweb2017/php/ajouter_vol.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Ajouter un vol</a>
+    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Map</a>
+    <a href="http://localhost/beweb2017/php/scores.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Scores</a>';
     if(isset($_SESSION["admin"]))
     {
         if($_SESSION["admin"]==1)
         {
-            $navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">PageAdmin</a>  ';
+            $navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">PageAdmin</a>  ';
         }
     }
     $navbar1 .= '
+    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
     </span>
     <span class="w3-right-align" style="float:right">
     
@@ -129,7 +129,7 @@ function navbar($isRegistering = false){
     <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-padding-large">Les règles</a>
     <a href="http://localhost/beweb2017/php/ajouter_vol.php" class="w3-bar-item w3-button w3-padding-large">Ajouter un vol</a>
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-padding-large">Map</a>
-    <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-padding-large">Résultats</a>
+    <a href="http://localhost/beweb2017/php/scores.php" class="w3-bar-item w3-button w3-padding-large">Scores</a>
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
     <a href="#" id="loginform" class="w3-bar-item w3-button w3-padding-large">Login</a>
      ';
@@ -197,7 +197,7 @@ return $footer1;
 
 function contacto($nom, $prenom, $mail, $photo){
 $contc='
-<div id="remplissage">
+<div class="remplissage">
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
@@ -222,8 +222,8 @@ return $contc;
 function resultat(){
     
     $resultt='
-    <div id="remplissage">Les résultats</div>
-    <div id="remplissage">
+    <div class="remplissage">Les résultats</div>
+    <div class="remplissage">
     <table style="width:100%">
   <tr>
     <th>Nom</th>
