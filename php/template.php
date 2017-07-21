@@ -3,7 +3,7 @@
 session_start();
 
 
-function entete($title1, $forMap = false)
+function entete($title1, $forMap = false, $forreg = false)
 {
 	$entete1='
 		<!DOCTYPE html>
@@ -15,7 +15,12 @@ function entete($title1, $forMap = false)
 		<link rel="stylesheet" href="/beweb2017/library/font-Lato.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-Montserrat.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-awesome.css">
-		<link rel="stylesheet" href="/beweb2017/css/style.css">
+		<link rel="stylesheet" href="/beweb2017/css/style.css">';
+    if($forreg){
+        $entete1.=' 
+        <link rel="stylesheet" href="/beweb2017/css/registr.css">';
+    }
+        $entete1.='
 		<link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
         <link rel="stylesheet" href="/beweb2017/library/bootstrap-table.min.css">
 		<style>
@@ -95,8 +100,15 @@ function navbar($isRegistering = false){
     <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Les règles</a>
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Map</a>
     <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Résultats</a>
-    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>
-    <a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">PageAdmin</a>   
+    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Contacts</a>';
+    if(isset($_SESSION["isAdmin"]))
+    {
+        if($_SESSION["isAdmin"]==1)
+        {
+            $navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">PageAdmin</a>  ';
+        }
+    }
+    $navbar1 .= '
     </span>
     <span class="w3-right-align" style="float:right">
     
@@ -132,12 +144,17 @@ function navbar($isRegistering = false){
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-padding-large">Map</a>
     <a href="http://localhost/beweb2017/php/resultats.php" class="w3-bar-item w3-button w3-padding-large">Résultats</a>
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
+    <a href="#" id="loginform" class="w3-bar-item w3-button w3-padding-large">Login</a>
+     ';
+    if(!$isRegistering) 
+        {
+        $navbar1 .= '<a href="http://localhost/beweb2017/php/register.php" class="w3-bar-item w3-button w3-padding-large">Register</a>';
+        }
+        $navbar1 .= '
   </div>
 </div>
 
-     ';
     
-     $navbar1 .= '
               <div class="login" style="float:right;">
               <div class="arrow-up"></div>
               <div class="formholder">
@@ -262,70 +279,5 @@ function resultat(){
 return $resultt;
 }
 
-function registrform(){
-    
-    $registring = '
-    <!DOCTYPE html>
-    <html><head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>Register</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/beweb2017/css/w3.css">
-    <link rel="stylesheet" href="/beweb2017/library/font-Lato.css">
-    <link rel="stylesheet" href="/beweb2017/library/font-Montserrat.css">
-    <link rel="stylesheet" href="/beweb2017/library/font-awesome.css">
-    <link rel="stylesheet" href="/beweb2017/css/style.css">
-    <link rel="stylesheet" href="/beweb2017/css/registr.css">
-    <link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
-    <style>
-    body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
-    .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-    .fa-anchor,.fa-coffee {font-size:200px}
-    </style>
-    </head><body> 
-      
-   ';
-        
-    if(isset($_GET["err"]))
-        {$registring .= '<script>window.alert("Echec d\'authentification")</script>';}
 
-    if(isset($_GET["logout"]))
-    {
-        $registring .= '<script>window.alert("Merci de votre visite!")</script>';
-        session_unset();
-        session_destroy();
-    }
-    
-	$registring .= navbar(true);
-     
-	$registring .= '
-     <script src="//code.jquery.com/jquery.min.js"></script>
-     <script src="/beweb2017/js/event.js" type="text/javascript"></script>
-    
-    <div class="user">
-    <header class="user__header">
-        <img src="/beweb2017/image/avion.ico" alt="icone" width="25%"/>
-        <h1 class="user__title">S\'inscrire en trois clics</h1>
-    </header>
-    
-    <form class="form" id="ins" method="POST" action="/beweb2017/php/insert.php">
-        <div class="form__group">
-            <input type="login" name="login" placeholder="login" class="form__input" />
-        </div>
-    
-        
-        <div class="form__group">
-            <input type="password" name="passwd" placeholder="Password" class="form__input" />
-        </div>
-        
-        <button class="btn" type="submit">Register</button>
-        
-    </form>
-    <div id="resultat"></div>
-</div>
-
-
-    ';
-     return $registring;
-}
 ?>
