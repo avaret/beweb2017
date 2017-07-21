@@ -45,7 +45,7 @@ if(isset($_SESSION["login"]))
 <?php
 
 } else {
-	echo "<div><p> Vous devez être enregistré et connecté pour pouvoir ajouter un vol. Utilisez les boutons Login et Register en haut à droite de la page.</p></div>";
+	echo "<div  class='remplissage'><p> Vous devez être enregistré et connecté pour pouvoir ajouter un vol. Utilisez les boutons Login et Register en haut à droite de la page.</p></div>";
 }
 
 echo footer();

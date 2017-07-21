@@ -115,7 +115,7 @@ function navbar($isRegistering = false){
 	{
 		if($_SESSION["admin"]==1)
 		{
-			$navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">PageAdmin</a>  ';
+			$navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Administration</a>  ';
 		}
 	}
 	$navbar1 .= '
@@ -259,33 +259,6 @@ function contacto($nom, $prenom, $mail, $photo){
 </div>
 ';
 	return $contc;
-}
-
-function resultat(){
-
-	$resultt='
-    <div class="remplissage">Les résultats</div>
-    <div class="remplissage">
-    <table style="width:100%">
-  <tr>
-    <th>Nom</th>
-    <th>Prenom</th>
-    <th>Age</th>
-  </tr>
-  <tr>
-    <td>Jill</td>
-    <td>Smith</td>
-    <td>50</td>
-  </tr>
-  <tr>
-    <td>Eve</td>
-    <td>Jackson</td>
-    <td>94</td>
-  </tr>
-</table> 
-</div>
-    ';
-	return $resultt;
 }
 
 ?>

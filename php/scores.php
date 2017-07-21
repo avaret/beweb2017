@@ -10,23 +10,23 @@ echo navbar();
 
 <div class="remplissage"> <h2> R&eacute;sultats de notre comp&eacute;tition ! </h2> </div>
 
-<div>
+<div class="remplissage">
 <table class="table table-inverse" data-toggle="table" data-search="true" data-pagination="true" data-page-size="30">
   <thead>
     <tr>
       <th data-field="col1" data-sortable="true"> &nbsp; </th>
-      <th data-field="col2" data-sortable="true"> Rang</th>
-      <th data-field="col3" data-sortable="true"> A&eacute;rodromes </th>
-      <th data-field="col4" data-sortable="true"> Score </th>
-      <th data-field="col5" data-sortable="true"> Flight Id </th>
-      <th data-field="col6" data-sortable="true"> Nom d'équipe </th>
-      <th data-field="col7" data-sortable="true"> Avion </th>
-      <th data-field="col8" data-sortable="true"> Distance totale </th>
-      <th data-field="col9" data-sortable="true"> Nb Zones </th>
-      <th data-field="cola" data-sortable="true"> Bonus </th>
-      <th data-field="colb" data-sortable="true"> Départ </th>
-      <th data-field="colc" data-sortable="true"> Arrivée </th>
-      <th data-field="cold" data-sortable="true"> (util.) </th>
+      <th data-field="col2" data-sortable="true">Rang</th>
+      <th data-field="col3" data-sortable="true">A&eacute;rodromes</th>
+      <th data-field="col4" data-sortable="true">Score</th>
+      <th data-field="col5" data-sortable="true">Flight Id</th>
+      <th data-field="col6" data-sortable="true">Nom d'équipe</th>
+      <th data-field="col7" data-sortable="true">Avion</th>
+      <th data-field="col8" data-sortable="true">Distance</th>
+      <th data-field="col9" data-sortable="true">Nb Zones</th>
+      <th data-field="cola" data-sortable="true">Bonus</th>
+      <th data-field="colb" data-sortable="true">Départ</th>
+      <th data-field="colc" data-sortable="true">Arrivée</th>
+      <th data-field="cold" data-sortable="true">(util.)</th>
     </tr>
   </thead>
   <tbody>
