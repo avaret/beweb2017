@@ -1,7 +1,7 @@
 <?php
 
 require_once('template.php');
-require_once('bdd.php');
+require_once('db.php');
 
 echo entete('Ajouter un vol');
 echo navbar();

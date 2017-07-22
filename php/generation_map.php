@@ -1,5 +1,5 @@
 <?php
-require_once('bdd.php');
+require_once('db.php');
 
 // Start XML file, create parent node
 $dom = new DOMDocument("1.0");

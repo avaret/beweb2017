@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once("bdd.php");
+    require_once("db.php");
     $login=$_POST['login'];
     $passwd=$_POST['passwd'];
     $etat=testAuth($login, $passwd);

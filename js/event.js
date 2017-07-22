@@ -3,7 +3,7 @@ $(document).ready(function(){
         event.preventDefault();
         $.ajaxSetup({async: false});
         $.ajax({
-            url : '/beweb2017/php/insert.php',
+            url : '/beweb2017/php/adduser.php',
             type : 'POST',
             data: $( this ).serialize(),
             dataType: 'html',

@@ -13,7 +13,7 @@ function entete($title1, $forMap = false, $forreg = false)
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="icon" href="/favicon.ico" />
-                <!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /><![endif]-->
+                <!--[if IE]><link rel="shortcut icon" type="images/x-icon" href="favicon.ico" /><![endif]-->
 		<link rel="stylesheet" href="/beweb2017/css/w3.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-Lato.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-Montserrat.css">
@@ -79,11 +79,11 @@ function navbar($isRegistering = false){
                "avion.ico",
                "Accueil"
              ),
-        array( "php/regles.php",
+        array( "php/rules.php",
                "sifflet.png",
                "Les règles"
              ),
-        array( "php/ajouter_vol.php",
+        array( "php/addflight.php",
                "drapeau.png",
                "Ajouter un vol"
              ),
@@ -117,12 +117,12 @@ function navbar($isRegistering = false){
 
 	for($row = 0; $row < 5; $row++)
 	{
-		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/image/'.$pages[$row][1].'" width="20" alt="icone">' . $pages[$row][2] . '</a>';
+		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/'.$pages[$row][1].'" width="20" alt="icone">' . $pages[$row][2] . '</a>';
 	}
 
 /*    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Accueil</a>
-    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Les règles</a>
-    <a href="http://localhost/beweb2017/php/ajouter_vol.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Ajouter un vol</a>
+    <a href="http://localhost/beweb2017/php/rules.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Les règles</a>
+    <a href="http://localhost/beweb2017/php/addflight.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Ajouter un vol</a>
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Map</a>
 <a href="http://localhost/beweb2017/php/scores.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Scores</a>';*/
 
@@ -130,11 +130,11 @@ function navbar($isRegistering = false){
 	{
 		if($_SESSION["admin"]==1)
 		{
-			$navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/image/admin.png" width="20" alt="icone">Administration</a>  ';
+			$navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/admin.png" width="20" alt="icone">Administration</a>  ';
 		}
 	}
 	$navbar1 .= '
-    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><img src="/beweb2017/image/phone.png" width="20" alt="icone">Contacts</a>
+    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><img src="/beweb2017/images/phone.png" width="20" alt="icone">Contacts</a>
     </span>
     <span class="w3-right-align" style="float:right">
 
@@ -173,8 +173,8 @@ function navbar($isRegistering = false){
 
 /*    $navbar1 .= '
     <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-padding-large">Accueil</a>
-    <a href="http://localhost/beweb2017/php/regles.php" class="w3-bar-item w3-button w3-padding-large">Les règles</a>
-    <a href="http://localhost/beweb2017/php/ajouter_vol.php" class="w3-bar-item w3-button w3-padding-large">Ajouter un vol</a>
+    <a href="http://localhost/beweb2017/php/rules.php" class="w3-bar-item w3-button w3-padding-large">Les règles</a>
+    <a href="http://localhost/beweb2017/php/addflight.php" class="w3-bar-item w3-button w3-padding-large">Ajouter un vol</a>
     <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-padding-large">Map</a>
     <a href="http://localhost/beweb2017/php/scores.php" class="w3-bar-item w3-button w3-padding-large">Scores</a>
 ';*/
@@ -203,7 +203,7 @@ function navbar($isRegistering = false){
 	      <div class="arrow-up"></div>
 	      <div class="formholder">
 	      <div class="randompad">
-	      <form id="auth" method="POST" action="/beweb2017/php/receptlog.php">
+	      <form id="auth" method="POST" action="/beweb2017/php/authenticate.php">
 		<fieldset>
 		    <label name="login">Login</label>
 		    <input type="login" name="login" />
@@ -249,31 +249,6 @@ function myFunction() {
 </body></html>
 ';
 	return $footer1;
-}
-
-
-function contacto($nom, $prenom, $mail, $photo){
-	$contc='
-<div class="remplissage">
-<div class="w3-row-padding w3-padding-64 w3-container">
-  <div class="w3-content">
-    <div class="w3-twothird">
-      <h1>'.$nom.'</h1>
-      <br>
-      <h2 class="w3-padding-32">'.$prenom.'</h2>
-      <br><br><br>
-      <p class="w3-text-grey w3-center">'.$mail.'</p>
-    </div>
-
-    <div class="w3-third w3-right">
-      <img src='.$photo.' alt="photo" title="photoid" height="300"/>
-    </div>
-  </div>
-</div>
-<div></div>
-</div>
-';
-	return $contc;
 }
 
 ?>

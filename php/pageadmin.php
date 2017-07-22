@@ -1,7 +1,7 @@
 <?php
 
 require_once('template.php');
-require_once('bdd.php');
+require_once('db.php');
 
 echo entete('PageAdmin');
 echo navbar();
@@ -64,15 +64,15 @@ echo navbar();
  </p>
 
   <p> <u> Attention : le bouton suivant efface complètement la base de données. Ne cliquez dessus que si vous savez ce que vous faites ! </u> </p>
-  <p>  <br/> <button onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { alert('Destruction à la fermeture de cette fenêtre...'); location.href='/beweb2017/php/gestion_bdd.php'; } "> DROP DATABASE ; </button>
-    <!-- br/> <button disabled='true' onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { location.href='/beweb2017/php/gestion_bdd.php?do=reset';} "> (RE)CREATE DATABASE ; </button -->
+  <p>  <br/> <button onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { alert('Destruction à la fermeture de cette fenêtre...'); location.href='/beweb2017/php/mgmt_db.php'; } "> DROP DATABASE ; </button>
+    <!-- br/> <button disabled='true' onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { location.href='/beweb2017/php/mgmt_db.php?do=reset';} "> (RE)CREATE DATABASE ; </button -->
    </p>
 </div>
 
 <div class="remplissage">
   <p> A faire pour l'installation : </p>
   <ul>
-    <li> Copier /beweb2017/image/favicon.ico vers la racine (/var/www/html) </li>
+    <li> Copier /beweb2017/images/favicon.ico vers la racine (/var/www/html) </li>
     <li> Importer la base de donnée initiale (be_vX.sql) avec phpmyadmin </li>
     <li> Générer du vent à l'aide de cette page (voir ci-dessus) </li>
   </ul>

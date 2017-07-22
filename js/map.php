@@ -1,7 +1,7 @@
 <?php
 
-include_once '../php/bdd.php';
-require_once '../php/bdd.php';
+include_once '../php/db.php';
+require_once '../php/db.php';
 require_once '../php/calcul.php';
 
 //switch to correct database
@@ -394,7 +394,7 @@ var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la traj
             ({
                 map: map,
                 position: point,
-		icon: '/beweb2017/image/airport2.ico'
+		icon: '/beweb2017/images/airport2.ico'
 	    });
 
 	    //marker.visible = true;

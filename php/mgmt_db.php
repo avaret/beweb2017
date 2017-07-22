@@ -1,7 +1,7 @@
 <?php
 
-include_once 'bdd.php';
-require_once 'bdd.php';
+include_once 'db.php';
+require_once 'db.php';
 
 /* Fonction de (ré)initialisation de la base de données */
 function createOrResetBdd()

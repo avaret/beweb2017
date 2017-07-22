@@ -1,7 +1,7 @@
 <?php
 
 require_once('template.php');
-require_once('bdd.php');
+require_once('db.php');
 
 echo entete('Scores');
 echo navbar();
@@ -61,7 +61,7 @@ echo navbar();
 			default: $logo = "medaille-classe.jpg"; break;
 			}
 			if($logo)
-				$logo = "<img src=\"/beweb2017/image/$logo\" width=\"36\" alt=\"$logo\">";
+				$logo = "<img src=\"/beweb2017/images/$logo\" width=\"36\" alt=\"$logo\">";
 
 		}
 
@@ -69,13 +69,13 @@ echo navbar();
 			$coche = "coche_ok.jpg";
 		else
 			$coche = "coche_ko.png";
-		$coche = "<img src=\"/beweb2017/image/$coche\" width=\"36\" alt=\"$result->nbConstraintSatisfied zones traversées\">";
+		$coche = "<img src=\"/beweb2017/images/$coche\" width=\"36\" alt=\"$result->nbConstraintSatisfied zones traversées\">";
 
-		$buttons = "<a href=\"/beweb2017/php/map.php?idFlt=$result->idFlight\"> <img src=\"/beweb2017/image/b_search.png\" alt='Visualiser'> </a> ";
+		$buttons = "<a href=\"/beweb2017/php/map.php?idFlt=$result->idFlight\"> <img src=\"/beweb2017/images/b_search.png\" alt='Visualiser'> </a> ";
 		$isAdmin = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"];
 		$currentUser = (isset($_SESSION["login"]) ? $_SESSION["login"] : NULL);
 		if($isAdmin || $currentUser == $result->loginUser)
-			$buttons .= "<a href=\"/beweb2017/php/calcul.php?removeFlight=$result->idFlight\"> <img src=\"/beweb2017/image/b_remove.png\" alt='Retirer le vol'> </a> ";
+			$buttons .= "<a href=\"/beweb2017/php/calcul.php?removeFlight=$result->idFlight\"> <img src=\"/beweb2017/images/b_remove.png\" alt='Retirer le vol'> </a> ";
 
 		echo '<tr> <td scope="row">' . $logo . '</td>';
 		echo '<td><b><center>' . $rang . '</center></b></td>';

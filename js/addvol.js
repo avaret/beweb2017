@@ -12,7 +12,7 @@ $(document).ready(function(){
 			if(resultat_du_php)
 			{
 				// Il y a eu un problème dans les données!
-				$('div#erreur').html("<img src=\"/beweb2017/image/warning.jpg\" alt=\"warning\" height=\"48\"> Erreur dans les données entrées : "+resultat_du_php);
+				$('div#erreur').html("<img src=\"/beweb2017/images/warning.jpg\" alt=\"warning\" height=\"48\"> Erreur dans les données entrées : "+resultat_du_php);
 			} else {
 				// Pas d'erreur => rediriger vers la page des scores
 				location.href = "/beweb2017/php/scores.php";

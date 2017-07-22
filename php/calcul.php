@@ -1,7 +1,7 @@
 <?php
 
-include_once 'bdd.php';
-require_once 'bdd.php';
+include_once 'db.php';
+require_once 'db.php';
 
 DEFINE("AIRCRAFT_SPEED_KM_H", 260);
 

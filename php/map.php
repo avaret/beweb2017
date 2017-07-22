@@ -1,8 +1,8 @@
 <?php
 
 require_once('template.php');
-include_once 'bdd.php';
-require_once 'bdd.php';
+include_once 'db.php';
+require_once 'db.php';
 
 function entetemap(){
     return entete("Visualisation de la carte de la course", true);
