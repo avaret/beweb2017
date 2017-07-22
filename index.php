@@ -7,7 +7,7 @@ $html.=navbar();
 echo $html;
 ?>
 
-<div class="remplissage"><h2>La Coupe Breitling 100/24</h2></div>
+<div class="remplissage"  style="background-color: cyan;"><h1>La Coupe Breitling 100/24</h1></div>
 <div class="remplissage">
 
 <p>L’objectif  du Défi 100/24 est d’effectuer en moins de 24 heures 100 posés-décollés sur 100 aérodromes différents répartis sur l’Hexagone, tout en respectant des contraintes géographiques.

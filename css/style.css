@@ -26,12 +26,17 @@ text-align: center;
 h1 {
  font-size: 200%; 
  color: black; 
- text-align: left;
+ text-align: center;
+ text-transform: uppercase;
+ height: auto;
  }
 h2 {
  font-size: 50px; 
  color: black; 
  padding-left: 15px;
+ text-transform: capitalize;
+ height: 50px;
+ text-decoration: underline;
  }
 
 ul,li,td {

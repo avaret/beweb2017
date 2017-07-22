@@ -208,7 +208,7 @@ function navbar($isRegistering = false){
 function footer(){
 	$footer1='
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
- <p>Powered by <a href="www.enac.fr/" target="_blank">enac</a></p>
+ <p>Un projet pourl\'<a href="http://www.enac.fr/" target="_blank"><u>Enac</u> </a>|<a href="http://localhost/beweb2017/php/contacts.php"target="_blank"><u> nous contacter</u></p>
 </footer>
 
 <script>
@@ -244,9 +244,9 @@ function contacto($nom, $prenom, $mail, $photo){
   <div class="w3-content">
     <div class="w3-twothird">
       <h1>'.$nom.'</h1>
-
+      <br>
       <h2 class="w3-padding-32">'.$prenom.'</h2>
-
+      <br><br><br>
       <p class="w3-text-grey w3-center">'.$mail.'</p>
     </div>
 

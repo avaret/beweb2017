@@ -8,7 +8,7 @@ echo navbar();
 
 ?>
 
-<div class="remplissage"> <h2> Page administrateur</h2> </div>
+<div class="remplissage"  style="background-color: cyan;"> <h1> Page administrateur</h1> </div>
 
 <div class="remplissage">
 <table class="table table-inverse" data-toggle="table" data-search="true" data-pagination="true" data-page-size="20">

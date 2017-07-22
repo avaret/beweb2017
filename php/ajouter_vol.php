@@ -6,7 +6,7 @@ require_once('bdd.php');
 echo entete('Ajouter un vol');
 echo navbar();
 
-echo '<div class="remplissage"> <h2> Ajout d\'un vol </h2> </div>';
+echo '<div class="remplissage"  style="background-color: cyan;"> <h2> Ajout d\'un vol :</h2> </div>';
 
 if(isset($_SESSION["login"]))
 {
