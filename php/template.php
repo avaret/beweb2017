@@ -75,12 +75,27 @@ function entete($title1, $forMap = false, $forreg = false)
 
 function navbar($isRegistering = false){
 	$pages = array( 
-		"Accueil" => 'index.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/image/avion.ico"',
-		"Les règles" => 'php/regles.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/image/sifflet.png"',
-		"Ajouter un vol" => 'php/ajouter_vol.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/image/drapeau.png"',
-		"Map" => 'php/map.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/image/map.png"',
-		"Scores" => 'php/scores.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/image/podium.png"',
-	);
+        array( "index.php",
+               "avion.ico",
+               "Accueil"
+             ),
+        array( "php/regles.php",
+               "sifflet.png",
+               "Les règles"
+             ),
+        array( "php/ajouter_vol.php",
+               "drapeau.png",
+               "Ajouter un vol"
+             ),
+        array( "php/map.php",
+               "map.png",
+               "Map"
+             ),
+        array( "php/scores.php",
+               "podium.png",
+               "Scores"
+             )	
+    );
 
 	$navbar1=" \n\n <!--- NAVBAR  --> \n";
 
@@ -100,9 +115,9 @@ function navbar($isRegistering = false){
     <span class="w3-left-align">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>';
 
-	foreach( $pages as $titre => $chemin)
+	for($row = 0; $row < 5; $row++)
 	{
-		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $chemin . ' width="20" alt="icone">' . $titre . '</a>';
+		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/image/'.$pages[$row][1].'" width="20" alt="icone">' . $pages[$row][2] . '</a>';
 	}
 
 /*    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Accueil</a>
@@ -150,11 +165,11 @@ function navbar($isRegistering = false){
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">';
-
-    foreach( $pages as $titre => $chemin )
-    {
-	    $navbar1 .= "\n   ".'<a href="http://localhost/beweb2017/' .$chemin . '" class="w3-bar-item w3-button w3-padding-large">' . $titre . '</a>';
-    }
+    
+    for($row = 0; $row < 5; $row++)
+	{
+		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-padding-large">' . $pages[$row][2] . '</a>';
+	}
 
 /*    $navbar1 .= '
     <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-padding-large">Accueil</a>
