@@ -127,7 +127,7 @@ function navbar($isRegistering = false){
 
 	if(isset($_SESSION["login"]))
 	{
-		$navbar1 .= '   <a href="/beweb2017/index.php?logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Se déconnecter</a>     ';
+		$navbar1 .= ''.$_SESSION["login"].'   <a href="/beweb2017/index.php?logout" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Se déconnecter</a>     ';
 	}
 	else
 	{
