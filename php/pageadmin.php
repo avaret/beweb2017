@@ -11,6 +11,7 @@ echo navbar();
 <div class="remplissage"  style="background-color: cyan;"> <h1> Page administrateur</h1> </div>
 
 <div class="remplissage">
+  <p> <b> Liste des utilisateurs inscrits dans la base de donnée : </b>
 <table class="table table-inverse" data-toggle="table" data-search="true" data-pagination="true" data-page-size="20">
   <thead>
     <tr>
@@ -62,9 +63,9 @@ echo navbar();
 
  </p>
 
-  <p> <u> Attention : le bouton suivant efface complètement la base de données. Ne cliquez dessus que si vous savez ce que vous faites ! </u> 
-    <br/> <button onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { alert('Destruction à la fermeture de cette fenêtre...'); location.href='/beweb2017/php/gestion_bdd.php'; } "> DROP DATABASE ; </button>
-    <br/> <button disabled='true' onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { location.href='/beweb2017/php/gestion_bdd.php?do=reset';} "> (RE)CREATE DATABASE ; </button>
+  <p> <u> Attention : le bouton suivant efface complètement la base de données. Ne cliquez dessus que si vous savez ce que vous faites ! </u> </p>
+  <p>  <br/> <button onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { alert('Destruction à la fermeture de cette fenêtre...'); location.href='/beweb2017/php/gestion_bdd.php'; } "> DROP DATABASE ; </button>
+    <!-- br/> <button disabled='true' onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { location.href='/beweb2017/php/gestion_bdd.php?do=reset';} "> (RE)CREATE DATABASE ; </button -->
    </p>
 </div>
 

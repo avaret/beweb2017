@@ -40,6 +40,16 @@ function getAerodromes($dbh)
 	return $listAerodrome;
 }
 
+/*
+ * Détruit un vol et ses points de navigation
+ */
+function removeFlight($flight)
+{
+	$sql = "DELETE FROM `FLIGHT` WHERE idFlight = '".$flight."'";
+	$dbh = connection();
+	$sth = $dbh->query($sql);
+}
+
 function sanitize($var, $type = "all")
 {
 	switch($type) {
@@ -436,6 +446,12 @@ if(isset($_POST["timeToGenerateWind"])) {
 	header( "refresh:5;url=/beweb2017/php/pageadmin.php" );
 	echo "Les données de vent ont été générées... Vous serez redirigé dans 5 secondes vers la page d'accueil. En cas de problème, <a href='/beweb2017/php/pageadmin.php'> cliquez ici.</a>";
 
+} else if(isset($_GET["removeFlight"])) {
+	// Est-ce le cas "Supprimer un vol" ?
+	removeFlight($_GET["removeFlight"]);
+	header( "refresh:5;url=/beweb2017/php/scores.php" );
+	echo "Le vol ".$_GET["removeFlight"]." et ses données de navigations ont été supprimées... Vous serez redirigé dans 5 secondes vers la page précédente. En cas de problème, <a href='/beweb2017/php/scores.php'> cliquez ici.</a>";
+
 } else if(isset($_POST["idFlight"])) {
 	// Est-ce le cas "Ajouter Un Vol" ?
 	if(strlen($_POST["idFlight"]) == 0)
@@ -459,9 +475,11 @@ if(isset($_POST["timeToGenerateWind"])) {
 			$_POST["repeatCount"]--;
 		} while($_POST["repeatCount"] > 0);
 	}
-} else {
+} else if(isset($_GET["debut"])) {
 	// direct call => debug mode
 	test_me();
+} else {
+	// Ne rien faire : on est inclu par/dans un autre script !!
 }
 
 ?>
