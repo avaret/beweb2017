@@ -8,7 +8,7 @@ echo navbar();
 
 ?>
 
-<div class="remplissage"  style="background-color: cyan;"> <h1> R&eacute;sultats de notre comp&eacute;tition ! </h1> </div>
+<div class="remplissage"  style="background-color: cyan;"> <h1> <img src="/beweb2017/images/lauriers.gif" width="64" alt="lauriers"> R&eacute;sultats de notre comp&eacute;tition ! <img src="/beweb2017/images/lauriers.gif" width="64" alt="lauriers"> </h1> </div>
 
 <div class="remplissage">
 <table class="table table-inverse" data-toggle="table" data-search="true" data-pagination="true" data-page-size="30">

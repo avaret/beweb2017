@@ -7,8 +7,8 @@ function entete($title1, $forMap = false, $forreg = false)
 {
 
 	$entete1='
-		<!DOCTYPE html>
-		<html lang="fr"><head>
+<!DOCTYPE html>
+<html lang="fr"><head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>'.$title1.'</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,8 +25,8 @@ function entete($title1, $forMap = false, $forreg = false)
 	}
 	$entete1.='
 		<link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
-	<link rel="stylesheet" href="/beweb2017/library/bootstrap-table.min.css">
-		<style>
+		<link rel="stylesheet" href="/beweb2017/library/bootstrap-table.min.css">
+	<style>
 		body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 		.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 		.fa-anchor,.fa-coffee {font-size:200px}';
@@ -69,7 +69,7 @@ function entete($title1, $forMap = false, $forreg = false)
 	    }';
 	}
 
-	$entete1.='</style></head><body> ';
+	$entete1.="\n	</style>\n</head>\n<body> ";
 	return $entete1;
 }
 
@@ -117,14 +117,9 @@ function navbar($isRegistering = false){
 
 	for($row = 0; $row < 5; $row++)
 	{
-		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/'.$pages[$row][1].'" width="20" alt="icone">' . $pages[$row][2] . '</a>';
+		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/'.$pages[$row][1].'" width="20" alt="icone"> &nbsp; ' . $pages[$row][2] . '</a>';
 	}
 
-/*    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Accueil</a>
-    <a href="http://localhost/beweb2017/php/rules.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Les règles</a>
-    <a href="http://localhost/beweb2017/php/addflight.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Ajouter un vol</a>
-    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Map</a>
-<a href="http://localhost/beweb2017/php/scores.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-border-right">Scores</a>';*/
 
 	if(isset($_SESSION["admin"]))
 	{
@@ -171,13 +166,6 @@ function navbar($isRegistering = false){
 		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-padding-large">' . $pages[$row][2] . '</a>';
 	}
 
-/*    $navbar1 .= '
-    <a href="http://localhost/beweb2017/index.php" class="w3-bar-item w3-button w3-padding-large">Accueil</a>
-    <a href="http://localhost/beweb2017/php/rules.php" class="w3-bar-item w3-button w3-padding-large">Les règles</a>
-    <a href="http://localhost/beweb2017/php/addflight.php" class="w3-bar-item w3-button w3-padding-large">Ajouter un vol</a>
-    <a href="http://localhost/beweb2017/php/map.php" class="w3-bar-item w3-button w3-padding-large">Map</a>
-    <a href="http://localhost/beweb2017/php/scores.php" class="w3-bar-item w3-button w3-padding-large">Scores</a>
-';*/
 
     if(isset($_SESSION["admin"]))
     {
@@ -223,7 +211,7 @@ function navbar($isRegistering = false){
 function footer(){
 	$footer1='
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
- <p>Un projet pourl\'<a href="http://www.enac.fr/" target="_blank"><u>Enac</u> </a>|<a href="http://localhost/beweb2017/php/contacts.php"target="_blank"><u> nous contacter</u></p>
+ <p>Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php"target="_blank"> <u>Nous contacter</u></p>
 </footer>
 
 <script>

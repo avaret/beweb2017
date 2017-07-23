@@ -2,7 +2,7 @@
 
 require_once('template.php');
 
-$html=entete('Les régles');
+$html=entete('Les règles');
 $html.=navbar();
 echo $html;
 ?>
