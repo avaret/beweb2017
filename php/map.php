@@ -51,7 +51,7 @@ function contentmap(){
 
     $result .= '</select></form></div>  
    
-    <script src="/beweb2017/js/map.php"></script>
+    <script src="/beweb2017/js/map_generation_and_animation.php"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&libraries=geometry&callback=initMap" async defer></script>';
     return $result;
 }

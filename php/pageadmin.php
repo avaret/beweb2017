@@ -57,7 +57,9 @@ echo navbar();
 
      <form id="addWind" method="POST" action="/beweb2017/php/calcul.php">
 	 <label name="timeToGenerateWind"> Heure à partir de laquelle générer les 24 heures de vent : </label> 
-         <input type="datetime" name="timeToGenerateWind" value="<?php echo date('Y-m-d G:i:s', time()); ?>"/> 
+         <input type="datetime" name="timeToGenerateWind" value="<?php echo date('Y-m-d G:i:s', time()); ?>"/> <br/>
+	 <label name="nbMetar"> Nombre de METAR de 2 heures à générer : </label> 
+         <input type="datetime" name="nbMetar" value="12"/> <br />
          <input type="submit" name="generateWind" value="Générer le vent" />
      </form>
 

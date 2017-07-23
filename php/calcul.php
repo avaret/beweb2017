@@ -309,15 +309,15 @@ function deleteNav($idFlight)
 	$sth->closeCursor();
 }
 
-/* createWindInfo génère les METAR pour le vent, à partir de la date $temps */
-function createWindInfos($temps)
+/* createWindInfo génère les METAR pour le vent, à partir de la date $temps. Génère $nombre METAR de 2 heures chacuns */
+function createWindInfos($temps, $nombre = 12)
 {
 	$dbh = connection();
 	$dbh->query("DELETE FROM METAR; "); // Purger la table METAR au cas où...
 
 	for($zone=0; $zone<=7; $zone++) // pour toutes les zones
 	{
-		for($i=0; $i<12; $i++) // par pas de 2 heures 
+		for($i=0; $i<$nombre; $i++) // par pas de 2 heures 
 		{
 			$windDirection = rand(0, 360);
 			$windSpeed = rand(0, 40);
@@ -442,7 +442,7 @@ function test_me()
 
 if(isset($_POST["timeToGenerateWind"])) {
 	// Est-ce le cas "Générer du vent" ?
-	createWindInfos(strtotime($_POST["timeToGenerateWind"]));
+	createWindInfos(strtotime($_POST["timeToGenerateWind"]), $_POST["nbMetar"]);
 	header( "refresh:5;url=/beweb2017/php/pageadmin.php" );
 	echo "Les données de vent ont été générées... Vous serez redirigé dans 5 secondes vers la page d'accueil. En cas de problème, <a href='/beweb2017/php/pageadmin.php'> cliquez ici.</a>";
 

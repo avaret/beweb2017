@@ -5,7 +5,7 @@ function registrform(){
       
 	$registring = '
      <script src="//code.jquery.com/jquery.min.js"></script>
-     <script src="/beweb2017/js/event.js" type="text/javascript"></script>
+     <script src="/beweb2017/js/adduser.js" type="text/javascript"></script>
     
     <div class="user">
     <header class="user__header">

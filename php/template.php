@@ -14,14 +14,14 @@ function entete($title1, $forMap = false, $forreg = false)
 		<meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="icon" href="/favicon.ico" />
                 <!--[if IE]><link rel="shortcut icon" type="images/x-icon" href="favicon.ico" /><![endif]-->
-		<link rel="stylesheet" href="/beweb2017/css/w3.css">
+		<link rel="stylesheet" href="/beweb2017/library/w3.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-Lato.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-Montserrat.css">
 		<link rel="stylesheet" href="/beweb2017/library/font-awesome.css">
 		<link rel="stylesheet" href="/beweb2017/css/style.css">';
 	if($forreg){
 		$entete1.=' 
-			<link rel="stylesheet" href="/beweb2017/css/registr.css">';
+			<link rel="stylesheet" href="/beweb2017/css/register.css">';
 	}
 	$entete1.='
 		<link rel="stylesheet" href="/beweb2017/library/bootstrap.min.css">
@@ -117,7 +117,7 @@ function navbar($isRegistering = false){
 
 	for($row = 0; $row < 5; $row++)
 	{
-		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/'.$pages[$row][1].'" width="20" alt="icone"> &nbsp; ' . $pages[$row][2] . '</a>';
+		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/'.$pages[$row][1].'" width="20" alt="icone"> ' . $pages[$row][2] . '</a>';
 	}
 
 
@@ -231,7 +231,7 @@ function myFunction() {
 <script src="/beweb2017/library/bootstrap.min.js"></script>
 <script src="/beweb2017/library/bootstrap-table.min.js"></script>
 
-    <script src="/beweb2017/js/index.js"></script>
+    <script src="/beweb2017/js/button_submit.js"></script>
 
 
 </body></html>

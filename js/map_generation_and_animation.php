@@ -365,7 +365,7 @@ var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la traj
     
 ////////////////////////////  GESTION DESSIN AEROPORTS /////////////////////////
 
-    downloadUrl('http://localhost/beweb2017/php/generation_map.php', function(data) 
+    downloadUrl('http://localhost/beweb2017/php/generation_map_markers.php', function(data) 
     {
         var xml = data.responseXML;
         var markers = xml.documentElement.getElementsByTagName('marker');
