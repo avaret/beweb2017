@@ -55,7 +55,7 @@ echo navbar();
 		} else {
 			$rang++;
 			switch($rang) {
-			case 1: $logo = "medaille-or.jpg"; break;
+			case 1: $logo = "medaille-or.ico"; break;
 			case 2: $logo = "medaille-argent.jpg"; break;
 			case 3: $logo = "medaille-bronze.png"; break;
 			default: $logo = "medaille-classe.jpg"; break;
@@ -66,10 +66,10 @@ echo navbar();
 		}
 
 		if( $result->nbConstraintSatisfied == 6)
-			$coche = "coche_ok.jpg";
+			$coche = "coche_ok.ico";
 		else
 			$coche = "coche_ko.png";
-		$coche = "<img src=\"/beweb2017/images/$coche\" width=\"36\" alt=\"$result->nbConstraintSatisfied zones traversées\">";
+		$coche = "<img src=\"/beweb2017/images/$coche\" width=\"30\" alt=\"$result->nbConstraintSatisfied zones traversées\">";
 
 		$buttons = "<a href=\"/beweb2017/php/map.php?idFlt=$result->idFlight\"> <img src=\"/beweb2017/images/b_search.png\" alt='Visualiser'> </a> ";
 		$isAdmin = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"];
