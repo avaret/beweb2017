@@ -382,13 +382,25 @@ var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la traj
 
             var infowincontent = document.createElement('div');
             var strong = document.createElement('strong');
-            strong.textContent = codeOACI
+            strong.textContent = codeOACI + "  ";
             infowincontent.appendChild(strong);
+	    var link_takeoff_new_aircraft = document.createElement('a');
+	    link_takeoff_new_aircraft.href = '/beweb2017/php/addflight.php?idAerodrome=' + codeOACI;
+	    infowincontent.appendChild(link_takeoff_new_aircraft);
+
+	    var button_ico = document.createElement('img');
+	    button_ico.src = '/beweb2017/images/takeoff.png';
+	    button_ico.alt = 'Faire décoller un vol depuis cet aéroport';
+	    button_ico.height = 16;
+	    link_takeoff_new_aircraft.appendChild(button_ico);
+
+            infowincontent.appendChild(document.createElement('br'));
             infowincontent.appendChild(document.createElement('br'));
 
             var text = document.createElement('text');
-            text.textContent = description
+            text.textContent = description + " ";
             infowincontent.appendChild(text);
+
             //var icon = customLabel[type] || {};
             var marker = new google.maps.Marker
             ({
@@ -483,10 +495,10 @@ function animateCircle(line,length)
 	sec=h.getSeconds();
 	tm=" "+((hrs<10)?"0":"") +hrs+":";
 	tm+=((min<10)?"0":"")+min+":";
-	tm+=((sec<10)?"0":"")+sec+" "; 
+	tm+=((sec<10)?"0":"")+sec; 
 
-	document.getElementById('info-box').textContent = "Départ le "+VolDecollage.toLocaleString() + "\n";
-        document.getElementById('info-box').textContent += Math.round(length*count/2000000) + ' km ('+ tm +')';
+	document.getElementById('mapInfoBox').innerHTML = " - Départ le "+VolDecollage.toLocaleString() + " - <br>\n";
+        document.getElementById('mapInfoBox').innerHTML += Math.round(length*count/2000000) + ' km (à '+ tm +')';
 
 	// Mettre à jour la position de l'avion
         var icons = line.get('icons');

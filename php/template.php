@@ -44,28 +44,29 @@ function entete($title1, $forMap = false, $forreg = false)
 		    margin: 0;
 		    padding: 0;
 		}
-	       #info-box {
+
+	    #mapInfoBox {
 	    background-color: white;
 	    border: 1px solid black;
 	    bottom: 20px;
-	    height: 35px;
+	    height: 60px;
 	    padding: 10px;
 	    position: absolute;
 	    left: 30px;
 	    }
 
-	    #butt {
+	    #mapButtonStopAnimation {
 	    bottom: 20px;
 	    height: 30px;
 	    position: absolute;
-	    left: 120px;
+	    left: 180px;
 	    }
 
-	    #selectFlightId {
+	    #mapSelectFlightId {
 	    bottom: 80px;
 	    height: 30px;
 	    position: absolute;
-	    left: 120px;
+	    left: 30px;
 	    }';
 	}
 

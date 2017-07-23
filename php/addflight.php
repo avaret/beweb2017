@@ -8,6 +8,11 @@ echo navbar();
 
 echo '<div class="remplissage"  style="background-color: cyan;"> <h2> Ajout d\'un vol :</h2> </div>';
 
+if(isset($_GET["idAerodrome"]))
+	$idAerodr = $_GET["idAerodrome"];
+else
+	$idAerodr = "LFBK";
+
 if(isset($_SESSION["login"]))
 {
 
@@ -24,8 +29,8 @@ if(isset($_SESSION["login"]))
      <form id="addFlight" method="POST">
        <fieldset>
        	<table>
-           <tr><td><label name="idFlight"> Identification du Vol (par exemple AF1234) : </label></td><td>   		<input type="text" name="idFlight" value="AF1234" /> </td></tr> <br>
-           <tr><td><label name="firstAerodrome">Aérodrome de départ (par exemple LFKB) : </label></td><td>   		<input type="text" name="firstAerodrome" value="LFBK" /> </td></tr> <br>
+	<tr><td><label name="idFlight"> Identification du Vol (par exemple AF1234) : </label></td><td>   		<input type="text" name="idFlight" value="AF1234" /> </td></tr> <br>
+           <tr><td><label name="firstAerodrome">Aérodrome de départ (par exemple LFKB) : </label></td><td>   		<input type="text" name="firstAerodrome" value="<?php echo $idAerodr; ?>" /> </td></tr> <br>
            <tr><td><label name="teamName"> Nom de l'équipe (par exemple "Mon équipe") : </label></td><td>   		<input type="text" name="teamName" value="Notre team" /> </td></tr> <br>
            <tr><td><label name="aircraftNumber"> Identification de l'avion (par exemple F-TSTA) : </label></td><td>   	<input type="text" name="aircraftNumber" value="F-TGAT" /> </td></tr> <br>
    <tr><td>&nbsp;</td></tr>

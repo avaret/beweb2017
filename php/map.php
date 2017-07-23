@@ -11,12 +11,12 @@ function entetemap(){
 function contentmap(){
     $result = '
     <div id="map"></div>
-    <div id="info-box"></div>
+    <div id="mapInfoBox"></div>
     <script>var stop =0;</script>
-    <div id="butt"> 
-	<button id="myButt" onclick="stop = !stop; this.textContent = (stop ? \'Resume\' : \'Pause\' ) ;" >Pause</button>
+    <div id="mapButtonStopAnimation"> 
+	<button id="myButt" onclick="stop = !stop; this.textContent = (stop ? \'Resume\' : \'Suspend\' ) ;" >Suspend</button>
 	</div>  
-    <div id="selectFlightId"> 
+    <div id="mapSelectFlightId"> 
     <form id="selectFlightIdMap" method="GET" action="/beweb2017/php/map.php">
 	<select name="idFlt" form="selectFlightIdMap" onchange="this.form.submit()">';
 

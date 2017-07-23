@@ -80,6 +80,13 @@ echo navbar();
   </ul>
 </div>
 
+<div class="remplissage">
+  <h3> Notes de conception </h3>
+  <p> Ci-dessous le schémas UML de la base de donnée. </p>
+  <img src="/beweb2017/images/conception.png" >
+</div>
+
+
 <?php
 echo footer();
 
