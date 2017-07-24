@@ -101,6 +101,7 @@ echo navbar();
 	<li>Normalisation de la base: toutes les tables valident les conditions des 5 Formes Normales</li>
 	<li>Algo de génération d'une trajectoire pour un nouveau vol, afin de maximiser la possibilité d'un classement</li>
 	<li>Calcul du temps de vol : tient compte du vent sur le trajet </li>
+	<li>Protection contre les injections SQL</li>
 	<li>Icône dans la barre d'adresse (favicon)</li>
     </ul>
 

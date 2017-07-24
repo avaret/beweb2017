@@ -5,7 +5,7 @@ $('input[type="submit"]').mouseup(function(){
   $(this).css('background', '#1abc9c');
 });
 
-$('#loginform').click(function(){
+$('.loginform').click(function(){
   $('.login').fadeToggle('slow');
   $(this).toggleClass('green');
 });

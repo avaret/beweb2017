@@ -11,7 +11,6 @@ function entete($title1, $forMap = false, $forreg = false)
 <!DOCTYPE html>
 <html lang="fr"><head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>'.$title1.'</title>
-		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
                 <link rel="icon" href="/favicon.ico" />
                 <!--[if IE]><link rel="shortcut icon" type="images/x-icon" href="favicon.ico" /><![endif]-->
@@ -114,7 +113,7 @@ function navbar($isRegistering = false){
     $navbar1 .=   '
 <div class="w3-top">
   <div class="w3-bar w3-blue w3-card-2 w3-large">
-    <span class="w3-left-align">
+    <div class="w3-left-align">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>';
 
     for($row = 0; $row < 5; $row++)
@@ -132,8 +131,8 @@ function navbar($isRegistering = false){
     }
     $navbar1 .= '
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><img src="/beweb2017/images/phone.png" width="16" alt="icone"> Contacts</a>
-    </span>
-    <span class="w3-right-align" style="float:right">
+    </div>
+    <div class="w3-right-align" style="float:right">
 
     <div id="navthing">';
 
@@ -144,7 +143,7 @@ function navbar($isRegistering = false){
     else
     {
         $navbar1 .= '
-	    <a href="#" id="loginform" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Login</a>';
+	    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white loginform">Login</a>';
 
         if(!$isRegistering) 
         {	
@@ -156,7 +155,7 @@ function navbar($isRegistering = false){
 
     $navbar1 .= '
     </div>
-    </span>
+    </div>
 
   </div>
 
@@ -178,7 +177,7 @@ function navbar($isRegistering = false){
     }
     $navbar1 .= '
     <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
-    <a href="#" id="loginform" class="w3-bar-item w3-button w3-padding-large">Login</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large loginform">Login</a>
      ';
     if(!$isRegistering) 
     {
@@ -213,7 +212,7 @@ function navbar($isRegistering = false){
 function footer(){
     $footer1='
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
- <p>Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php"target="_blank"> <u>Nous contacter</u></p>
+ <p>Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php" target="_blank"> <u>Nous contacter</u></a></p>
 </footer>
 
 <script>
