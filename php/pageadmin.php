@@ -108,7 +108,7 @@ echo navbar();
 
     <p> Le fichier SQL utilisable pour (re)créer la base est <a href="/beweb2017/rolland_schmitt_varet.sql"> téléchargeable ici.</a> A noter qu'il est écrit de manière à forcer la recréation totale de la base et de ses tables (pas de CREATE TABLE IF NOT EXISTS qui risqueraient de ne pas bien nettoyer une table partiellement définie).</p>
 
-    <p> Ci-dessous le schémas UML de la base de donnée. </p>
+    <p> Ci-dessous le schémas UML de la base de donnée. Précisons que nous n'utilisons que 6 tables sans trigger pour réaliser l'ensemble des fonctions. Le schémas relationnel est normalisé de telle manière que les 6 relations sont toutes en 3NF (et valident même la NFBC et les 4NF et 5NF). </p>
     <img src="/beweb2017/images/conception.png" >
 </div>
 
