@@ -20,37 +20,37 @@ function contentmap(){
     <form id="selectFlightIdMap" method="GET" action="/beweb2017/php/map.php">
 	<select name="idFlt" form="selectFlightIdMap" onchange="this.form.submit()">';
 
-        //switch to correct database
-	$dbh=connection();
+    //switch to correct database
+    $dbh=connection();
 
-	//session_start();		
-	if(isset($_GET["idFlt"]))
-	{
-		$selected = $_GET["idFlt"];
-	}
-	else 
-	{
-		$selected = NULL;
-	}
-	$_SESSION["idFlt"] = $selected;
+    //session_start();		
+    if(isset($_GET["idFlt"]))
+    {
+        $selected = $_GET["idFlt"];
+    }
+    else 
+    {
+        $selected = NULL;
+    }
+    $_SESSION["idFlt"] = $selected;
 
-	$sql="SELECT DISTINCT idFlight FROM FLIGHT_PATH";
-	$sth=$dbh->query($sql);
-	$i = 0;
-	while($res=$sth->fetch(PDO::FETCH_OBJ))
-	{
-	   	$result .= "<option ". ($selected == $res->idFlight ? "selected" : "") ." value=\"$res->idFlight\">$res->idFlight</option>";
-		$i++;
-	}
+    $sql="SELECT DISTINCT idFlight FROM FLIGHT_PATH";
+    $sth=$dbh->query($sql);
+    $i = 0;
+    while($res=$sth->fetch(PDO::FETCH_OBJ))
+    {
+        $result .= "<option ". ($selected == $res->idFlight ? "selected" : "") ." value=\"$res->idFlight\">$res->idFlight</option>";
+        $i++;
+    }
 
-	if($i == 0)
-	{
-		// Bdd vide
-	   	$result .= "<option value=\"\">(Vous devez ajouter un vol avant de pouvoir utiliser cette carte)</option>";
-	}
+    if($i == 0)
+    {
+        // Bdd vide
+        $result .= "<option value=\"\">(Vous devez ajouter un vol avant de pouvoir utiliser cette carte)</option>";
+    }
 
     $result .= '</select></form></div>  
-   
+
     <script src="/beweb2017/js/map_generation_and_animation.php"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA5dLzzgVQKLa6Pm1jqiRCfVISkH_J3GeI&libraries=geometry&callback=initMap" async defer></script>';
     return $result;

@@ -512,7 +512,7 @@ INSERT INTO BEACON (`codeOACI`, `lon`, `lat`, `description`) VALUES
 ('CTX', 1.80819, 46.9346, 'CHATEAUROUX\n'),
 ('CTX1', 1.93934, 46.9531, 'DEP LFOA/LFLD\n'),
 ('CTX2', 1.70198, 47.033, 'UQ237\n'),
-('CUERS', 6.11647, 43.2299, 'V35/G7\n'),
+('LFTF', 6.11647, 43.2299, 'V35/G7\n'),
 ('CV', 8.78628, 42.5823, 'CALVI Y16\n'),
 ('CVU', 2.22205, 43.6279, 'ARR. LFCK\n'),
 ('DA', 4.14003, 44.0623, 'ARR/DEP ALES (LFMS)\n'),
@@ -2374,10 +2374,14 @@ CREATE OR REPLACE VIEW AERODROME AS
 -- 
 
 -- Méthode 1 de calcul des Bonus: les noms d aéroport sont écrits en dur dans les requêtes SQL
+--  pt positif : facile à faire (principe KISS respecté)
 --  pt négatif : non évolutif
 
 -- Méthode 2 : la table AERODROME_BONUS contient les aérodromes, pour faire ensuite une somme
---  pt négatif, qd 2 aérodromes donnent le même code bonus ? => Solution supprimée car LFTF est absent des beacons fournis.
+--  pt positif, c'est évolutif
+--  pt négatif, qd 2 aérodromes donnent le même code bonus, c'est plus complexe à calculer
+
+-- On choisit donc la méthode 1 qui est plus simple, puisque l'évolution est improbable !
 
 
 CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER AS
@@ -2413,7 +2417,8 @@ CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
 	IF( nbConstraintSatisfied < 6 , 0, 1) AS canBeRanked,
 	IF( nbConstraintSatisfied < 6 , 
 		0, -- Non classé car les contraintes ne sont pas respectées
-		totalDistance - 80 * nbBonuses - 208 * inC - 80 * multiLandInCorse ) AS scoreSecondary
+		-- totalDistance - 80 * nbBonuses - 208 * inC - 80 * multiLandInCorse ) AS scoreSecondary -- distances en NM
+		totalDistance - 148 * nbBonuses - 385 * inC - 148 * multiLandInCorse ) AS scoreSecondary -- distances en km
  	FROM FLIGHT_ENRICHED_HELPER2 ;
 --	ORDER BY CanBeRanked DESC, nbAerodromes DESC, scoreSecondary DESC;
 
@@ -2449,17 +2454,17 @@ INSERT INTO `USER` VALUES ('71r3d', '71r3d', 0);
 
 INSERT INTO `FLIGHT` VALUES ('EXAMPL', 'Example team', 'F-EXMP', 'admin');
 
-INSERT INTO `NAVPOINT` VALUES ('LFBO', 'EXAMPL', '2010-01-01 08:00', 0);
-INSERT INTO `NAVPOINT` VALUES ('LFER', 'EXAMPL', '2010-01-01 10:00', 200.0);
-INSERT INTO `NAVPOINT` VALUES ('LFGC', 'EXAMPL', '2010-01-01 12:00', 150.0);
-INSERT INTO `NAVPOINT` VALUES ('LFTH', 'EXAMPL', '2010-01-01 16:00', 300.0);
-INSERT INTO `NAVPOINT` VALUES ('LFBZ', 'EXAMPL', '2010-01-01 17:00', 300.0);
-INSERT INTO `NAVPOINT` VALUES ('LFAB', 'EXAMPL', '2010-01-01 18:00', 150.0);
-INSERT INTO `NAVPOINT` VALUES ('LFLB', 'EXAMPL', '2010-01-01 20:00', 400.0);
-INSERT INTO `NAVPOINT` VALUES ('LFBK', 'EXAMPL', '2010-01-01 21:00', 0.0); -- 1360 points => ok
-INSERT INTO `NAVPOINT` VALUES ('LFKB', 'EXAMPL', '2010-01-01 22:00', 0.0); -- 1052 points => ok
-INSERT INTO `NAVPOINT` VALUES ('LFKC', 'EXAMPL', '2010-01-01 22:30', 0.0); -- 972 points => ok
-INSERT INTO `NAVPOINT` VALUES ('LFKF', 'EXAMPL', '2010-01-01 23:00', 0.0); -- 972 points => ok
+INSERT INTO `NAVPOINT` VALUES ('LFBO', 'EXAMPL', '2017-07-04 08:00', 0);
+INSERT INTO `NAVPOINT` VALUES ('LFER', 'EXAMPL', '2017-07-04 10:00', 523.6);
+INSERT INTO `NAVPOINT` VALUES ('LFGC', 'EXAMPL', '2017-07-04 13:00', 730.8);
+INSERT INTO `NAVPOINT` VALUES ('LFTH', 'EXAMPL', '2017-07-04 16:00', 619.3);
+INSERT INTO `NAVPOINT` VALUES ('LFBZ', 'EXAMPL', '2017-07-04 18:00', 619.7);
+INSERT INTO `NAVPOINT` VALUES ('LFAB', 'EXAMPL', '2017-07-04 21:00', 740.1);
+INSERT INTO `NAVPOINT` VALUES ('LFLB', 'EXAMPL', '2017-07-04 23:00', 590.7);
+INSERT INTO `NAVPOINT` VALUES ('LFBK', 'EXAMPL', '2017-07-05 00:10', 279.3); -- 1360 points => ok
+INSERT INTO `NAVPOINT` VALUES ('LFKB', 'EXAMPL', '2017-07-05 03:30', 696.6); -- 1052 points => ok
+INSERT INTO `NAVPOINT` VALUES ('LFKC', 'EXAMPL', '2017-07-05 03:50', 56.3); -- 972 points => ok
+INSERT INTO `NAVPOINT` VALUES ('LFKF', 'EXAMPL', '2017-07-05 05:00', 115.8); -- 972 points => ok
 
 
 -- Les 8 zones de vent
