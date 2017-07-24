@@ -9,7 +9,7 @@ function contacto($nom, $prenom, $mail, $photo, $bio){
     <div class="w3-twothird">
       <h1>'.$nom.' '.$prenom.'</h1>
       <br>
-      <p class="w3-padding-32" style="text-align:justify;">'.$bio.'</p>
+      <p class="w3-padding-32">'.$bio.'</p>
       <br><br><br>
       <p class="w3-text-grey w3-center">'.$mail.'</p>
     </div>

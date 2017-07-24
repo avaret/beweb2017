@@ -51,6 +51,7 @@ ul,li,td {
 p{
     color: black; 
     text-indent: 20px;
+    text-align:justify;
 }
 a:link {
     color: black;
