@@ -167,7 +167,7 @@ function generate_trajectory($idFlight, $firstAerodrome, $teamName = "Some team"
     return NULL;
 }
 
-function generate_smart_trajectory($idFlight, $firstAerodrome, $teamName = "Some team", $aircraftNumber = "F-THIS", $login = "71r3d", $useWind = true, $racebegintime = 0)
+/*function generate_smart_trajectory($idFlight, $firstAerodrome, $teamName = "Some team", $aircraftNumber = "F-THIS", $login = "71r3d", $useWind = true, $racebegintime = 0)
 {
     // 0. Sanitize
     $idFlight = sanitize($idFlight, 'sql');
@@ -238,37 +238,19 @@ function generate_smart_trajectory($idFlight, $firstAerodrome, $teamName = "Some
                 }
         }
                 
-        $zoneTable[$listAerodrome[$lowestDistInd]->zone]+=0.1
+        $zoneTable[$listAerodrome[$lowestDistInd]->zone]+=0.1;
+        
+        $listN[$i]=$listAerodrome[$lowestDistInd];
+        $aerodrome =$listAerodrome[$lowestDistInd];
 
-        // Méthode 1: ajouter aléatoirement n'importe quel aérodrome
-        $id=rand(0,count($listAerodrome)-1);
-
-        // Méthode 2: ajouter aléatoirement un aérodrome pas trop loin 3 fois sur 4, un aérodrome loin 1 fois sur 4
-        if($id%4==0)
-        {
-            // Chercher aérodrome loin
-            $id=rand(0,count($listAerodrome)-1);
-        } else {
-            $tentative = 0;
-            // Chercher aérodrome proche
-            do {
-                $id=rand(0,count($listAerodrome)-1);
-                $dist_proche = dist($aerodrome_previous, $listAerodrome[$id]) < 200;
-                $tentative++;
-            } while($tentative<20);
-        }
-
-        $listN[$i]=$listAerodrome[$id];
-        $aerodrome =$listAerodrome[$id];
-
-        $t = appendAerodrome( $dbh, $idFlight, /*datetime_sec*/ $t, $racebegintime, $aerodrome, $aerodrome_previous, $cacheWindInfos);
-        array_splice($listAerodrome, $id, 1);
+        $t = appendAerodrome( $dbh, $lowestDistIndFlight,  $t, $racebegintime, $aerodrome, $aerodrome_previous, $cacheWindInfos);
+        array_splice($listAerodrome, $lowestDistInd, 1);
         if($t == NULL) // S'arrêter quand on atteind les 24 heures
             break;
 
     }
     return NULL;
-}
+}*/
 
 function searchC($list, $what)
 {
