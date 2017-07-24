@@ -97,6 +97,10 @@ echo navbar();
 ?>
   </tbody>
 </table>
+<br/>
+<script>var expand = 0;</script>
+<button id="invertcolumns" onclick="expand = !expand; if(expand) { this.textContent = 'Cacher des colonnes'; } else { this.textContent = 'Afficher toutes les colonnes'; } " >Afficher toutes les colonnes</button>
+
 </div>
 
 <?php
