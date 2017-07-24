@@ -10,10 +10,10 @@ echo $html;
 <div class="remplissage titre1"><h1>Le règlement de la Coupe Breitling 100/24</h1></div>
 <div class="remplissage titre2"><h2>règlement général :</h2></div>
 <div class="remplissage">
-        
+
     <p> La coupe Breitling est une compétition aérienne dans laquelle chaque équipage doit tenter d'effectuer, en parcourant une distance sol minimale, un posé-décollé sur 98 aérodromes français à code OACI en 24 heures, suivant les règles de vol VFR, auxquels s'ajoutent le décollage de l'aérodrome de départ et l'atterrissage sur celui d'arrivée (soit 100 aérodromes visités en 24 heures).</p>
 
-<p>Le règlement stipule les points suivants : <ul  TYPE="square">
+    <p>Le règlement stipule les points suivants : <ul  TYPE="square">
     <li>Un même aérodrome ne peut faire l'objet que d'un seul posé-décollé.</li>
     <li>l'aire de la compétition est le territoire métropolitain et la Corse, assortie de la contrainte d'inclure dans le parcours :
         <ul>
@@ -34,7 +34,7 @@ echo $html;
         </ul> donera un bonus de 80NM par aérodrome à l'équipage y ayant réalisé un posé-décollé. Ce bonus sera retranché de la distance totale parcourue ; le maximum de bonus atteignable pour ces 5 aérodromes continentaux est donc de 400NM.</li>
     <li>La Corse bénéficie d'un statut de "continuité territoriale" : la distance de 208NM sera déduite de la distance totale parcourue si l'équipage effectue un posé-décollé en Corse. Par ailleurs, un bonus de 80NM sera attribué aux équipages qui effectueront des posés-décollés sur au moins deux des aérodromes LFKx.</li>
     </ul>
-</p>
+    </p>
 </div>
 
 <div class="remplissage titre2"><h2>Classement des équipages :</h2></div>
