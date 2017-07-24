@@ -20,13 +20,13 @@ body {
     border-style: double;
 }
 .titre1 {
-    background-color: cyan; 
+    background-color: cadetblue; 
 }
 .titre2 {
-    background-color: aliceblue;   
+    background-color: lightgrey;   
 }
 .photo {
-    padding: 50px;
+    padding: 50px;  
     text-align: center;
 }
 h1 {

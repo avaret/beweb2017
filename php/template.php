@@ -212,7 +212,11 @@ function navbar($isRegistering = false){
 function footer(){
     $footer1='
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+<<<<<<< HEAD
  <p>Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php" target="_blank"> <u>Nous contacter</u></a></p>
+=======
+ <p style="text-align:center;">Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php"target="_blank"> <u>Nous contacter</u></p>
+>>>>>>> b5e8887f8ef7cd659c72dc089ce8e33bf1c81172
 </footer>
 
 <script>
