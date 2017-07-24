@@ -15,7 +15,7 @@ function contacto($nom, $prenom, $mail, $photo, $bio){
     </div>
 
     <div class="w3-third w3-right" style="padding-left:20px; text-align: center;">
-      <img src='.$photo.' alt="photo" title="photoid" height="300"/>
+      <img src='.$photo.' alt="Photo de '.$prenom.'" title="Photo de '.$prenom.'" height="300"/>
     </div>
   </div>
 </div>
