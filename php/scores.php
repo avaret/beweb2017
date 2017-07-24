@@ -56,9 +56,9 @@ echo navbar();
 			$rang++;
 			switch($rang) {
 			case 1: $logo = "medaille-or.ico"; break;
-			case 2: $logo = "medaille-argent.jpg"; break;
-			case 3: $logo = "medaille-bronze.png"; break;
-			default: $logo = "medaille-classe.jpg"; break;
+			case 2: $logo = "medaille-argent.ico"; break;
+			case 3: $logo = "medaille-bronze.ico"; break;
+			default: $logo = "medaille-classe.ico"; break;
 			}
 			if($logo)
 				$logo = "<img src=\"/beweb2017/images/$logo\" width=\"36\" alt=\"$logo\">";

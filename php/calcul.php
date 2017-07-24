@@ -438,6 +438,26 @@ function test_me()
 	echo '</pre>';
 }
 
+function test_compute_dist()
+{
+	echo "Distances pour notre trajet exemple = ";
+	$listAerodrome=getAerodromes( connection() );
+	$ae_n = array("LFBO", "LFER", "LFGC", "LFTH", "LFBZ", "LFAB", "LFLB", "LFBK", "LFKB", "LFKC", "LFKF");
+	
+	$ae_l = array();
+	for($i=0;$i<11;$i++)
+		$ae_l[$i] = $listAerodrome[searchC($listAerodrome,$ae_n[$i])];
+
+	for($i=1;$i<11;$i++)
+	{
+		$a = $ae_l[$i-1];
+		$b = $ae_l[$i];
+		$c = dist( $a, $b ); 
+		echo "dist ".$ae_n[$i-1]." to ".$ae_n[$i]." = ". $c ."<br/>\n";
+	}
+}
+
+
 /* Programme principal */
 
 if(isset($_POST["timeToGenerateWind"])) {
@@ -475,8 +495,11 @@ if(isset($_POST["timeToGenerateWind"])) {
 			$_POST["repeatCount"]--;
 		} while($_POST["repeatCount"] > 0);
 	}
-} else if(isset($_GET["debut"])) {
+} else if(isset($_GET["debug"])) {
 	// direct call => debug mode
+	test_compute_dist();
+	echo " hash admin = " . hashmypassword("admin") . " and hash tired = ".hashmypassword("71r3d") . "\n";
+	return NULL; 
 	test_me();
 } else {
 	// Ne rien faire : on est inclu par/dans un autre script !!

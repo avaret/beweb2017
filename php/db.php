@@ -50,9 +50,14 @@ function submit_sql_to_sgbd($sql, $auto_close=true)
 		return $sth;
 }
 
+function hashmypassword($passwd)
+{
+	return crypt($passwd, 42 /*sel*/);
+}
+
 function testAuth($login='', $passwd=''){
 	$dbh=connection();
-	$sql ="SELECT login, isAdmin FROM `USER` WHERE login = :login AND passwd = :passwd limit 1";
+	$sql ="SELECT login, isAdmin FROM `USER` WHERE login = :login AND passwdHash = :passwd limit 1";
 	$sth=$dbh->prepare($sql);
 	$sth->bindParam(":login", $login, PDO::PARAM_STR);
 	$sth->bindParam(":passwd", $passwd, PDO::PARAM_STR);
@@ -83,7 +88,7 @@ function addUser($login='', $passwd='',  $isAdmin = 0)
 function getUser($login='')
 {
 	$dbh=connection();
-	$sql ="SELECT login FROM user WHERE login = :login";
+	$sql ="SELECT login FROM `USER` WHERE login = :login";
 	$sth=$dbh->prepare($sql);
 	$sth->bindParam(":login", $login, PDO::PARAM_STR);
 	$sth->execute();

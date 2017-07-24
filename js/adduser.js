@@ -8,7 +8,7 @@ $(document).ready(function(){
             data: $( this ).serialize(),
             dataType: 'html',
             success : function(resultat_du_php,status)
-                {$('div#resultat').html("Resultat de la requête: "+resultat_du_php);},
+                {$('div#resultat').html("Resultat de la requête d'insertion : "+resultat_du_php);},
             error : function(donnee, statut, erreur){alert('Erreur durant l\'accès à la db');},
         });
     });
