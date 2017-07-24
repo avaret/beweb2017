@@ -398,6 +398,8 @@ function deleteNav($idFlight)
 function createWindInfos($temps, $nombre = 12)
 {
     $dbh = connection();
+    $dbh->query("DELETE FROM FLIGHT; "); // Purger la table FLIGHT, car les anciens vols seront invalidés par le changement de vents
+
     $dbh->query("DELETE FROM METAR; "); // Purger la table METAR au cas où...
 
     for($zone=0; $zone<=7; $zone++) // pour toutes les zones

@@ -60,7 +60,7 @@ echo navbar();
         <input type="datetime" name="timeToGenerateWind" value="<?php echo date('Y-m-d G:i:s', time()); ?>"/> <br/>
         <label name="nbMetar"> Nombre de METAR de 2 heures à générer : </label> 
         <input type="datetime" name="nbMetar" value="12"/> <br />
-        <input type="submit" name="generateWind" value="Générer le vent" />
+        <input type="button" name="generateWind" value="Générer le vent" onclick="if(confirm('(Ré)générer le vent supprimera tous les vols existants. Etes-vous sûr de vouloir purger la liste des vols et générer le vent ?')) { this.form.submit(); }" />
     </form>
 
     </p>
