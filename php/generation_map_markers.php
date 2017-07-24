@@ -10,7 +10,7 @@ $parnode = $dom->appendChild($node);
 $dbh = connection();
     
 // Select all the rows in the markers table
-$query = "SELECT codeOACI, lat, lon, description FROM AERODROME";
+$query = "SELECT codeICAO, lat, lon, description FROM AERODROME";
 $sth=$dbh->prepare($query);
 $sth->execute();
 
@@ -24,7 +24,7 @@ while($result=$sth->fetch(PDO::FETCH_OBJ))
     $node = $dom->createElement("marker");
     $newnode = $parnode->appendChild($node);
     
-    $newnode->setAttribute("codeOACI", $result->codeOACI);
+    $newnode->setAttribute("codeICAO", $result->codeICAO);
     $newnode->setAttribute("lat", $result->lat);
     $newnode->setAttribute("lng", $result->lon);
     $newnode->setAttribute("description", $result->description);

@@ -19,11 +19,11 @@ USE `beweb_2017`;
 
 DROP TABLE IF EXISTS `BEACON`;
 CREATE TABLE `BEACON` (
-  `codeOACI` varchar(5) NOT NULL,
+  `codeICAO` varchar(5) NOT NULL,
   `lon` double NOT NULL,
   `lat` double NOT NULL,
   `description` varchar(64) DEFAULT NULL,
-  PRIMARY KEY (`codeOACI`)
+  PRIMARY KEY (`codeICAO`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -95,13 +95,13 @@ CREATE TABLE `METAR` (
 
 DROP TABLE IF EXISTS `NAVPOINT`;
 CREATE TABLE `NAVPOINT` (
-  `codeOACI` varchar(5) NOT NULL,
+  `codeICAO` varchar(5) NOT NULL,
   `idFlight` varchar(16) NOT NULL,
   `datetimePoint` datetime NOT NULL, 
   `distanceToPreviousNavPoint` double DEFAULT 0,
-  PRIMARY KEY (`codeOACI`,`idFlight`),
+  PRIMARY KEY (`codeICAO`,`idFlight`),
   KEY `idFlight` (`idFlight`),
-  FOREIGN KEY (`codeOACI`) REFERENCES `BEACON` (`codeOACI`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`codeICAO`) REFERENCES `BEACON` (`codeICAO`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`idFlight`) REFERENCES `FLIGHT` (`idFlight`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -113,7 +113,7 @@ CREATE TABLE `NAVPOINT` (
 --
 
 
-INSERT INTO BEACON (`codeOACI`, `lon`, `lat`, `description`) VALUES
+INSERT INTO BEACON (`codeICAO`, `lon`, `lat`, `description`) VALUES
 ('AB', 2.07236, 43.9151, 'ARR ALBI\n'),
 ('ABADO', 5.2947, 45.6465, 'SID RISOR\n'),
 ('ABARI', 6.93269, 47.4181, 'UL856\n'),
@@ -1174,7 +1174,7 @@ INSERT INTO BEACON (`codeOACI`, `lon`, `lat`, `description`) VALUES
 ('LORNI', 3.43578, 49.4126, 'Z157\n');
 
 
-INSERT INTO `BEACON` (`codeOACI`, `lon`, `lat`, `description`) VALUES
+INSERT INTO `BEACON` (`codeICAO`, `lon`, `lat`, `description`) VALUES
 ('LORTO', 1.0102, 43.629, 'STRIP ARR APP LFBO\n'),
 ('LOTEE', -5.80993, 44.6656, 'A5 UM30 UN741\n'),
 ('LOU', 6.25672, 49.0005, 'ARRIVEE LFJL\n'),
@@ -2249,7 +2249,7 @@ INSERT INTO `BEACON` (`codeOACI`, `lon`, `lat`, `description`) VALUES
 ('Z2', 1.78918, 48.7691, 'ZRR\n');
 
 
-INSERT INTO `BEACON` (`codeOACI`, `lon`, `lat`, `description`) VALUES
+INSERT INTO `BEACON` (`codeICAO`, `lon`, `lat`, `description`) VALUES
 ('Z20', 2.70315, 49.1115, 'ZRR\n'),
 ('Z21', 2.98971, 49.0293, 'ZRR\n'),
 ('Z22', 2.19668, 48.9951, 'ZRR\n'),
@@ -2344,7 +2344,7 @@ INSERT INTO `BEACON` (`codeOACI`, `lon`, `lat`, `description`) VALUES
 -- La view XX_helper est une vue intermédiaire pour alléger la définition de la vue XX
  
 CREATE OR REPLACE VIEW AERODROME_helper AS
-	SELECT BEACON.codeOACI, 
+	SELECT BEACON.codeICAO, 
 	lat, lon, description, 
 	(lat > 49.75 ) AS inZone1,
 	(lon < -1.40  ) AS inZone2,
@@ -2353,16 +2353,16 @@ CREATE OR REPLACE VIEW AERODROME_helper AS
 	(lat > 46.30 AND lon > 6.00 ) AS inZone5,
 	(lat < 48.00 AND lat > 45.30 AND lon > 1.00 AND lon < 4.00 ) AS inZone6,
 	(lat < 43.30 AND lon > 7.70 ) AS inCorse,
-	(BEACON.codeOACI = 'LFRQ') AS isBonus1,
-	(BEACON.codeOACI = 'LFAT') AS isBonus2,
-	(BEACON.codeOACI = 'LFTH') AS isBonus3,
-	(BEACON.codeOACI = 'LFBZ' OR BEACON.codeOACI = 'LFTF') AS isBonus4,
-	(BEACON.codeOACI = 'LFLB') AS isBonus5
+	(BEACON.codeICAO = 'LFRQ') AS isBonus1,
+	(BEACON.codeICAO = 'LFAT') AS isBonus2,
+	(BEACON.codeICAO = 'LFTH') AS isBonus3,
+	(BEACON.codeICAO = 'LFBZ' OR BEACON.codeICAO = 'LFTF') AS isBonus4,
+	(BEACON.codeICAO = 'LFLB') AS isBonus5
 	FROM BEACON
-	WHERE BEACON.codeOACI LIKE 'LF%';
+	WHERE BEACON.codeICAO LIKE 'LF%';
 
 CREATE OR REPLACE VIEW AERODROME AS
-	SELECT codeOACI, 
+	SELECT codeICAO, 
 	lat, lon, description, 
 	IF( inZone1 = 1, 1, IF( inZone2 = 1, 2, IF( inZone3 = 1, 3, IF( inZone4 = 1, 4, IF( inZone5 = 1, 5, IF( inZone6 = 1, 6, IF( inCorse = 1, 7, 0) ) ) ) ) ) ) AS no_zone
 	FROM AERODROME_helper ;
@@ -2393,12 +2393,12 @@ CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER AS
  	 (SUM(isBonus2) > 0) AS inB2, (SUM(isBonus3) > 0) AS inB3, 
  	 (SUM(isBonus4) > 0) AS inB4, (SUM(isBonus5) > 0) AS inB5,
 	SUM( NP.distanceToPreviousNavPoint) AS totalDistance,
-	COUNT( NP.codeOACI ) AS nbAerodromes,
+	COUNT( NP.codeICAO ) AS nbAerodromes,
 	MIN( NP.datetimePoint ) AS beginFlight,
 	MAX( NP.datetimePoint ) AS endFlight,
-	( SELECT COUNT( codeOACI ) FROM NAVPOINT, FLIGHT WHERE FLIGHT.idFlight = NAVPOINT.idFlight AND NAVPOINT.codeOACI LIKE "LFK%" ) AS nbAerodromeCorse
+	( SELECT COUNT( codeICAO ) FROM NAVPOINT, FLIGHT WHERE FLIGHT.idFlight = NAVPOINT.idFlight AND NAVPOINT.codeICAO LIKE "LFK%" ) AS nbAerodromeCorse
  	FROM NAVPOINT AS NP, AERODROME_helper, FLIGHT
- 	WHERE FLIGHT.idFlight = NP.idFlight AND NP.codeOACI = AERODROME_helper.codeOACI
+ 	WHERE FLIGHT.idFlight = NP.idFlight AND NP.codeICAO = AERODROME_helper.codeICAO
  	GROUP BY FLIGHT.idFlight ;
  
 CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER2 AS
@@ -2430,12 +2430,12 @@ CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
 
  CREATE OR REPLACE VIEW FLIGHT_PATH AS
 	SELECT idFlight,
-		NAVPOINT.codeOACI,
+		NAVPOINT.codeICAO,
 		lon, lat,
 		datetimePoint,
 		distanceToPreviousNavPoint
 	FROM AERODROME, NAVPOINT
-	WHERE AERODROME.codeOACI = NAVPOINT.codeOACI 
+	WHERE AERODROME.codeICAO = NAVPOINT.codeICAO 
 	ORDER BY datetimePoint ASC;
 
 -- --------------------------------------------------------

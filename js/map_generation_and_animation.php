@@ -223,7 +223,7 @@ function initMap() {
 			$idFlt = $result->idFlight; // Au cas où aucun vol n'est sélectionné
 		}
 
-		$sql_in="SELECT codeOACI, lat, lon, datetimePoint  FROM FLIGHT_PATH WHERE idFlight = '$result->idFlight'";
+		$sql_in="SELECT codeICAO, lat, lon, datetimePoint  FROM FLIGHT_PATH WHERE idFlight = '$result->idFlight'";
 		$sth_in=$dbh->query($sql_in);
 
 		while($result_in=$sth_in->fetch(PDO::FETCH_OBJ)){
@@ -372,7 +372,7 @@ var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la traj
         var markers = xml.documentElement.getElementsByTagName('marker');
         Array.prototype.forEach.call(markers, function(markerElem) 
         {
-            var codeOACI = markerElem.getAttribute('codeOACI');
+            var codeICAO = markerElem.getAttribute('codeICAO');
             var description = markerElem.getAttribute('description');
             var type = markerElem.getAttribute('type');
             var point = new google.maps.LatLng
@@ -383,10 +383,10 @@ var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la traj
 
             var infowincontent = document.createElement('div');
             var strong = document.createElement('strong');
-            strong.textContent = codeOACI + "  ";
+            strong.textContent = codeICAO + "  ";
             infowincontent.appendChild(strong);
 	    var link_takeoff_new_aircraft = document.createElement('a');
-	    link_takeoff_new_aircraft.href = '/beweb2017/php/addflight.php?idAerodrome=' + codeOACI;
+	    link_takeoff_new_aircraft.href = '/beweb2017/php/addflight.php?idAerodrome=' + codeICAO;
 	    infowincontent.appendChild(link_takeoff_new_aircraft);
 
 	    var button_ico = document.createElement('img');

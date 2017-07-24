@@ -25,14 +25,14 @@ class Aerodrome
  */
 function getAerodromes($dbh)
 {
-	$sql="SELECT codeOACI, lon, lat, no_zone FROM AERODROME;";
+	$sql="SELECT codeICAO, lon, lat, no_zone FROM AERODROME;";
 	$sth=$dbh->prepare($sql);
 	$sth->execute();
 	$listAerodrome=array();
 	$id=0;
 	while($result=$sth->fetch(PDO::FETCH_OBJ))
 	{
-		$listAerodrome[$id] = new Aerodrome($result->codeOACI,$result->lat,$result->lon, $result->no_zone);
+		$listAerodrome[$id] = new Aerodrome($result->codeICAO,$result->lat,$result->lon, $result->no_zone);
 		$id++;
 	}
 	$sth->closeCursor();
@@ -287,7 +287,7 @@ function appendAerodrome($dbh, $idFlight, $takeofftime, $racebegintime, $newAero
 
 	// 2: ajouter le Navpoint
 	$datetime = date('Y-m-d G:i:s',$landingtime); 
-	$sql="INSERT INTO `NAVPOINT` (codeOACI, idFlight, datetimePoint, distanceToPreviousNavPoint) VALUES ('" 
+	$sql="INSERT INTO `NAVPOINT` (codeICAO, idFlight, datetimePoint, distanceToPreviousNavPoint) VALUES ('" 
 		. $newAerodrome->code . "', '" . $idFlight . "', '" . $datetime . "', '" . $distanceVol . "');";
 
 	$sth=$dbh->prepare($sql);

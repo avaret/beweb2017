@@ -11,7 +11,7 @@ echo $html;
 <div class="remplissage titre2"><h2>règlement général :</h2></div>
 <div class="remplissage">
 
-    <p> La coupe Breitling est une compétition aérienne dans laquelle chaque équipage doit tenter d'effectuer, en parcourant une distance sol minimale, un posé-décollé sur 98 aérodromes français à code OACI en 24 heures, suivant les règles de vol VFR, auxquels s'ajoutent le décollage de l'aérodrome de départ et l'atterrissage sur celui d'arrivée (soit 100 aérodromes visités en 24 heures).</p>
+    <p> La coupe Breitling est une compétition aérienne dans laquelle chaque équipage doit tenter d'effectuer, en parcourant une distance sol minimale, un posé-décollé sur 98 aérodromes français à code ICAO en 24 heures, suivant les règles de vol VFR, auxquels s'ajoutent le décollage de l'aérodrome de départ et l'atterrissage sur celui d'arrivée (soit 100 aérodromes visités en 24 heures).</p>
 
     <p>Le règlement stipule les points suivants : <ul  TYPE="square">
     <li>Un même aérodrome ne peut faire l'objet que d'un seul posé-décollé.</li>
