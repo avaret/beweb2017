@@ -195,7 +195,7 @@ function navbar($isRegistering = false){
 	      <form id="auth" method="POST" action="/beweb2017/php/authenticate.php">
 		<fieldset>
 		    <label for="login">Login</label>
-		    <input type="input" name="login" />
+		    <input type="text" name="login" />
 		    <label for="password">Password</label>
 		    <input type="password" name="passwd" />
 		    <input type="submit" value="Login" /> 
