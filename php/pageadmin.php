@@ -3,7 +3,7 @@
 require_once('template.php');
 require_once('db.php');
 
-echo entete('PageAdmin');
+echo entete('Page d\'Administration');
 echo navbar();
 
 ?>
