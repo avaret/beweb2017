@@ -36,7 +36,7 @@ CREATE TABLE `BEACON` (
 DROP TABLE IF EXISTS `USER`;
 CREATE TABLE `USER` (
   `login` varchar(64) NOT NULL,
-  `passwd` varchar(64) NOT NULL,
+  `passwdHash` varchar(64) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
   PRIMARY KEY (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -2446,8 +2446,8 @@ CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
 
 -- L utilisateur ADMIN :
 
-INSERT INTO `USER` VALUES ('admin', 'admin', 1);
-INSERT INTO `USER` VALUES ('71r3d', '71r3d', 0);
+INSERT INTO `USER` VALUES ('admin', '42FaP5h0JuSzM', 1);
+INSERT INTO `USER` VALUES ('71r3d', '42V3aLAMBQGiY', 0);
 
 -- Un vol de démonstration Toulouse-Paris-Strasbourg - Corse*
 --  ou plus exactement, Toulouse-Blagnac, Redon, Strasbourg-Neuhof...

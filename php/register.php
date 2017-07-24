@@ -34,7 +34,7 @@ function registrform(){
     return $registring;
 }
 
-$html=entete("s'enregistrer", false, true );
+$html=entete("S'enregistrer", false, true );
 $html.=navbar(true);
 $html.=registrform();
 $html.=footer();

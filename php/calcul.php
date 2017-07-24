@@ -498,6 +498,7 @@ if(isset($_POST["timeToGenerateWind"])) {
 } else if(isset($_GET["debug"])) {
 	// direct call => debug mode
 	test_compute_dist();
+	echo " hash admin = " . hashmypassword("admin") . " and hash tired = ".hashmypassword("71r3d") . "\n";
 	return NULL; 
 	test_me();
 } else {
