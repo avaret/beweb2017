@@ -246,7 +246,10 @@ function generate_smart_trajectory($idFlight, $firstAerodrome, $teamName = "Some
         
         $listN[$i]=$listAerodrome[$choose];
         $aerodrome =$listAerodrome[$choose];
-        $zoneTable[$aerodrome->zone]+=0.1;
+        if ($zoneTable[$aerodrome->zone] == 0)
+            $zoneTable[$aerodrome->zone]+=0.05;
+        else    
+            $zoneTable[$aerodrome->zone]+=0.1;
 
         $t = appendAerodrome( $dbh, $idFlight,  $t, $racebegintime, $aerodrome, $aerodrome_previous, $cacheWindInfos);
         array_splice($listAerodrome, $choose, 1);
