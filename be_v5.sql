@@ -512,7 +512,7 @@ INSERT INTO BEACON (`codeOACI`, `lon`, `lat`, `description`) VALUES
 ('CTX', 1.80819, 46.9346, 'CHATEAUROUX\n'),
 ('CTX1', 1.93934, 46.9531, 'DEP LFOA/LFLD\n'),
 ('CTX2', 1.70198, 47.033, 'UQ237\n'),
-('CUERS', 6.11647, 43.2299, 'V35/G7\n'),
+('LFTF', 6.11647, 43.2299, 'V35/G7\n'),
 ('CV', 8.78628, 42.5823, 'CALVI Y16\n'),
 ('CVU', 2.22205, 43.6279, 'ARR. LFCK\n'),
 ('DA', 4.14003, 44.0623, 'ARR/DEP ALES (LFMS)\n'),
@@ -2374,10 +2374,14 @@ CREATE OR REPLACE VIEW AERODROME AS
 -- 
 
 -- Méthode 1 de calcul des Bonus: les noms d aéroport sont écrits en dur dans les requêtes SQL
+--  pt positif : facile à faire (principe KISS respecté)
 --  pt négatif : non évolutif
 
 -- Méthode 2 : la table AERODROME_BONUS contient les aérodromes, pour faire ensuite une somme
---  pt négatif, qd 2 aérodromes donnent le même code bonus ? => Solution supprimée car LFTF est absent des beacons fournis.
+--  pt positif, c'est évolutif
+--  pt négatif, qd 2 aérodromes donnent le même code bonus, c'est plus complexe à calculer
+
+-- On choisit donc la méthode 1 qui est plus simple, puisque l'évolution est improbable !
 
 
 CREATE OR REPLACE VIEW FLIGHT_ENRICHED_HELPER AS
@@ -2413,7 +2417,8 @@ CREATE OR REPLACE VIEW FLIGHT_ENRICHED AS
 	IF( nbConstraintSatisfied < 6 , 0, 1) AS canBeRanked,
 	IF( nbConstraintSatisfied < 6 , 
 		0, -- Non classé car les contraintes ne sont pas respectées
-		totalDistance - 80 * nbBonuses - 208 * inC - 80 * multiLandInCorse ) AS scoreSecondary
+		-- totalDistance - 80 * nbBonuses - 208 * inC - 80 * multiLandInCorse ) AS scoreSecondary -- distances en NM
+		totalDistance - 148 * nbBonuses - 385 * inC - 148 * multiLandInCorse ) AS scoreSecondary -- distances en km
  	FROM FLIGHT_ENRICHED_HELPER2 ;
 --	ORDER BY CanBeRanked DESC, nbAerodromes DESC, scoreSecondary DESC;
 
