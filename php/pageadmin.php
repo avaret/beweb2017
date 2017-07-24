@@ -56,9 +56,9 @@ echo navbar();
     <p> <b> Génération du vent : </b>
 
     <form id="addWind" method="POST" action="/beweb2017/php/calcul.php">
-        <label name="timeToGenerateWind"> Heure à partir de laquelle générer les 24 heures de vent : </label> 
+        <label for="timeToGenerateWind"> Heure à partir de laquelle générer les 24 heures de vent : </label> 
         <input type="datetime" name="timeToGenerateWind" value="<?php echo date('Y-m-d G:i:s', time()); ?>"/> <br/>
-        <label name="nbMetar"> Nombre de METAR de 2 heures à générer : </label> 
+        <label for="nbMetar"> Nombre de METAR de 2 heures à générer : </label> 
         <input type="datetime" name="nbMetar" value="12"/> <br />
         <input type="button" name="generateWind" value="Générer le vent" onclick="if(confirm('(Ré)générer le vent supprimera tous les vols existants. Etes-vous sûr de vouloir purger la liste des vols et générer le vent ?')) { this.form.submit(); }" />
     </form>
@@ -101,6 +101,7 @@ echo navbar();
 	<li>Normalisation de la base: toutes les tables valident les conditions des 5 Formes Normales</li>
 	<li>Algo de génération d'une trajectoire pour un nouveau vol, afin de maximiser la possibilité d'un classement</li>
 	<li>Calcul du temps de vol : tient compte du vent sur le trajet </li>
+	<li>Protection contre les injections SQL</li>
 	<li>Icône dans la barre d'adresse (favicon)</li>
     </ul>
 

@@ -245,6 +245,8 @@ function initMap() {
 	}
 	$sth->closeCursor();
 
+	$isThereAtLeastAFlight = $i > 1;
+
 	echo "    VolDecollage = new Date(\"$VolDecollage\"); 
 	VolAtterrissage = new Date(\"$VolAtterrissage\");\n";
 
@@ -382,19 +384,28 @@ var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la traj
 			generate_flightPath($j, false);
 	}
 
-	// On génère le vol principal en dernier pour qu'il apparaisse AU DESSUS des autres
-	generate_flightPath($i_idFlt, true);
-	echo "\nvar flightPath = flightPath_$i_idFlt;\n";
 
-?>
+	if($isThereAtLeastAFlight)
+	{
+		// On génère le vol principal en dernier pour qu'il apparaisse AU DESSUS des autres
+		generate_flightPath($i_idFlt, true);
+
+		echo "\nvar flightPath = flightPath_$i_idFlt;\n";
 
 ////////////////////////////  GESTION DESSIN AVION /////////////////////////
 
+		echo '
     var lengthInMeters = google.maps.geometry.spherical.computeLength(flightPath.getPath());
     //alert("polyline is "+lengthInMeters/1000+" long");
     
     animateCircle(flightPath,lengthInMeters);
     flightPath.setMap(map);
+		';
+	}
+
+
+?>
+
     
 ////////////////////////////  GESTION DESSIN AEROPORTS /////////////////////////
 
