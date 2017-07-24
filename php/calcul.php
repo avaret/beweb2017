@@ -218,21 +218,27 @@ function generate_smart_trajectory($idFlight, $firstAerodrome, $teamName = "Some
 
     array_splice($listAerodrome, $key, 1); //remove this airport from the list
     
-    for($c=1; $c<=99; $c++)
+    for($c=0; $c<=7; $c++)
     {
-        
+        zoneTable[$c]=1;
     }
     
     // 5. Ajouter jusqu'à 100 aérodromes suivants
     for($i=1; $i<=99; $i++)
     {
+        $lowestDist=null;
         $aerodrome_previous = $aerodrome;
         foreach ($listAerodrome as $key => $value) //calcule la distance par raport à tous les autres terrains
         {
-            $allDist[$key]=dist($value,$aerodrome_previous);
+            $allDist[$key]=dist($value,$aerodrome_previous)*$zoneTable[$value->zone];
+            if (($lowestDist==null) or ($lowestDist > $allDist[$key]))
+                {
+                    $lowestDist=$allDist[$key];
+                    $lowestDistInd=$key;
+                }
         }
-        
-        
+                
+        $zoneTable[$listAerodrome[$lowestDistInd]->zone]+=0.1
 
         // Méthode 1: ajouter aléatoirement n'importe quel aérodrome
         $id=rand(0,count($listAerodrome)-1);
