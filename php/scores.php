@@ -11,22 +11,23 @@ echo navbar();
 <div class="remplissage titre1"> <h1> <img src="/beweb2017/images/lauriers.gif" width="64" alt="lauriers"> R&eacute;sultats de notre comp&eacute;tition ! <img src="/beweb2017/images/lauriers.gif" width="64" alt="lauriers"> </h1> </div>
 
 <div class="remplissage">
-<table class="table table-inverse" data-toggle="table" data-search="true" data-pagination="true" data-page-size="30">
+<table id="tableScores" class="table table-inverse" data-toggle="table" data-search="true" data-pagination="true" data-page-size="30">
   <thead>
     <tr>
-      <th data-field="col1" data-sortable="true"> &nbsp; </th>
-      <th data-field="col2" data-sortable="true">Rang</th>
-      <th data-field="col3" data-sortable="true">A&eacute;rodromes</th>
-      <th data-field="col4" data-sortable="true">Score</th>
-      <th data-field="col5" data-sortable="true">Flight Id</th>
-      <th data-field="col6" data-sortable="true">Nom d'équipe</th>
-      <th data-field="col7" data-sortable="true">Avion</th>
-      <th data-field="col8" data-sortable="true">Distance</th>
-      <th data-field="col9" data-sortable="true">Nb Zones</th>
-      <th data-field="cola" data-sortable="true">Bonus</th>
-      <th data-field="colb" data-sortable="true">Départ</th>
-      <th data-field="colc" data-sortable="true">Arrivée</th>
-      <th data-field="cold" data-sortable="true">(util.)</th>
+      <th data-field="colmedaille" data-sortable="true"> &nbsp; </th>
+      <th data-field="colrang" data-sortable="true">Rang</th>
+      <th data-field="colaerodrom" data-sortable="true">A&eacute;rodromes</th>
+      <th data-field="colscore" data-sortable="true">Score</th>
+      <th data-field="colflightid" data-visible="false" data-sortable="true">Flight Id</th>
+      <th data-field="colteam" data-sortable="true">Nom d'équipe</th>
+      <th data-field="colavion" data-sortable="true">Avion</th>
+      <th data-field="coldist" data-sortable="true">Distance</th>
+      <th data-field="colzones" data-visible="false" data-sortable="true">Nb Zones</th>
+      <th data-field="colbonus" data-sortable="true">Bonus</th>
+      <th data-field="colstart" data-visible="false" data-sortable="true">Départ</th>
+      <th data-field="colend" data-visible="false" data-sortable="true">Arrivée</th>
+      <th data-field="coluser" data-visible="false" data-sortable="true">(util.)</th>
+      <th data-field="colicons" data-sortable="true"> &nbsp; </th>
     </tr>
   </thead>
   <tbody>
@@ -89,7 +90,8 @@ echo navbar();
 		echo '<td>' . $result->nbBonuses . '</td>';
 		echo '<td>' . $result->beginFlight . '</td>';
 		echo '<td>' . $result->endFlight . '</td>';
-		echo '<td>' . $result->loginUser . $buttons . '</td>';
+		echo '<td>' . $result->loginUser . '</td>';
+		echo '<td>' . $buttons . '</td>';
 		echo "</tr>\n";
 	}
 	$sth->closeCursor();
@@ -97,9 +99,30 @@ echo navbar();
 ?>
   </tbody>
 </table>
+<br/>
+<script>
+	var expand = 1; 
+	var previous_text; 
+	function chgColumns(status) {
+		$(function(){
+			var $table = $('#tableScores');
+			var newstatus = ( status ? "hideColumn" : "showColumn" );
+
+			$table.bootstrapTable(newstatus, 'colflightid');
+			$table.bootstrapTable(newstatus, 'colzones');
+			$table.bootstrapTable(newstatus, 'colstart');
+			$table.bootstrapTable(newstatus, 'colend');
+			$table.bootstrapTable(newstatus, 'coluser');
+		});
+	}
+
+</script>
+<button id="invertcolumns" onclick="expand = !expand; if(!expand) { previous_text = this.textContent; this.textContent = 'Cacher des colonnes'; } else { this.textContent = previous_text; } chgColumns(expand); " >Afficher toutes les colonnes</button>
+
 </div>
 
 <?php
 echo footer();
 
 ?>
+

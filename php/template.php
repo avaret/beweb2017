@@ -118,7 +118,7 @@ function navbar($isRegistering = false){
 
     for($row = 0; $row < 5; $row++)
     {
-        $navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/'.$pages[$row][1].'" width="16" alt="icone"> ' . $pages[$row][2] . '</a>';
+        $navbar1 .= "\n".'    <a href="/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/'.$pages[$row][1].'" width="16" alt="icone"> ' . $pages[$row][2] . '</a>';
     }
 
 
@@ -126,11 +126,11 @@ function navbar($isRegistering = false){
     {
         if($_SESSION["admin"]==1)
         {
-            $navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/admin.png" width="16" alt="icone"> Administration</a>  ';
+            $navbar1 .= '<a href="/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/admin.png" width="16" alt="icone"> Administration</a>  ';
         }
     }
     $navbar1 .= '
-    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><img src="/beweb2017/images/phone.png" width="16" alt="icone"> Contacts</a>
+    <a href="/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><img src="/beweb2017/images/phone.png" width="16" alt="icone"> Contacts</a>
     </div>
     <div class="w3-right-align" style="float:right">
 
@@ -147,7 +147,7 @@ function navbar($isRegistering = false){
 
         if(!$isRegistering) 
         {	
-            $navbar1 .= '  <a href="http://localhost/beweb2017/php/register.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-left">Register</a>     ';
+            $navbar1 .= '  <a href="/beweb2017/php/register.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-left">Register</a>     ';
         }
 
 
@@ -164,7 +164,7 @@ function navbar($isRegistering = false){
 
     for($row = 0; $row < 5; $row++)
     {
-        $navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-padding-large">' . $pages[$row][2] . '</a>';
+        $navbar1 .= "\n".'    <a href="/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-padding-large">' . $pages[$row][2] . '</a>';
     }
 
 
@@ -172,16 +172,16 @@ function navbar($isRegistering = false){
     {
         if($_SESSION["admin"]==1)
         {
-            $navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-padding-large">PageAdmin</a>  ';
+            $navbar1 .= '<a href="/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-padding-large">PageAdmin</a>  ';
         }
     }
     $navbar1 .= '
-    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
+    <a href="/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-padding-large">Contacts</a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large loginform">Login</a>
      ';
     if(!$isRegistering) 
     {
-        $navbar1 .= '<a href="http://localhost/beweb2017/php/register.php" class="w3-bar-item w3-button w3-padding-large">Register</a>';
+        $navbar1 .= '<a href="/beweb2017/php/register.php" class="w3-bar-item w3-button w3-padding-large">Register</a>';
     }
     $navbar1 .= '
   </div>
@@ -195,7 +195,7 @@ function navbar($isRegistering = false){
 	      <form id="auth" method="POST" action="/beweb2017/php/authenticate.php">
 		<fieldset>
 		    <label for="login">Login</label>
-		    <input type="input" name="login" />
+		    <input type="text" name="login" />
 		    <label for="password">Password</label>
 		    <input type="password" name="passwd" />
 		    <input type="submit" value="Login" /> 
@@ -212,7 +212,7 @@ function navbar($isRegistering = false){
 function footer(){
     $footer1='
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
- <p class="ptxt">Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php" target="_blank"> <u>Nous contacter</u></a></center></p>
+ <p class="ptxt">Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php" target="_blank"> <u>Nous contacter</u></a></p>
 </footer>
 
 <script>
