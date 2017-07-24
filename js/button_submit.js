@@ -20,6 +20,6 @@ $(document).mouseup(function (e)
         && container.has(e.target).length === 0) // ... nor a descendant of the container
     {
         container.hide();
-        $('#loginform').removeClass('green');
+        $('.loginform').removeClass('green');
     }
 });
