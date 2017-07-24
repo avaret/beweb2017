@@ -25,7 +25,7 @@ echo $html;
                 <li>au moins un aérodrome situé simultanément au nord du parallèle 46°30N et à l'est du méridien 6°E (zone 5)</li>
                 <li>au moins un aérodrome situé simultanément au sud du parallèle 48°N, au nord du parallèle 45°30'N, à l'ouest du méridien 4°E et à l'est du méridien 1°E (zone 6).</li>
             </ul> En cas de non-respect d'une zone de passage obligatoire, l'équipage quitte le classement. Ces zones sont visibles sur la page <a href="/beweb2017/php/map.php" style="text-decoration: underline;">Map</a>.</li>
-        <li>Le passage sur les aérodromes suivants :
+        <li>Le passage sur les aérodromes suivants : </p>
             <ul>
                 <li>LFRQ (Quimper),</li>
                 <li>LFAT (Le Touquet),</li>
@@ -35,7 +35,6 @@ echo $html;
             </ul> donera un bonus de 80NM par aérodrome à l'équipage y ayant réalisé un posé-décollé. Ce bonus sera retranché de la distance totale parcourue ; le maximum de bonus atteignable pour ces 5 aérodromes continentaux est donc de 400NM.</li>
         <li>La Corse bénéficie d'un statut de "continuité territoriale" : la distance de 208NM sera déduite de la distance totale parcourue si l'équipage effectue un posé-décollé en Corse. Par ailleurs, un bonus de 80NM sera attribué aux équipages qui effectueront des posés-décollés sur au moins deux des aérodromes LFKx.</li>
     </ul>
-    </p>
 </div>
 
 <div class="remplissage titre2"><h2>Classement des équipages :</h2></div>
