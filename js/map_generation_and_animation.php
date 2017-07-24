@@ -1,6 +1,6 @@
 <?php
 
-include_once '../php/db.php';
+require_once '../php/template.php';
 require_once '../php/db.php';
 require_once '../php/calcul.php';
 
@@ -11,6 +11,7 @@ if(isset($_SESSION["idFlt"]))
 	$idFlt = $_SESSION["idFlt"];
 else 
 	$idFlt = NULL;
+
 
 ?>
 
