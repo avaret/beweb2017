@@ -167,7 +167,7 @@ function generate_trajectory($idFlight, $firstAerodrome, $teamName = "Some team"
     return NULL;
 }
 
-/*function generate_smart_trajectory($idFlight, $firstAerodrome, $teamName = "Some team", $aircraftNumber = "F-THIS", $login = "71r3d", $useWind = true, $racebegintime = 0)
+function generate_smart_trajectory($idFlight, $firstAerodrome, $teamName = "Some team", $aircraftNumber = "F-THIS", $login = "71r3d", $useWind = true, $racebegintime = 0)
 {
     // 0. Sanitize
     $idFlight = sanitize($idFlight, 'sql');
@@ -220,37 +220,42 @@ function generate_trajectory($idFlight, $firstAerodrome, $teamName = "Some team"
     
     for($c=0; $c<=7; $c++)
     {
-        zoneTable[$c]=1;
+        $zoneTable[$c]=1;
     }
     
     // 5. Ajouter jusqu'à 100 aérodromes suivants
     for($i=1; $i<=99; $i++)
     {
-        $lowestDist=null;
         $aerodrome_previous = $aerodrome;
+        $lowestDist=dist($listAerodrome[0],$aerodrome_previous)*$zoneTable[$listAerodrome[0]->zone];
+        $lowestDistInd=0;
         foreach ($listAerodrome as $key => $value) //calcule la distance par raport à tous les autres terrains
         {
             $allDist[$key]=dist($value,$aerodrome_previous)*$zoneTable[$value->zone];
             if (($lowestDist==null) or ($lowestDist > $allDist[$key]))
                 {
+                    $SecondLowestInd=$lowestDistInd;
                     $lowestDist=$allDist[$key];
                     $lowestDistInd=$key;
                 }
         }
-                
-        $zoneTable[$listAerodrome[$lowestDistInd]->zone]+=0.1;
+        if (rand(1,10) < 4)
+            $choose=$SecondLowestInd;
+        else
+            $choose=$lowestDistInd;
         
-        $listN[$i]=$listAerodrome[$lowestDistInd];
-        $aerodrome =$listAerodrome[$lowestDistInd];
+        $listN[$i]=$listAerodrome[$choose];
+        $aerodrome =$listAerodrome[$choose];
+        $zoneTable[$aerodrome->zone]+=0.1;
 
-        $t = appendAerodrome( $dbh, $lowestDistIndFlight,  $t, $racebegintime, $aerodrome, $aerodrome_previous, $cacheWindInfos);
-        array_splice($listAerodrome, $lowestDistInd, 1);
+        $t = appendAerodrome( $dbh, $idFlight,  $t, $racebegintime, $aerodrome, $aerodrome_previous, $cacheWindInfos);
+        array_splice($listAerodrome, $choose, 1);
         if($t == NULL) // S'arrêter quand on atteind les 24 heures
             break;
 
     }
     return NULL;
-}*/
+}
 
 function searchC($list, $what)
 {
@@ -519,7 +524,7 @@ function test_me()
     deleteNav($idFl);
 
     echo "Creating Trajectories () ... ";
-    generate_trajectory($idFl, "LFGA");
+    generate_smart_trajectory($idFl, "LFGA");
 
     echo "Done !";
     echo '</pre>';
@@ -577,7 +582,7 @@ if(isset($_POST["timeToGenerateWind"])) {
 
             $useWind = (isset($_POST["useWind"]) && ($_POST["useWind"] == "on") );
 
-            echo generate_trajectory($idF, $_POST["firstAerodrome"], $_POST["teamName"], $_POST["aircraftNumber"], $_SESSION["login"], $useWind, strtotime($_POST["startTime"]));
+            echo generate_smart_trajectory($idF, $_POST["firstAerodrome"], $_POST["teamName"], $_POST["aircraftNumber"], $_SESSION["login"], $useWind, strtotime($_POST["startTime"]));
 
             $_POST["repeatCount"]--;
         } while($_POST["repeatCount"] > 0);
