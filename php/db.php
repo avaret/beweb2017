@@ -1,6 +1,6 @@
 <?php
 
-DEFINE("SGBD_SERVER","localhost");
+DEFINE("SGBD_SERVER","127.0.0.1");
 DEFINE("LOGIN","root");
 DEFINE("PASSWORD","mysql");
 DEFINE("DATABASE_NAME","IESSA16_rolland_schmitt_varet");
