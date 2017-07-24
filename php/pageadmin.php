@@ -102,6 +102,7 @@ echo navbar();
 	<li>Algo de génération d'une trajectoire pour un nouveau vol, afin de maximiser la possibilité d'un classement</li>
 	<li>Calcul du temps de vol : tient compte du vent sur le trajet </li>
 	<li>Protection contre les injections SQL</li>
+	<li>Le code HTML des pages a été amélioré à l'aide du W3C Validator (<a href="https://validator.w3.org">https://validator.w3.org</a>)</li>
 	<li>Icône dans la barre d'adresse (favicon)</li>
     </ul>
 
