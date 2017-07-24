@@ -82,6 +82,40 @@ echo navbar();
 
 <div class="remplissage">
     <h3> Notes de conception </h3>
+    <p> Voici la liste des fonctionnalités implémentées dans notre site web :
+    <ul>
+	<li>Visualisation des aéroports sur la carte</li>
+	<li>Visualisation de l'avion et des trajectoires de tous les avions</li>
+	<li>Animation de l'avion qui vole entre aéroports, avec possibilité de pause</li>
+	<li>Page de score, avec tri des colonnes</li>
+	<li>Gestion des utilisateurs, authentification + ajout d'utilisateurs</li>
+	<li>Mot de passe hashé dans la base de donné (il n'est PAS stocké en clair!)</li>
+	<li>Page de score avec boutons pour supprimer un vol, ou pour le visualiser</li>
+	<li>Accès à la création d'un vol depuis la carte (cliquer sur l'aérodrome puis sur l'icône représentant un avion qui décolle)</li>
+	<li>Page de contact avec mini-bio et photos</li>
+	<li>Page d'administration listant les utilisateurs et quelques autres fonctions</li>
+	<li>Gestion du vent (stocké dans la db) : créer manuellement depuis la page d'admin puis c'est automatiquement pris en compte pour tous les vols créés ultérieurement</li>
+	<li>Possibilité d'ajouter de nombreux vols rapidement (pour peupler la base et faire des tests)</li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+    </ul>
     <p> Ci-dessous le schémas UML de la base de donnée. </p>
     <img src="/beweb2017/images/conception.png" >
 </div>

@@ -185,7 +185,7 @@
       </UML:Association>
       <UML:Association xmi.id="QYsb9NhNSyTa" name="" namespace="Logical View" visibility="public" isSpecification="false">
        <UML:Association.connection>
-        <UML:AssociationEnd multiplicity="*" xmi.id="8NPLzA2usLql" name="codeOACI" isNavigable="true" type="qDcViGaugslc" visibility="protected" aggregation="none" changeability="changeable" isSpecification="false"/>
+        <UML:AssociationEnd multiplicity="*" xmi.id="8NPLzA2usLql" name="codeICAO" isNavigable="true" type="qDcViGaugslc" visibility="protected" aggregation="none" changeability="changeable" isSpecification="false"/>
         <UML:AssociationEnd multiplicity="*" xmi.id="7eyQ29gShY3p" name="idFlight" isNavigable="true" type="1y9p1h3eHubB" visibility="protected" aggregation="none" changeability="changeable" isSpecification="false"/>
        </UML:Association.connection>
       </UML:Association>
@@ -206,7 +206,7 @@
         <UML:Generalization xmi.idref="iqpA0aDJPYTq"/>
        </UML:GeneralizableElement.generalization>
        <UML:Classifier.feature>
-        <UML:Attribute xmi.id="ot09N1ZHDysZ" name="codeOACI" type="Hsgzymb2DWCw" visibility="implementation" isSpecification="false"/>
+        <UML:Attribute xmi.id="ot09N1ZHDysZ" name="codeICAO" type="Hsgzymb2DWCw" visibility="implementation" isSpecification="false"/>
         <UML:Attribute xmi.id="Ilqz0QleA9bA" name="lat" type="l2htJGESirh9" visibility="implementation" isSpecification="false"/>
         <UML:Attribute xmi.id="dviAFL047jTu" name="lon" type="l2htJGESirh9" visibility="implementation" isSpecification="false"/>
         <UML:Attribute xmi.id="CutmsgENpmgn" name="description" type="4ljwBwsOxdlg" visibility="implementation" isSpecification="false"/>
@@ -218,7 +218,7 @@
         <UML:Generalization xmi.idref="80erQF4ZojrO"/>
        </UML:GeneralizableElement.generalization>
        <UML:Classifier.feature>
-        <UML:Attribute xmi.id="bPIYBCqhfiiY" name="__codeOACI__" type="Hsgzymb2DWCw" visibility="public" isSpecification="false"/>
+        <UML:Attribute xmi.id="bPIYBCqhfiiY" name="__codeICAO__" type="Hsgzymb2DWCw" visibility="public" isSpecification="false"/>
         <UML:Attribute xmi.id="U6dqKN0vkGRv" name="lat" type="l2htJGESirh9" visibility="public" isSpecification="false"/>
         <UML:Attribute xmi.id="yaES3Qcj9f6l" name="lon" type="l2htJGESirh9" visibility="public" isSpecification="false"/>
         <UML:Attribute xmi.id="QFd6xJcwrqMs" name="description" type="4ljwBwsOxdlg" visibility="public" isSpecification="false"/>
@@ -245,7 +245,7 @@
       <UML:Class xmi.id="uTd2AAropTih" name="Flight_Path" namespace="Logical View" isLeaf="false" isRoot="false" visibility="public" isAbstract="false" stereotype="IB6qA3hSkxWF" isSpecification="false">
        <UML:Classifier.feature>
         <UML:Attribute xmi.id="mKKyfP5cGnZ3" name="idFlight" type="gVSmO6bYxpYq" visibility="implementation" isSpecification="false"/>
-        <UML:Attribute xmi.id="787FEAckDziA" name="codeOACI" type="Hsgzymb2DWCw" visibility="implementation" isSpecification="false"/>
+        <UML:Attribute xmi.id="787FEAckDziA" name="codeICAO" type="Hsgzymb2DWCw" visibility="implementation" isSpecification="false"/>
         <UML:Attribute xmi.id="poCsofKiHOAx" name="lon" type="l2htJGESirh9" visibility="implementation" isSpecification="false"/>
         <UML:Attribute xmi.id="h34Mzo9VlMb7" name="lat" type="l2htJGESirh9" visibility="implementation" isSpecification="false"/>
         <UML:Attribute xmi.id="GFu76sAub2Kh" name="datetimePoint" type="xYm84zpNP6hs" visibility="implementation" isSpecification="false"/>
@@ -310,7 +310,7 @@
           </linepath>
           <floatingtext textcolor="none" height="19" xmi.id="ilnRlNfzQXAm" isinstance="0" x="-1045.04" width="15" showstereotype="1" role="701" usefillcolor="1" linewidth="0" y="-344.292" fillcolor="none" usesdiagramfillcolor="1" text="*" font="Sans Serif,9,-1,5,50,0,0,0,0,0" posttext="" usesdiagramusefillcolor="1" pretext="" linecolor="#ff0000" localid="8es7Ljk5yV3S"/>
           <floatingtext textcolor="none" height="19" xmi.id="Mn7JJBjzuWPf" isinstance="0" x="-875.859" width="15" showstereotype="1" role="702" usefillcolor="1" linewidth="0" y="-342.453" fillcolor="none" usesdiagramfillcolor="1" text="*" font="Sans Serif,9,-1,5,50,0,0,0,0,0" posttext="" usesdiagramusefillcolor="1" pretext="" linecolor="#ff0000" localid="tP8Ns5nyjf32"/>
-          <floatingtext textcolor="none" height="18" xmi.id="58DYxfjQ1hrf" isinstance="0" x="-1048.47" width="77" showstereotype="1" role="709" usefillcolor="1" linewidth="0" y="-318.499" fillcolor="none" usesdiagramfillcolor="1" text="codeOACI" font="Sans Serif,9,-1,5,50,0,0,0,0,0" posttext="" usesdiagramusefillcolor="1" pretext="#" linecolor="#ff0000" localid="uWJCWHWgvIU8"/>
+          <floatingtext textcolor="none" height="18" xmi.id="58DYxfjQ1hrf" isinstance="0" x="-1048.47" width="77" showstereotype="1" role="709" usefillcolor="1" linewidth="0" y="-318.499" fillcolor="none" usesdiagramfillcolor="1" text="codeICAO" font="Sans Serif,9,-1,5,50,0,0,0,0,0" posttext="" usesdiagramusefillcolor="1" pretext="#" linecolor="#ff0000" localid="uWJCWHWgvIU8"/>
           <floatingtext textcolor="none" height="18" xmi.id="F5uBLOHOUTxS" isinstance="0" x="-917.411" width="62" showstereotype="1" role="710" usefillcolor="1" linewidth="0" y="-317.428" fillcolor="none" usesdiagramfillcolor="1" text="idFlight" font="Sans Serif,9,-1,5,50,0,0,0,0,0" posttext="" usesdiagramusefillcolor="1" pretext="#" linecolor="#ff0000" localid="mFl0TDhNj0ZF"/>
          </assocwidget>
          <assocwidget indexb="1" linecolor="#ff0000" xmi.id="AcuZ7P55Apti" type="502" fillcolor="#ffff00" indexa="1" textcolor="none" usefillcolor="1" font="Sans Serif,9,-1,5,50,0,0,0,0,0" totalcounta="2" linewidth="0" widgetaid="l7fbU3MMk73j" seqnum="" usesdiagramusefillcolor="0" totalcountb="2" usesdiagramfillcolor="0" widgetbid="WVt0sGuiUUBC">
