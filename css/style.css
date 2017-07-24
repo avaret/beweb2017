@@ -53,6 +53,9 @@ p{
     text-indent: 20px;
     text-align:justify;
 }
+.ptxt{
+    text-align:center;
+}
 a:link {
     color: black;
 }
