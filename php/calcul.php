@@ -239,14 +239,17 @@ function generate_smart_trajectory($idFlight, $firstAerodrome, $teamName = "Some
                     $lowestDistInd=$key;
                 }
         }
-        if (rand(1,10) < 4)
+        if (rand(1,50) < 2)
             $choose=$SecondLowestInd;
         else
             $choose=$lowestDistInd;
         
         $listN[$i]=$listAerodrome[$choose];
         $aerodrome =$listAerodrome[$choose];
-        $zoneTable[$aerodrome->zone]+=0.1;
+        if ($zoneTable[$aerodrome->zone] == 0)
+            $zoneTable[$aerodrome->zone]+=0.05;
+        else    
+            $zoneTable[$aerodrome->zone]+=0.1;
 
         $t = appendAerodrome( $dbh, $idFlight,  $t, $racebegintime, $aerodrome, $aerodrome_previous, $cacheWindInfos);
         array_splice($listAerodrome, $choose, 1);
