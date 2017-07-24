@@ -6,7 +6,7 @@ require_once('db.php');
 echo entete('Ajouter un vol');
 echo navbar();
 
-echo '<div class="remplissage"  style="background-color: cyan;"> <h2> Ajout d\'un vol :</h2> </div>';
+echo '<div class="remplissage titre1"> <h2> Ajout d\'un vol :</h2> </div>';
 
 if(isset($_GET["idAerodrome"]))
 	$idAerodr = $_GET["idAerodrome"];

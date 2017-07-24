@@ -119,7 +119,7 @@ function navbar($isRegistering = false){
 
 	for($row = 0; $row < 5; $row++)
 	{
-		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/'.$pages[$row][1].'" width="20" alt="icone"> ' . $pages[$row][2] . '</a>';
+		$navbar1 .= "\n".'    <a href="http://localhost/beweb2017/' . $pages[$row][0] . '" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/'.$pages[$row][1].'" width="16" alt="icone"> ' . $pages[$row][2] . '</a>';
 	}
 
 
@@ -127,11 +127,11 @@ function navbar($isRegistering = false){
 	{
 		if($_SESSION["admin"]==1)
 		{
-			$navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/admin.png" width="20" alt="icone">Administration</a>  ';
+			$navbar1 .= '<a href="http://localhost/beweb2017/php/pageadmin.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white w3-border-right"><img src="/beweb2017/images/admin.png" width="16" alt="icone"> Administration</a>  ';
 		}
 	}
 	$navbar1 .= '
-    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><img src="/beweb2017/images/phone.png" width="20" alt="icone">Contacts</a>
+    <a href="http://localhost/beweb2017/php/contacts.php" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><img src="/beweb2017/images/phone.png" width="16" alt="icone"> Contacts</a>
     </span>
     <span class="w3-right-align" style="float:right">
 

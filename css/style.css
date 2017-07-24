@@ -19,6 +19,12 @@ body {
  -webkit-border-radius:30px;
  border-style: double;
 }
+.titre1 {
+background-color: cyan; 
+}
+.titre2 {
+background-color: aliceblue;   
+}
 .photo {
 padding: 50px;
 text-align: center;
