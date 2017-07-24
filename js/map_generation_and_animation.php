@@ -250,19 +250,18 @@ function initMap() {
 	echo "    VolDecollage = new Date(\"$VolDecollage\"); 
 	VolAtterrissage = new Date(\"$VolAtterrissage\");\n";
 
-	for($j=1;$j<$i;$j++)
-	{
+	function generate_flightPath($j, $volPrincipal) {
 		echo '
 
 var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la trajectoire
     {
     path: flightPlanCoordinates_'.$j.',
     geodesic: true, //Use orthodromie
-    strokeColor: \'#' . ( $j == $i_idFlt ? "FF0000" : "00FF00" ). '\',
-    strokeOpacity: 1.0,
+    strokeColor: \'#' . ( $volPrincipal ? "FF0000" : "00FF00" ). '\',
+    strokeOpacity: ' . ( $volPrincipal ? "1.0" : "0.2" ) .',
     strokeWeight: 2,
 	';
-		if($j==$i_idFlt) {
+		if($volPrincipal) {
 		echo '
     icons:
     [{
@@ -274,6 +273,15 @@ var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la traj
     }); ';
 	}
 
+
+	for($j=1;$j<$i;$j++)
+	{
+		if($j != $i_idFlt)
+			generate_flightPath($j, false);
+	}
+
+	// On génère le vol principal en dernier pour qu'il apparaisse AU DESSUS des autres
+	generate_flightPath($i_idFlt, true);
 	echo "\nvar flightPath = flightPath_$i_idFlt;\n";
 
 
