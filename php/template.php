@@ -194,9 +194,9 @@ function navbar($isRegistering = false){
 	      <div class="randompad">
 	      <form id="auth" method="POST" action="/beweb2017/php/authenticate.php">
 		<fieldset>
-		    <label name="login">Login</label>
-		    <input type="login" name="login" />
-		    <label name="password">Password</label>
+		    <label for="login">Login</label>
+		    <input type="input" name="login" />
+		    <label for="password">Password</label>
 		    <input type="password" name="passwd" />
 		    <input type="submit" value="Login" /> 
 		</fieldset>          
@@ -212,11 +212,7 @@ function navbar($isRegistering = false){
 function footer(){
     $footer1='
 <footer class="w3-container w3-padding-64 w3-center w3-opacity">  
-<<<<<<< HEAD
- <p>Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php" target="_blank"> <u>Nous contacter</u></a></p>
-=======
- <p style="text-align:center;">Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php"target="_blank"> <u>Nous contacter</u></p>
->>>>>>> b5e8887f8ef7cd659c72dc089ce8e33bf1c81172
+ <p><center>Un projet pour l\'<a href="http://www.enac.fr/" target="_blank"><u>ENAC</u></a> | <a href="http://localhost/beweb2017/php/contacts.php"target="_blank"> <u>Nous contacter</u></a></center></p>
 </footer>
 
 <script>
