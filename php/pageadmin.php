@@ -8,7 +8,7 @@ echo navbar();
 
 ?>
 
-<div class="remplissage"  style="background-color: cyan;"> <h1> Page administrateur</h1> </div>
+<div class="remplissage titre1"> <h1> Page administrateur</h1> </div>
 
 <div class="remplissage">
   <p> <b> Liste des utilisateurs inscrits dans la base de donnée : </b>
