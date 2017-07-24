@@ -1,5 +1,5 @@
 --
--- Database: `beweb_2017` : notre base de données !
+-- Database: `IESSA16_rolland_schmitt_varet` : notre base de données !
 --  Matthieu Schmitt, Mathieu Rolland, Antoine Varet
 --
 --  Merci de lire ce code ! Les lignes intéressantes
@@ -7,9 +7,9 @@
 --  et les données d'exemple.
 --
 
-DROP DATABASE IF EXISTS `beweb_2017`;
-CREATE DATABASE IF NOT EXISTS `beweb_2017` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `beweb_2017`;
+DROP DATABASE IF EXISTS `IESSA16_rolland_schmitt_varet`;
+CREATE DATABASE IF NOT EXISTS `IESSA16_rolland_schmitt_varet` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `IESSA16_rolland_schmitt_varet`;
 
 -- --------------------------------------------------------
 

@@ -3,7 +3,7 @@
 DEFINE("SGBD_SERVER","localhost");
 DEFINE("LOGIN","root");
 DEFINE("PASSWORD","mysql");
-DEFINE("DATABASE_NAME","beweb_2017");
+DEFINE("DATABASE_NAME","IESSA16_rolland_schmitt_varet");
 
 /* connexion: FR, connection: EN */
 
