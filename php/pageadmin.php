@@ -94,28 +94,18 @@ echo navbar();
 	<li>Accès à la création d'un vol depuis la carte (cliquer sur l'aérodrome puis sur l'icône représentant un avion qui décolle)</li>
 	<li>Page de contact avec mini-bio et photos</li>
 	<li>Page d'administration listant les utilisateurs et quelques autres fonctions</li>
-	<li>Gestion du vent (stocké dans la db) : créer manuellement depuis la page d'admin puis c'est automatiquement pris en compte pour tous les vols créés ultérieurement</li>
+	<li>Gestion du vent (stocké dans la db) : créer manuellement depuis la page d'admin (un bouton crée 24 heures de METAR par blocs de 2 heures pour chaque zone) puis c'est automatiquement pris en compte pour tous les vols créés ultérieurement</li>
 	<li>Possibilité d'ajouter de nombreux vols rapidement (pour peupler la base et faire des tests)</li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
-	<li></li>
+	<li>Suppression d'un vol : cela nettoie automatiquement la trajectoire associée.</li>
+	<li>Utilisation de vues SQL pour simplifier au maximum les requêtes écrites dans le PHP</li>
+	<li>Normalisation de la base: toutes les tables valident les conditions des 5 Formes Normales</li>
+	<li>Algo de génération d'une trajectoire pour un nouveau vol, afin de maximiser la possibilité d'un classement</li>
+	<li>Calcul du temps de vol : tient compte du vent sur le trajet </li>
+	<li>Icône dans la barre d'adresse (favicon)</li>
     </ul>
+
+    <p> Le fichier SQL utilisable pour (re)créer la base est <a href="/beweb2017/rolland_schmitt_varet.sql"> téléchargeable ici.</a> A noter qu'il est écrit de manière à forcer la recréation totale de la base et de ses tables (pas de CREATE TABLE IF NOT EXISTS qui risqueraient de ne pas bien nettoyer une table partiellement définie).</p>
+
     <p> Ci-dessous le schémas UML de la base de donnée. </p>
     <img src="/beweb2017/images/conception.png" >
 </div>

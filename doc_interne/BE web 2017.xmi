@@ -128,7 +128,7 @@
       <UML:Class xmi.id="gHKk2if2enpg" name="User" namespace="Logical View" isLeaf="false" isRoot="false" visibility="public" isAbstract="false" isSpecification="false">
        <UML:Classifier.feature>
         <UML:Attribute xmi.id="WqjijManqPcU" name="__login__" type="4ljwBwsOxdlg" visibility="public" isSpecification="false"/>
-        <UML:Attribute xmi.id="uk34tav4tM84" name="passwd" type="4ljwBwsOxdlg" visibility="public" isSpecification="false"/>
+        <UML:Attribute xmi.id="uk34tav4tM84" name="passwdHash" type="4ljwBwsOxdlg" visibility="public" isSpecification="false"/>
         <UML:Attribute xmi.id="C7ORjjzEZiuH" name="isAdmin" type="BSeEQLf5A4On" visibility="public" isSpecification="false"/>
        </UML:Classifier.feature>
       </UML:Class>
