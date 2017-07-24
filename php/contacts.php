@@ -9,7 +9,7 @@ function contacto($nom, $prenom, $mail, $photo, $bio){
     <div class="w3-twothird">
       <h1>'.$nom.' '.$prenom.'</h1>
       <br>
-      <p class="w3-padding-32" style="text-align:justify;">'.$bio.'</p>
+      <p class="w3-padding-32">'.$bio.'</p>
       <br><br><br>
       <p class="w3-text-grey w3-center">'.$mail.'</p>
     </div>
@@ -36,8 +36,8 @@ embarqué pour l\'avionique. Après quelques années passées à travailler dans
 systèmes logiciels et matériels de validation des systèmes de communication Datalink, j’ai intégré la fonction
 publique dans le corps des Ingénieurs Électroniciens des Systèmes de la Sécurité Aérienne (IESSA) de la
 Direction Générale de l’Aviation Civile (DGAC) en septembre 2016.' );
-$html.=contacto('SCHMITT', 'Matthieu', 'matthieu.schmitt@aviation-civile.gouv.fr', '/beweb2017/images/ms.png', 'Après un baccalauréat S au lycée la Doctrine chrétienne à Strasbourg, j\'ai étudié un an au lycée technique Couffignal en PCSI. N\'étant pas très enthousiasmé par les sciences fondamentales, j\'ai passé le concours TSEEAC en 2010, et ai intégré la promotion TSEEAC 10A. Après ma formation, j\'ai été affecté au siège de la DGAC à Paris ou j\'ai travaillé pendant 4 ans à la Mission Environnement avant de passer le concours IESSA en interne l\'année dernière.');
-$html.=contacto('ROLLAND', 'Mathieu', 'mathieu.rolland.isesa@gmail.com', '/beweb2017/images/mr.jpg', 'Originaire de Toulouse, j\'ai obtenu en 2015 ma licence de physique fondamentale à l\'université Paul Sabatier. J\'ai ensuite commencé un master de sciences météorologiques, mais me lassant de cours trop théoriques j\'ai changé d\'orientation pour une formation plus pratique : ISESA à l\'Enac, filière dans laquelle je me retrouve beaucoup plus.');
+$html.=contacto('SCHMITT', 'Matthieu', 'matthieu.schmitt@aviation-civile.gouv.fr', '/beweb2017/images/ms.png', 'Après un baccalauréat S au Lycée la Doctrine Chrétienne à Strasbourg, j\'ai étudié un an au Lycée Technique Couffignal en PCSI. N\'étant pas très enthousiasmé par les sciences fondamentales, j\'ai passé le concours TSEEAC en 2010 et j\'ai intégré la promotion TSEEAC 10A. Après ma formation, j\'ai été affecté au siège de la DGAC à Paris où j\'ai travaillé pendant 4 ans à la Mission Environnement avant de passer le concours IESSA en interne l\'année dernière.');
+$html.=contacto('ROLLAND', 'Mathieu', 'mathieu.rolland.isesa@gmail.com', '/beweb2017/images/mr.jpg', 'Originaire de Toulouse, j\'ai obtenu en 2015 ma licence de physique fondamentale à l\'Université Paul Sabatier. J\'ai ensuite commencé un Master de sciences météorologiques, mais me lassant de cours trop théoriques j\'ai changé d\'orientation pour une formation plus pratique : ISESA à l\'ENAC, filière dans laquelle je me retrouve beaucoup plus.');
 
 $html.=footer();
 

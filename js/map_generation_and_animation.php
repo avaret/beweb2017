@@ -15,6 +15,9 @@ else
 
 ?>
 
+
+// ***** CE FICHIER A ETE GENERE DYNAMIQUEMENT PAR UN SCRIPT PHP *****
+
 ////////////////////////////  GESTION DES ZONES (pour dessin) /////////////////////////
 
 var map;
@@ -201,19 +204,20 @@ function initMap() {
     
     var infoWindow = new google.maps.InfoWindow;
     
+////////////////////////////  GESTION FLECHES VENT /////////////////////////
 
-////////////////////////////  GESTION TRAJECTOIRES DE VOL  /////////////////////////
+// Rq: on affiche les flèches de vent AVANT les avions pour qu'elles soient en arrière plan
 
-        <?php
+<?php
 
+	/// Identifier vol sélectionné + ses aéroports de décollage et d'atterrissage => on en a besoin pour les METAR
+ 	$i = 1;
 	$i_idFlt = 1; // Associe le numero avec le nom du vol sélectionné. A défaut on prend le premier
 	$VolDecollage = NULL; // On réinitialise (au cas où...)
 	$VolAtterrissage = NULL;
-	$i = 1;
 	$sql="SELECT DISTINCT idFlight FROM FLIGHT_PATH";
 	$sth=$dbh->query($sql);
 	while($result=$sth->fetch(PDO::FETCH_OBJ)){
-		echo "var flightPlanCoordinates_$i = [ // Flight Plan for $result->idFlight... \n";
 		if($result->idFlight == $idFlt || $idFlt == NULL)
 		{
 			echo "// Vol sélectionné = $result->idFlight \n";
@@ -222,15 +226,10 @@ function initMap() {
 			$VolAtterrissage = NULL;
 			$idFlt = $result->idFlight; // Au cas où aucun vol n'est sélectionné
 		}
-
 		$sql_in="SELECT codeICAO, lat, lon, datetimePoint  FROM FLIGHT_PATH WHERE idFlight = '$result->idFlight'";
 		$sth_in=$dbh->query($sql_in);
 
 		while($result_in=$sth_in->fetch(PDO::FETCH_OBJ)){
-			$lat = $result_in->lat;
-			$lon = $result_in->lon;
-			echo "new google.maps.LatLng(" . $lat . ", " . $lon . "), \n";
-
 			if($result->idFlight == $idFlt)
 			{
 				// Vol sélectionné => on définit les moments
@@ -242,7 +241,6 @@ function initMap() {
 			}
 		}
 		$sth_in->closeCursor();
-		echo "];\n";
 		$i++;
 	}
 	$sth->closeCursor();
@@ -250,34 +248,9 @@ function initMap() {
 	echo "    VolDecollage = new Date(\"$VolDecollage\"); 
 	VolAtterrissage = new Date(\"$VolAtterrissage\");\n";
 
-	for($j=1;$j<$i;$j++)
-	{
-		echo '
-
-var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la trajectoire
-    {
-    path: flightPlanCoordinates_'.$j.',
-    geodesic: true, //Use orthodromie
-    strokeColor: \'#' . ( $j == $i_idFlt ? "FF0000" : "00FF00" ). '\',
-    strokeOpacity: 1.0,
-    strokeWeight: 2,
-	';
-		if($j==$i_idFlt) {
-		echo '
-    icons:
-    [{
-        icon: symbolaircraft,
-        offset: \'100\%\'
-    }],'; 
-}
-		echo '   map: map
-    }); ';
-	}
-
-	echo "\nvar flightPath = flightPath_$i_idFlt;\n";
 
 
-////////////////////////////  GESTION FLECHES VENT /////////////////////////
+
 
 	// On récupère les infos de vent
 	$metars = getMetars($dbh);
@@ -308,11 +281,11 @@ var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la traj
 	echo " ]; ";
 
 
-		/* On crée 7 icônes de flèches, une par zone ! */
-		echo " symbolsarrowwind = [ ";
-		for($i=0;$i<7;$i++)
-		{
-			echo '
+	/* On crée 7 icônes de flèches, une par zone ! */
+	echo " symbolsarrowwind = [ ";
+	for($i=0;$i<7;$i++)
+	{
+		echo '
      { 
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
         scale: 5,
@@ -321,40 +294,99 @@ var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la traj
 	rotation: 0,
 	fillColor: \'#000000\'
       }, ';
-		}
-		echo " ]; ";
+	}
+	echo " ]; ";
 
 
-		$id=1;
-		$scale = 1.4;
-		for($lat = 42.2; $lat <= 52.0; $lat += $scale)
+	$id=1;
+	$scale = 1.4;
+	for($lat = 42.2; $lat <= 52.0; $lat += $scale)
+	{
+		for($lon = -4.1; $lon <= 8.0; $lon += $scale)
 		{
-			for($lon = -4.1; $lon <= 8.0; $lon += $scale)
-			{
-				if($lat > 49.75) $zone_id = 1;
-				else if($lon < -1.667) $zone_id = 2;
-				else if($lat < 44.5 && $lon < 2) $zone_id = 3;
-				else if($lat < 44.5 && $lon > 5) $zone_id = 4;
-				else if($lon > 6) $zone_id = 5;
-				else if($lat < 48 && $lon > 1 && $lat > 45.5 && $lon < 4) $zone_id = 6;
-				else $zone_id = 0;
+			if($lat > 49.75) $zone_id = 1;
+			else if($lat < 44.5 && $lon < 2) $zone_id = 3;
+			else if($lat < 44.5 && $lon > 5) $zone_id = 4;
+			else if($lon < -1.667) $zone_id = 2;
+			else if($lon > 6) $zone_id = 5;
+			else if($lat < 48 && $lon > 1 && $lat > 45.5 && $lon < 4) $zone_id = 6;
+			else $zone_id = 0;
 
-				echo "var polyline_$id = new google.maps.Polyline( { path: [ ";
-				echo "new google.maps.LatLng(" . $lat . ", " . $lon . "), new google.maps.LatLng(" . $lat . ", " . ($lon+0.5) . ") ";
-				echo "], geodesic: false, strokeOpacity: 0, map: map, icons: [{ icon: symbolsarrowwind[$zone_id], offset: 0 }] } );\n";
+			echo "var polyline_$id = new google.maps.Polyline( { path: [ ";
+			echo "new google.maps.LatLng(" . $lat . ", " . $lon . "), new google.maps.LatLng(" . $lat . ", " . ($lon+0.5) . ") ";
+			echo "], geodesic: false, strokeOpacity: 0, map: map, icons: [{ icon: symbolsarrowwind[$zone_id], offset: 0 }] } );\n";
 
-				//echo "WindZones[$zone_id].push( polyline_$id ); \n";
-				$id++;
-			}
+			//echo "WindZones[$zone_id].push( polyline_$id ); \n";
+			$id++;
 		}
-		for($i=1;$i<$id;$i++)
-		{
-			echo "arrowWind.push(polyline_$i);";
-		}
-		echo "\n";
+	}
+	for($i=1;$i<$id;$i++)
+	{
+		echo "arrowWind.push(polyline_$i);";
+	}
+	echo "\n";
 			
-	?>
 
+////////////////////////////  GESTION TRAJECTOIRES DE VOL  /////////////////////////
+
+
+	$i = 1; // Comptera le nombre de vols.
+	$sql="SELECT DISTINCT idFlight FROM FLIGHT_PATH";
+	$sth=$dbh->query($sql);
+	while($result=$sth->fetch(PDO::FETCH_OBJ)){
+		echo "var flightPlanCoordinates_$i = [ // Flight Plan for $result->idFlight... \n";
+
+		$sql_in="SELECT codeICAO, lat, lon, datetimePoint  FROM FLIGHT_PATH WHERE idFlight = '$result->idFlight'";
+		$sth_in=$dbh->query($sql_in);
+
+		while($result_in=$sth_in->fetch(PDO::FETCH_OBJ)){
+			$lat = $result_in->lat;
+			$lon = $result_in->lon;
+			echo "new google.maps.LatLng(" . $lat . ", " . $lon . "), \n";
+		}
+		$sth_in->closeCursor();
+		echo "];\n";
+		$i++;
+	}
+	$sth->closeCursor();
+	$nbVols = $i;
+
+
+	function generate_flightPath($j, $volPrincipal) {
+		echo '
+
+var flightPath_'.$j.' = new google.maps.Polyline( //définit le style de la trajectoire
+    {
+    path: flightPlanCoordinates_'.$j.',
+    geodesic: true, //Use orthodromie
+    strokeColor: \'#' . ( $volPrincipal ? "FF0000" : "00FF00" ). '\',
+    strokeOpacity: ' . ( $volPrincipal ? "1.0" : "0.2" ) .',
+    strokeWeight: 2,
+	';
+		if($volPrincipal) {
+		echo '
+    icons:
+    [{
+        icon: symbolaircraft,
+        offset: \'100\%\'
+    }],'; 
+}
+		echo '   map: map
+    }); ';
+	}
+
+
+	for($j=1;$j<$nbVols;$j++)
+	{
+		if($j != $i_idFlt)
+			generate_flightPath($j, false);
+	}
+
+	// On génère le vol principal en dernier pour qu'il apparaisse AU DESSUS des autres
+	generate_flightPath($i_idFlt, true);
+	echo "\nvar flightPath = flightPath_$i_idFlt;\n";
+
+?>
 
 ////////////////////////////  GESTION DESSIN AVION /////////////////////////
 
