@@ -1,6 +1,6 @@
 <?php
 
-DEFINE("SGBD_SERVER","localhost");
+DEFINE("SGBD_SERVER","127.0.0.1");
 DEFINE("LOGIN","root");
 DEFINE("PASSWORD","mysql");
 DEFINE("DATABASE_NAME","IESSA16_rolland_schmitt_varet");
@@ -29,8 +29,18 @@ function connection($donotusedb = false)
 		}
 		catch(PDOException $e)
 		{
-			echo 'Connection failed to the SGBD: '.$e->getMessage();
-			return "fail";
+            //Essaie de se connecter avec la config propre au serveur distant
+            try
+            {
+                $connStr="mysql:host=".SGBD_SERVER.";port=3307;dbname=".DATABASE_NAME;
+                $dbh=new PDO($connStr, LOGIN, "");
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
+            catch(PDOException $e)
+            {
+                echo 'Connection failed to the SGBD: '.$e->getMessage();
+                return "fail";
+            }
 		}
 	}
 	return $dbh;
