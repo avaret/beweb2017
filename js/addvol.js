@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $("form#addFlight").on("submit", function( event){
         event.preventDefault();
+        $("#calculencours").modal('show');
         $.ajaxSetup({async: true});
         $.ajax({
             url : '/beweb2017/php/calcul.php',
@@ -9,6 +10,7 @@ $(document).ready(function(){
             dataType: 'html',
             success : function(resultat_du_php,status)
                 {
+			$('#calculencours').modal('hide');
 			if(resultat_du_php)
 			{
 				// Il y a eu un problème dans les données!

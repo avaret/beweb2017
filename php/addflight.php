@@ -21,9 +21,33 @@ if(isset($_SESSION["login"]))
 
 <div id="erreur"> </div>
 
+<!-- Modal -->
+<div id="calculencours" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- button type="button" class="close" data-dismiss="modal">&times;</button -->
+        <h4 class="modal-title">Calculs en cours...</h4>
+      </div>
+      <div class="modal-body photo">
+        <p>Calculs en cours... Veuillez patienter ! </p>
+	<br/>
+	<img src="/beweb2017/images/loading.gif" alt="image chargement en cours" >
+      </div>
+      <div class="modal-footer">
+        <!-- button type="button" class="btn btn-default" data-dismiss="modal">Close</button -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 <div class="remplissage">
 
-   <script src="//code.jquery.com/jquery.min.js"></script> 
+   <script src="/beweb2017/library/jquery.min.js"></script> 
    <script src="/beweb2017/js/addvol.js" type="text/javascript"></script>
 
      <form id="addFlight" method="POST">

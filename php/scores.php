@@ -73,9 +73,9 @@ echo navbar();
 		$coche = "<img src=\"/beweb2017/images/$coche\" width=\"30\" alt=\"$result->nbConstraintSatisfied zones traversées\">";
 
 		$buttons = "<a href=\"/beweb2017/php/map.php?idFlt=$result->idFlight\"> <img src=\"/beweb2017/images/b_search.png\" alt='Visualiser'> </a> ";
-		$isAdmin = isset($_SESSION["isAdmin"]) && $_SESSION["isAdmin"];
+		$isAdmin = isset($_SESSION["admin"]) && $_SESSION["admin"];
 		$currentUser = (isset($_SESSION["login"]) ? $_SESSION["login"] : NULL);
-		if($isAdmin || $currentUser == $result->loginUser)
+		if($isAdmin || ($currentUser == $result->loginUser))
 			$buttons .= "<a href=\"/beweb2017/php/calcul.php?removeFlight=$result->idFlight\"> <img src=\"/beweb2017/images/b_remove.png\" alt='Retirer le vol'> </a> ";
 
 		echo '<tr> <td scope="row">' . $logo . '</td>';
