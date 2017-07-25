@@ -33,7 +33,7 @@ if(isset($_SESSION["login"]))
       </div>
       <div class="modal-body photo">
         <p>Calculs en cours... Veuillez patienter ! </p>
-	<br/>
+	<br />
 	<img src="/beweb2017/images/loading.gif" alt="image chargement en cours" >
       </div>
       <div class="modal-footer">

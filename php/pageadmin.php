@@ -57,7 +57,7 @@ echo navbar();
 
     <form id="addWind" method="POST" action="/beweb2017/php/calcul.php">
         <label for="timeToGenerateWind"> Heure à partir de laquelle générer les 24 heures de vent : </label> 
-        <input type="datetime" name="timeToGenerateWind" value="<?php echo date('Y-m-d G:i:s', time()); ?>"/> <br/>
+        <input type="datetime" name="timeToGenerateWind" value="<?php echo date('Y-m-d G:i:s', time()); ?>"/> <br />
         <label for="nbMetar"> Nombre de METAR de 2 heures à générer : </label> 
         <input type="datetime" name="nbMetar" value="12"/> <br />
         <input type="button" name="generateWind" value="Générer le vent" onclick="if(confirm('(Ré)générer le vent supprimera tous les vols existants. Etes-vous sûr de vouloir purger la liste des vols et générer le vent ?')) { this.form.submit(); }" />
@@ -66,7 +66,7 @@ echo navbar();
     </p>
 
 <p> <u> Attention : le bouton suivant efface complètement la base de données. Ne cliquez dessus que si vous savez ce que vous faites ! </u> </p>
-<p>  <br/> <button onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { alert('Destruction à la fermeture de cette fenêtre...'); location.href='/beweb2017/php/mgmt_db.php'; } "> DROP DATABASE </button>
+<p>  <br /> <button onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { alert('Destruction à la fermeture de cette fenêtre...'); location.href='/beweb2017/php/mgmt_db.php'; } "> DROP DATABASE </button>
     <!-- br/> <button disabled='true' onclick="if(confirm('Etes-vous sûr de vouloir détruire la base de donnée et tout son contenu ??')) { location.href='/beweb2017/php/mgmt_db.php?do=reset';} "> (RE)CREATE DATABASE ; </button -->
 </p>
 </div>

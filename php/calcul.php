@@ -507,7 +507,7 @@ function test_groundspeedfunction()
     {
         echo $i . "° >> " . groundSpeed(calculAngle2($newAerodrome,$previousAerodrome),10*$i, 100) . " <br /> ";
     }
-    echo "<hr>NORD SUD<br/>";
+    echo "<hr>NORD SUD<br />";
     $newAerodrome = new Aerodrome("LFAA",45.0,5.0, 1);
     $previousAerodrome= new Aerodrome("LFBA",65.0,5.0, 1);
     for($i=0;$i<36;$i++)
@@ -548,7 +548,7 @@ function test_compute_dist()
 		$a = $ae_l[$i-1];
 		$b = $ae_l[$i];
 		$c = dist( $a, $b ); 
-		echo "dist ".$ae_n[$i-1]." to ".$ae_n[$i]." = ". $c ."<br/>\n";
+		echo "dist ".$ae_n[$i-1]." to ".$ae_n[$i]." = ". $c ."<br />\n";
 	}
 }
 
