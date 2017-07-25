@@ -79,7 +79,7 @@ echo navbar();
 			$buttons .= "<a href=\"/beweb2017/php/calcul.php?removeFlight=$result->idFlight\"> <img src=\"/beweb2017/images/b_remove.png\" alt='Retirer le vol'> </a> ";
 
 		echo '<tr> <td scope="row">' . $logo . '</td>';
-		echo '<td><b><center>' . $rang . '</center></b></td>';
+		echo '<td class="caserang">' . $rang . '</td>';
 		echo '<td>' . $result->nbAerodromes . '</td>';
 		echo '<td>' . round($result->scoreSecondary) . '</td>';
 		echo '<td>' . $result->idFlight . '</td>';
@@ -99,7 +99,7 @@ echo navbar();
 ?>
   </tbody>
 </table>
-<br/>
+<br />
 <script>
 	var expand = 1; 
 	var previous_text; 

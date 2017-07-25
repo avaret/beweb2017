@@ -29,6 +29,10 @@ body {
     padding: 50px;  
     text-align: center;
 }
+.caserang {
+    text-align: center;
+    font-weight: bold;
+}
 h1 {
     font-size: 200%; 
     color: black; 
